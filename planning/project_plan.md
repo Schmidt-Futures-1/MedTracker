@@ -1,6 +1,7 @@
 
 # Project Plan 07/04/2022 - *Medicine Tracker (WIP)*
-Pod members and team name.
+
+## Pod members and team name.
 Kiara Bermudez
 Robert Reyes-Enamorado
 Likashmi Deosaran
