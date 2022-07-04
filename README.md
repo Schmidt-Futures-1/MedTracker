@@ -2,13 +2,13 @@
 
 # SITE Capstone Project
 
-SITE Course Year: **20__**
+SITE Course Year: **2022**
 
-Cohort: **Add Company Sponsor Name**
+Cohort: **Schmidt Futures**
 
-Team Member Names:**Insert Team Member Names**
+Team Member Names:**Likashmi, Kiara, & Robert**
 
-Mentors Names: **Insert Professional Mentor Names**
+Mentors Names: ** , , Jeff Zhou**
 
 Project Code Repository Links
 
@@ -23,4 +23,4 @@ Deployment Website: **Add Link to Deployed Project**
 
 ### Open-source libraries used
 
-- Add any links to open-source libraries used in your project.
+https://open.fda.gov/apis/drug/drugsfda/how-to-use-the-endpoint/
