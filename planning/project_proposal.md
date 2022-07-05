@@ -1,6 +1,6 @@
 # Project Proposal 07/04/2022 - *TBA*
 Pod members and team name:
-    The Medicine Cabinet:
+    The Medicine Cabinet: <br>
         Kiara Bermudez
         Robert Reyes-Enamorado
         Likashmi Deosaran
