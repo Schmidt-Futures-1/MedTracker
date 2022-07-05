@@ -1,19 +1,28 @@
 
 # Project Plan 07/04/2022 - *Medicine Tracker (WIP)*
 
-## Pod members & Team Name
+
+## Project Proposal 07/04/2022 - *TBA*
+Pod members and team name
+The Medicine Cabinet:
 Kiara Bermudez
 Robert Reyes-Enamorado
 Likashmi Deosaran
 
+
 ### Problem Statement and Target Audience
-People that take lots of medication often forget to take their medicine and can have a hard time figuring out what medicines shouldn't be taken together. 
+For individuals that are required to take a large number of medications or have to take medications often, it can be difficult for them to keep track of when to take their medications and what is safe to be taken with them.  Forgetting to take their medications, not knowing what food, beverages, or other medications can be taken with their current medications, and being uncertain of specific details regarding their specific medications are common problems that arise when taking medication, especially in large amounts.
 
 ### Brief Description: What is the main purpose of your project? What are the key features your site has to offer its users? How will your targeted audience use your website?
-Website that keeps track of user's personal medication, when to take them, and whether medicines have adverse effects when taken together.
+The main purpose of this website is to provide users with a resource for keeping track of all their personal medications and reminders for when to take them. Allowing users to easily see specific details regarding their medications, and letting people check whether their medications can have negative interactions with other medications or food, and drinks they may consume.
 
 ### Expected Feature List
-- Keeps track of users personal medication - Provides info about individual medications(how many times it needs to be taken per day, whether it needs to be taken with food, what time of day to take it, etc) - Sends alert when user needs to take medication - Medicine interaction checker that tells whether any medication cant be taken together
+- Login/Sign out page so that users can access their own personal account where their medication list and reminder settings can be accessed
+- User account page where their medications will be listed and where they can search for other medications to add to their list
+- Medication details page so that when a user clicks on a specific medication, it will display information regarding that medication and the user's personal settings ( when it needs to be taken, how many times a day it needs to be taken, whether it needs to be taken with food, etc. )
+- Email/text notifications to the user reminding them to take their medication
+- Medicine interaction checker which will allow the user to input what medication they are checking and other medications or foods/drinks and then return whether there is a negative interaction
+
 
 ### Related Work: What similar apps and websites? How will your project stand out from these other websites?
 
@@ -30,13 +39,13 @@ Website that keeps track of user's personal medication, when to take them, and w
         - save your medications
         - schedule when you should receive an alert to take your medicine
         - gives video instructions on how to take your medicine (source is Med OnCue)
-        - learn more about your medicine in a feed of updates (will go away once feed gets long)
+        - learn more about your medicine in a feed of updates (will go away once the feed gets long)
         - remind you to get refills
         -  interactions checker (between other meds and food)
-        - give alerts for family mebers on whether or not they took their medicine 
+        - give alerts to family members on whether or not they took their medicine 
     - DOES NOT (we should implement): 
-        - have a alcoholic drink moderator (will tell you to wait to take your meds if you have taken alcohol)
-        - tell you to drink plenty of water or take with food (unless you look for that info in the app)
+        - have an alcoholic drink moderator (will tell you to wait to take your meds if you have taken alcohol)
+        - tell you to drink plenty of water or take it with food (unless you look for that info in the app)
         - have a nice dashboard (info feels scattered)
         - recommend you call your doctor and provide their phone number for you to easily call right there when told you need a refill (have to look for it within the app)
         -  users say app feels "scattered"
@@ -46,7 +55,7 @@ Website that keeps track of user's personal medication, when to take them, and w
             -  Ex: you may have gotten surgery and need to take medicine for 30 days only. You have to manually remove the drug from your profile instead of it just going away
 
 - Round (iOS app)
-    - Similar to Medisafe's idea but much more bare
+    - Similar to Medisafe's idea but much barer
     - Input your medication, get alerts (that's it)
     - Easier to navigate than Medisafe 
         - much less overwhelming
@@ -61,11 +70,11 @@ Is there a better API to use besides: https://open.fda.gov/apis/drug/event/how-t
 
 Are the features that the competitor apps lack too difficult to implement?
 
-How can we prevent the user from jumping around the app too much to fund what they are looking for?
+How can we prevent the user from jumping around the app too much to find what they are looking for?
 
 What is possible to accomplish in 5 weeks and what are the stretch features?
 
-Can we link phone numbers to automatically call doctors for refills on click? (may be possible on MacOS)
+Can we link phone numbers to automatically call doctors for refills on click? (maybe possible on MacOS)
 
 
 ## User Roles and Personas
