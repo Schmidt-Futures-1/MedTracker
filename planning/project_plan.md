@@ -1,5 +1,5 @@
 
-# Project Plan 07/04/2022 - *Medicine Tracker (WIP)*
+# Project Plan - *Medicine Tracker (WIP)*
 
 
 ## Project Proposal 07/04/2022 - *TBA*
