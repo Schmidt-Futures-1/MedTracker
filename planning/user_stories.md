@@ -70,4 +70,4 @@ Include at least 10 user stories.
 
 ## Wireframe (Bonus)
 
-Insert link or image to your group's wireframe. 
+[Wireframe](https://www.figma.com/file/p6QHnyfXvqwoIB9DnZclc3/Capstone-Wireframe?node-id=1336%3A828)
