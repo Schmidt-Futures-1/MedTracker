@@ -4,6 +4,12 @@
 
 ## User Roles and Personas
 
+Medication user: a person looking for a web app to track and manange their medication(s)
+
+Caretaker: someone who is trying to manage and track medication for their resident, family member, or friend
+
+--------------------------------------------------------------------------------------------------------------
+
 Meducation user: Robert is about to be a junior in college. Along with other obligations as a young adult, it can be difficult to regularly track and take his medication. He takes 3 different medications daily but one of them needs to be taken 3 times a day. He needs an app that he will have access to for his medicine, no matter what device he is on because he is constantly moving around and running errands.
 
 Jeb is in his mid 60's and takes 5 medications daily. He is retired and really wants to make sure he does not miss a does. He doesn't own a smartphone but has an easy-to-use chromebook he rarely uses. He needs an simple web app to track his medication because it can be so easy to forget. Pen and paper are just not enough.
