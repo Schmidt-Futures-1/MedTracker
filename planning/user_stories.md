@@ -71,6 +71,7 @@ Include at least 10 user stories.
 ## Wireframe (Bonus)
 
 [Wireframe](https://www.figma.com/file/p6QHnyfXvqwoIB9DnZclc3/Capstone-Wireframe?node-id=1336%3A828)
-![image](https://user-images.githubusercontent.com/73564613/178812809-8250d516-680e-4637-a87b-35529f51ae00.png)
+![image](https://user-images.githubusercontent.com/73564613/179322796-5001a89f-df8a-41de-ac9d-bd7ccf936539.png)
+
 
 
