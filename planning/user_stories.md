@@ -73,31 +73,4 @@ Include at least 10 user stories.
 [Wireframe](https://www.figma.com/file/p6QHnyfXvqwoIB9DnZclc3/Capstone-Wireframe?node-id=1336%3A828)
 ![image](https://user-images.githubusercontent.com/73564613/178812809-8250d516-680e-4637-a87b-35529f51ae00.png)
 
-### Wireframe Pages
 
-#### Landing Page
-![](https://i.imgur.com/faizrwd.png)
-
-#### Register Page
-![](https://i.imgur.com/CIZlVuL.png)
-
-#### Login Page
-![](https://i.imgur.com/nPP1ZVx.png)
-
-#### Add Medication Page
-![](https://i.imgur.com/JItpU5E.png)
-
-#### All Medications Page
-![](https://i.imgur.com/OfhpKqe.png)
-
-#### Medications Details Page
-![](https://i.imgur.com/l6NscNY.png)
-
-#### Dashboard Page
-![](https://i.imgur.com/s4P0WGQ.png)
-
-#### Interaction Checker Page
-![](https://i.imgur.com/FDIUCHM.png)
-
-#### Interaction Checker Results Page
-![](https://i.imgur.com/UewsGNC.png)
