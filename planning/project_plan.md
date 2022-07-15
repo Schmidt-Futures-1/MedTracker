@@ -42,10 +42,56 @@ List all the pages and screens in the app. Include wireframes for at least 3 of 
 
 ## Data Model
 
-Describe your app's data model using diagrams or tables
+#### Users
+| Column Name    | Type            | Description                       |
+| -------------- | --------------- | ----------------------------------|
+| id             | Number          | unique ID for user (default field)|
+| first_name     | String          | user's first name                 |
+| last_name      | String          | user's last name                  |
+| email          | String          | unique email for user             |
+| password       | String          | user's password                   |
+
+
+ 
+#### Medicine
+| Column Name    | Type            | Description                           |
+| -------------- | --------------- | --------------------------------------|
+| id             | Number          | unique ID for medicine (default field)|
+| name  | String          | name of medicine       |
+| strength       | Number          | numerical value of medicine's strength|                                     |
+| units          | String          | units that the medicine uses          |                                     |
+| frequency      | String          | how often user takes medication    |
+| rxcui          | String          | nih api unique id       |
+| dosage         | Number          | amount of medication user is taken per interval|
+| times_per_day  | Number          | amount of times that user takes their medication per day (default 1)|
+| remaining_medicine         | Number          | amount of medication (in dosages) the user has left before they have to refill|
+
+
+
+#### Notification
+| Column Name    | Type            | Description                           |
+| -------------- | --------------- | --------------------------------------|
+| id             | Number          | unique ID for medicine (default field)|
+| notification_time | timestamp    | time user wants to be notified to take their medication|
+| has_taken | Boolean   | boolean representing whether a user has taken their medication (default 0)|
+| med_id  | Number (foreign key)   | references the id from Medicine table |
+| user_id | Number (foreign key)   | references the id from the Users table|
+
 
 ## Endpoints
 
-List the API endpoints you will need to implement.
+| CRUD           | HTTP Verb       | Description      | User Stories                    |
+| -------------- | --------------- | -----------------|-------------------------------- |
+| Create         | POST            | Create a new user account (register)        | 1-10 |
+| Create         | POST            | Create a new user session (login)           | 1-10 |
+| Create         | POST            | Create new medicine for user                | 1    |
+| Read           | GET             | Fetch existing medicine for user            | 2, 4, 7, 9|
+| Delete         | DELETE          | Delete an existing medicine for user        | 3  |
+| Update         | PUT             | Update an existing medication for user      | 3  |
+| Create         | POST            | Create new notification for medicine        | 6  |
+| Read           | GET             | Fetch existing notification for user        |6, 10, 9|
+| Delete         | DELETE          | Delete an existing notification for medicine| 6  |
+| Update         | PUT             | Update an existing notification for medicine| 6  |
+| Read           | GET             | Fetch drug-drug interaction information     |   5|
 
 ***Don't forget to set up your Issues, Milestones, and Project Board!***
