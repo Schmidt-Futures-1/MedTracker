@@ -38,7 +38,32 @@ Amanda is a newly graduated caretaker for Jim. Along with her other duties she m
 
 ## Pages/Screens
 
-List all the pages and screens in the app. Include wireframes for at least 3 of them.
+#### Landing Page
+![](https://i.imgur.com/faizrwd.png)
+
+#### Register Page
+![](https://i.imgur.com/CIZlVuL.png)
+
+#### Login Page
+![](https://i.imgur.com/nPP1ZVx.png)
+
+#### Add Medication Page
+![](https://i.imgur.com/JItpU5E.png)
+
+#### All Medications Page
+![](https://i.imgur.com/OfhpKqe.png)
+
+#### Medications Details Page
+![](https://i.imgur.com/l6NscNY.png)
+
+#### Dashboard Page
+![](https://i.imgur.com/s4P0WGQ.png)
+
+#### Interaction Checker Page
+![](https://i.imgur.com/FDIUCHM.png)
+
+#### Interaction Checker Results Page
+![](https://i.imgur.com/UewsGNC.png)
 
 ## Data Model
 
@@ -96,31 +121,6 @@ List all the pages and screens in the app. Include wireframes for at least 3 of 
 
 ### Wireframe Pages
 
-#### Landing Page
-![](https://i.imgur.com/faizrwd.png)
 
-#### Register Page
-![](https://i.imgur.com/CIZlVuL.png)
-
-#### Login Page
-![](https://i.imgur.com/nPP1ZVx.png)
-
-#### Add Medication Page
-![](https://i.imgur.com/JItpU5E.png)
-
-#### All Medications Page
-![](https://i.imgur.com/OfhpKqe.png)
-
-#### Medications Details Page
-![](https://i.imgur.com/l6NscNY.png)
-
-#### Dashboard Page
-![](https://i.imgur.com/s4P0WGQ.png)
-
-#### Interaction Checker Page
-![](https://i.imgur.com/FDIUCHM.png)
-
-#### Interaction Checker Results Page
-![](https://i.imgur.com/UewsGNC.png)
 
 ***Don't forget to set up your Issues, Milestones, and Project Board!***
