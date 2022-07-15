@@ -21,17 +21,20 @@ Caregiver: Derek is 25 years old and lives in a suburb near his parents. He trav
 Amanda is a newly graduated caretaker for Jim. Along with her other duties she must remember to give Jim his medications at certain times. As she's new to the job and doesn't know all the medication he takes off the top of her head she would like a system that has all the medications he takes and notifies her when he should be receiving the medication. Due to her not always being in the house she would like a system that can notify her even if she isn't in front of a computer.
 
 ## User Stories
-
+### Core Features
 1. As a medication user, I want to list my medication on any device, so that I can always have access to it.
 2. As a medication user, I want to track my medication, so that I can always keep track of what I've taken.
 3. As a medication user, I want to edit my medication easily, so that I can update my doses & reschedule intakes if needed.
 4. As a medication user, I want to have a simple dashboard, so that I can see what is left to take, take, & refill on one     page.
 5. As a medication user, I want to know if there are any interactions between the medications I am taking, so that I can      avoid taking any medications together that can have a negative reaction together.
-6. As a caretaker, I want to get notified when my charge needs to take their medication, so that I can make sure they take    their medication on time.
-7. As a caretaker, I want to have a list of all my charge’s medications, so that I know what they are taking and can keep     track of all of their medications.
-8. As a caretaker, I want to check if any of my charge’s medications have adverse reactions with food, so that I know what    I can and can’t feed my charge when they are taking their medication.
-9. As a caretaker, I want to see the specific details for my charge’s medications, so that I know how much they need to       take, when they need to take them and other medicine specific details.
-10. As a caretaker, I want a list of near accurate times of when a charge last took their medication, so that I can keep      track of whether they have taken their medications.
+
+
+### Stretch Features
+1. As a caretaker, I want to get notified when my charge needs to take their medication, so that I can make sure they take    their medication on time.
+2. As a caretaker, I want to have a list of all my charge’s medications, so that I know what they are taking and can keep     track of all of their medications.
+3. As a caretaker, I want to check if any of my charge’s medications have adverse reactions with food, so that I know what    I can and can’t feed my charge when they are taking their medication.
+4. As a caretaker, I want to see the specific details for my charge’s medications, so that I know how much they need to       take, when they need to take them and other medicine specific details.
+5. As a caretaker, I want a list of near accurate times of when a charge last took their medication, so that I can keep      track of whether they have taken their medications.
 
 ## Pages/Screens
 
