@@ -30,11 +30,11 @@ Amanda is a newly graduated caretaker for Jim. Along with her other duties she m
 
 
 ### Stretch Features
-1. As a caretaker, I want to get notified when my charge needs to take their medication, so that I can make sure they take    their medication on time.
-2. As a caretaker, I want to have a list of all my charge’s medications, so that I know what they are taking and can keep     track of all of their medications.
-3. As a caretaker, I want to check if any of my charge’s medications have adverse reactions with food, so that I know what    I can and can’t feed my charge when they are taking their medication.
-4. As a caretaker, I want to see the specific details for my charge’s medications, so that I know how much they need to       take, when they need to take them and other medicine specific details.
-5. As a caretaker, I want a list of near accurate times of when a charge last took their medication, so that I can keep      track of whether they have taken their medications.
+6. As a caretaker, I want to get notified when my charge needs to take their medication, so that I can make sure they take    their medication on time.
+7. As a caretaker, I want to have a list of all my charge’s medications, so that I know what they are taking and can keep     track of all of their medications.
+8. As a caretaker, I want to check if any of my charge’s medications have adverse reactions with food, so that I know what    I can and can’t feed my charge when they are taking their medication.
+9. As a caretaker, I want to see the specific details for my charge’s medications, so that I know how much they need to       take, when they need to take them and other medicine specific details.
+10. As a caretaker, I want a list of near accurate times of when a charge last took their medication, so that I can keep      track of whether they have taken their medications.
 
 ## Pages/Screens
 
