@@ -37,6 +37,7 @@ Amanda is a newly graduated caretaker for Jim. Along with her other duties she m
 10. As a caretaker, I want a list of near accurate times of when a charge last took their medication, so that I can keep      track of whether they have taken their medications.
 
 ## Pages/Screens
+[Full Wireframe](https://www.figma.com/file/p6QHnyfXvqwoIB9DnZclc3/Capstone-Wireframe?node-id=1336%3A828)
 
 #### Landing Page
 ![](https://i.imgur.com/faizrwd.png)
