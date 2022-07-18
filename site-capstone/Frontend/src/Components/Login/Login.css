@@ -1,0 +1,16 @@
+.container{
+    /* display: inline-block; */
+    padding-top: 10%;
+    /* justify-content: center; */
+    
+ 
+}
+
+.form{
+    background-color: aqua;
+    text-decoration: none;
+}
+
+.register{
+    text-decoration: none;
+}
