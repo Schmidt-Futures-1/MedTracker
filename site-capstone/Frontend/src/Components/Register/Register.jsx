@@ -9,6 +9,7 @@ export default function Register(){
   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
   <div className="row mb-4">
   <h2 className="fw-bold mb-5">Create Account</h2>
+
     <div className="col">
       <div className="form-outline">
         <label className="form-label">First name</label>
@@ -22,6 +23,8 @@ export default function Register(){
       </div>
     </div>
   </div>
+
+  
 
   {/* <!-- Email input --> */}
   <div className="form-outline mb-4">
