@@ -8,7 +8,7 @@ Cohort: **Schmidt Futures**
 
 Team Member Names:**Likashmi, Kiara, & Robert**
 
-Mentors Names: ** Alex Gonzalez, , Jeff Zhou**
+Mentors Names: ** Alex Gonzalez, , Jeff Zhou, Nancy Mond**
 
 Project Code Repository Links
 
