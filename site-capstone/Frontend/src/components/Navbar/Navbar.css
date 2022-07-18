@@ -1,0 +1,21 @@
+.btn-secondary {
+    background: transparent;
+    border: solid 1px transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .1s ease;
+    padding: 12px 18px;
+    border-radius: 4px;
+    border-color: black;
+    color: inherit;
+
+}
+
+.navbar a{
+    text-decoration: none;
+    color: inherit;
+}
