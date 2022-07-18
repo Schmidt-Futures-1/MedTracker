@@ -67,7 +67,7 @@ class User {
     static async register(credentials) {
         console.log("Registering User");
         // User should submit email, password
-        const requiredFields = ["email", "password", "username", "firstName", "lastName"];
+        const requiredFields = ["email", "password", "firstName", "lastName"];
         // Error: if any fields are missing
         requiredFields.forEach(field => {
             if(!credentials.hasOwnProperty(field)) {
@@ -83,14 +83,7 @@ class User {
         const existingUser = await User.fetchUserByEmail(credentials.email);
         if (existingUser) {
             throw new BadRequestError(`Duplicate email: ${credentials.email}`);
-        }
-
-        // Error: if user with same username exists
-        const existingUsername = await User.checkExistingUsername(credentials.username);
-        if (existingUsername) {
-            throw new BadRequestError(`Username already exists`)
-        }
-        
+        }       
 
         // Take user password and hash it
         const hashedPassword = await bcrypt.hash(credentials.password, BCRYPT_WORK_FACTOR)
@@ -98,24 +91,20 @@ class User {
 
         // Take user email and lowercase it
         const lowerCasedEmail = credentials.email.toLowerCase();
-        const lowerCasedUsername = credentials.username.toLowerCase();
 
         const result = await db.query(`
             INSERT INTO users (
                 email,
-                username,
                 first_name,
                 last_name,
                 password
             )
-            VALUES ($1, $2, $3, $4, $5)
-            RETURNING id, email, username, first_name, last_name, password, created_at, updated_at;
-        `, [lowerCasedEmail, lowerCasedUsername, credentials.firstName, credentials.lastName, hashedPassword])
+            VALUES ($1, $2, $3, $4)
+            RETURNING id, email, first_name, last_name, password, created_at;
+        `, [lowerCasedEmail, credentials.firstName, credentials.lastName, hashedPassword])
 
         // Return user
         const user = result.rows[0];
-
-       
 
         return User.makePublicUser(user);
     }
