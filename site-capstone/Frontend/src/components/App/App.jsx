@@ -8,6 +8,7 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import CreateMedication from '../CreateMedicationPage/CreateMedicationPage'
 
+
 function App() {
 
     return (
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register />} />
                     <Route path="/create" element={<CreateMedication/>}/>
+
 
                 </Routes>
                 <Footer></Footer>
