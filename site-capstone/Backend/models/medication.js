@@ -60,7 +60,36 @@ class Medication {
         return results.rows;
     }
 
+    static async fetchMedicationById({user, medicationId}) {
+        if (!user) {
+            throw new BadRequestError("No user provided");
+        }
 
+        const results = await db.query(
+            `
+                SELECT  m.id,
+                        m.name,
+                        m.rxcui,
+                        m.strength,
+                        m.units,
+                        m.frequency,
+                        m.current_pill_count,
+                        m.total_pill_count,
+                        u.email as "user_email"
+                FROM medications AS m
+                    JOIN users AS u ON u.id = m.user_id
+                WHERE m.id=$1
+            `, [medicationId]
+        )
+
+        const medication = results.rows[0];
+
+        if (!medication) {
+            throw new NotFoundError()
+        }
+
+        return medication;
+    }
 
 }
 
