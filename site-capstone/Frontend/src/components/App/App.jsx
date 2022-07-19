@@ -8,22 +8,40 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import CreateMedication from '../CreateMedicationPage/CreateMedicationPage'
 import MedicineCard from '../Medicine/MedicineCard'
+import { useState, useEffect } from "react"
+import apiClient from '../../services/apiClient'
 
 
 function App() {
+  const[user, setUser] = useState({})
+  const[error,setError] = useState(null)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {data} = await apiClient.fetchUserFromToken()
+      if(data){
+        setUser(data.user)
+      }
+    }
+    const token = localStorage.getItem("medication_tracker_token")
+    if(token){
+      apiClient.setToken(token)
+      fetchUser()
+    }
+  }, [])
 
     return (
         <div className="app">
           <React.Fragment>{
             <BrowserRouter>
-              <NavBar></NavBar>
+              <NavBar user={user} setUser={setUser}> </NavBar>
               
                 <Routes>
-                    <Route path="/" element={<Landing />}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/create" element={<CreateMedication/>}/>
-                    <Route path="/cabinet" element={<MedicineCard/>}/>
+                    <Route path="/" element={<Landing user={user} setUser={setUser} />}/>
+                    <Route path="/login" element={<Login user={user} setUser={setUser} />}/>
+                    <Route path="/register" element={<Register user={user} setUser={setUser} />} />
+                    <Route path="/create" element={<CreateMedication user={user} setUser={setUser} />}/>
+                    <Route path="/cabinet" element={<MedicineCard user={user} setUser={setUser} />}/>
 
 
                 </Routes>
