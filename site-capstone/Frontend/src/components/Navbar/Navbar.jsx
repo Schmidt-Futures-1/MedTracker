@@ -20,10 +20,10 @@ export default function NavBar(){
                 </div>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Menu 1</a>
+              <a className="nav-link" href="/create">Create Medicine</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Menu 2</a>
+              <a className="nav-link" href="/cabinet">Medicine Cabinet</a>
             </li>
           </ul>
           <ul className="navbar-nav ml-auto">
