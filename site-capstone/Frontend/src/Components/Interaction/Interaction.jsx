@@ -14,6 +14,12 @@ export default function Interaction({ }) {
         rxcui2: 0,
     });
 
+    const [interactionInfo, setInteractionInfo] = useState({
+        severity: "",
+        description: "",
+    });
+
+
     const [errors, setErrors] = useState({});
 
     const handleOnInputChange1 = (event) => { 
@@ -40,6 +46,7 @@ export default function Interaction({ }) {
         axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + form2.medication2 + "&search=1")
             .then((response) => {
                 console.log(response.data.idGroup.rxnormId[0])
+                
                 setForm2({...form2 ,rxcui2: response.data.idGroup.rxnormId[0]})
             })
             .catch((error) => {
@@ -49,6 +56,28 @@ export default function Interaction({ }) {
     }, [form2.medication2])
 
     
+    const handleOnCompare = () => {
+       
+            axios.get("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=" + form1.rxcui1 + "+" + form2.rxcui2)
+                .then((response) => {
+                    console.log(response.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].severity)
+                    setInteractionInfo({
+                        ...interactionInfo, severity: response.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].severity,
+                        description: response.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].description
+                    
+                    })
+                    //setInteractionInfo({...interactionInfo ,description: response.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].description})
+
+                })
+                .catch((error) => {
+                    console.log("no interaction")
+                })
+            
+        
+
+    }
+
+    console.log(interactionInfo)
 
     return (
         <div className="container px-4 px-lg-5 h-100">
@@ -120,11 +149,30 @@ export default function Interaction({ }) {
                         </div>                        
                         </div>
                         <div className="align-self-baseline text-center mt-4 mb-5">
-                        <a className="btn btn-dark btn-x1 row " >Compare</a> 
+                        <a className="btn btn-dark btn-x1 row " onClick={handleOnCompare}>Compare</a> 
                     </div>
                 </div>
 
-            </form>
+                </form>
+                
+                {interactionInfo.severity === "" ?
+                    <div className="row response">
+                        
+                    </div>
+                    :
+                    <div>
+                        <div className="row response">
+                            Severity: {interactionInfo.severity}
+                        </div>
+                        <div className="row response">
+Description: {interactionInfo.description}
+</div>
+                    </div>
+                    
+
+
+                    
+                }
         </div>
     </div>
     )
