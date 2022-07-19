@@ -15,7 +15,8 @@ CREATE TABLE medications (
     frequency           TEXT NOT NULL,
     rxcui               TEXT NOT NULL,
     current_pill_count  INTEGER NOT NULL,
-    total_pill_count    INTEGER NOT NULL
+    total_pill_count    INTEGER NOT NULL,
+    user_id             INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE notifications (
@@ -23,6 +24,5 @@ CREATE TABLE notifications (
     notification_time   TIMESTAMP NOT NULL,   
     dosage              INTEGER NOT NULL,
     has_taken           BOOLEAN NOT NULL DEFAULT FALSE,
-    med_id              INTEGER NOT NULL REFERENCES medications(id) ON DELETE CASCADE,
-    user_id             INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
+    med_id              INTEGER NOT NULL REFERENCES medications(id) ON DELETE CASCADE
 );
