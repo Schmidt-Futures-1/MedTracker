@@ -5,6 +5,7 @@ import Landing from '../Landing/Landing'
 import NavBar from '../Navbar/Navbar'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
+import CreateMedication from '../CreateMedicationPage/CreateMedicationPage'
 
 function App() {
 
@@ -16,7 +17,9 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Landing />}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/create" element={<CreateMedication/>}/>
+
                 </Routes>
             </BrowserRouter>
           }</React.Fragment>

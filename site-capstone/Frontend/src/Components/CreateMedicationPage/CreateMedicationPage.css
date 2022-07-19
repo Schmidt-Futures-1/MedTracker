@@ -1,0 +1,34 @@
+.row {
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.react-time-picker__wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: white;
+
+}
+
+.form-control{
+    -webkit-appearance: auto;
+
+}
+
+
+.react-time-picker__button {
+    border: 0;
+    padding: 4px 6px;
+}
+
+.error {
+    color: #f29766;
+  }
+
+  .success {
+    color: #0078d7;
+  }
