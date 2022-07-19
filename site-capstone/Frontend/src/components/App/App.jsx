@@ -6,6 +6,7 @@ import NavBar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
+import MedicineCard from '../Medicine/MedicineCard'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/" element={<Landing />}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
+                    <Route path="/medicine" element={<MedicineCard/>}/>
                 </Routes>
                 <Footer></Footer>
             </BrowserRouter>

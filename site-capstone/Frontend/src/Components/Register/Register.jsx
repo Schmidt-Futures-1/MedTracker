@@ -24,8 +24,6 @@ export default function Register(){
     </div>
   </div>
 
-  
-
   {/* <!-- Email input --> */}
   <div className="form-outline mb-4">
     <label className="form-label">Email </label>
