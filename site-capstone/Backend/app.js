@@ -22,4 +22,19 @@ app.get("/",  (req, res, next) => {
     res.status(200).json({ping: "pong"})
 })
 
+// Not Found errror handler
+app.use((req, res, next) => {
+    return next(new NotFoundError());
+})
+
+// Generic Error Handler
+app.use((err, req, res, next) => {
+    const status = err.status || 500;
+    const message = err.message;
+    
+    return res.status(status).json({
+        error: {message, status}
+    })
+})
+
 module.exports = app;
