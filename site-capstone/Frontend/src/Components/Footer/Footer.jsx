@@ -6,9 +6,9 @@ import "./Footer.css"
 
 export default function Footer(){
     return(
-        <footer class="footer bg-light text-center text-lg-start ">
+        <footer className="footer bg-light text-center text-lg-start ">
             {/* <!-- Copyright --> */}
-            <div class="text-center p-3">
+            <div className="text-center p-3">
                 2022 Schmidt Futures Pod 1 Capstone Project
             </div>
             
