@@ -6,6 +6,7 @@ import NavBar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
+import CreateMedication from '../CreateMedicationPage/CreateMedicationPage'
 
 function App() {
 
@@ -18,7 +19,9 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Landing />}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/create" element={<CreateMedication/>}/>
+
                 </Routes>
                 <Footer></Footer>
             </BrowserRouter>

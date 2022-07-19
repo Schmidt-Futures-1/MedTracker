@@ -42,8 +42,10 @@ export default function Register(){
     <input type="password" className="form-control" name="passwordConfirm" placeholder="Enter a secure password" />
   </div>
 
-  {/* <!-- Submit button --> */}
-  <button type="submit" className="btn btn-dark btn-block mb-4">Sign up</button>
+           {/* <!-- Submit button --> */}
+
+            <button type="submit" className="btn btn-dark btn-block mb-4">Sign up</button>
+           
 
   {/* <!-- Register buttons --> */}
     <div className="text-center">
