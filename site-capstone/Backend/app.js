@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const authRoutes = require("./routes/auth");
 const security = require("./middleware/security");
+const medicationRoutes = require("./routes/medication")
 const { NotFoundError} = require("./utils/errors");
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(security.extractUserFromJwt);
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/medication", medicationRoutes);
 
 // Health endpoint
 app.get("/",  (req, res, next) => {
