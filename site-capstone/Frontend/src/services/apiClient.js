@@ -51,6 +51,10 @@ class ApiClient {
         localStorage.setItem(this.tokenName, "")
     }
 
+    async createMedication(medication) {
+        return await this.request({ endpoint: "medication", method:`POST`, data: medication} )
+    }
+
 }
 
 export default new ApiClient(API_BASE_URL);
