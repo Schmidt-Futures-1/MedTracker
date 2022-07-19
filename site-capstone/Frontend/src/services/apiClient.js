@@ -46,7 +46,7 @@ class ApiClient {
         return await this.request({ endpoint: `auth/me`, method: `GET` })
     }
 
-    async logoutUser() {
+    async logout() {
         this.setToken(null)
         localStorage.setItem(this.tokenName, "")
     }
