@@ -15,6 +15,7 @@ import apiClient from '../../services/apiClient'
 function App() {
   const[user, setUser] = useState({})
   const[error,setError] = useState(null)
+  const[medications, addMedications] = useState({})
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -40,7 +41,7 @@ function App() {
                     <Route path="/" element={<Landing user={user} setUser={setUser} />}/>
                     <Route path="/login" element={<Login user={user} setUser={setUser} />}/>
                     <Route path="/register" element={<Register user={user} setUser={setUser} />} />
-                    <Route path="/create" element={<CreateMedication user={user} setUser={setUser} />}/>
+                    <Route path="/create" element={<CreateMedication user={user} setUser={setUser} addMedications={addMedications} />}/>
                     <Route path="/cabinet" element={<MedicineCard user={user} setUser={setUser} />}/>
 
 
