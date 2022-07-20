@@ -8,7 +8,7 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import CreateMedication from '../CreateMedicationPage/CreateMedicationPage'
 import Interaction from '../Interaction/Interaction'
-import MedicineCard from '../Medicine/MedicineCard'
+import Medicine from '../MedicationPage/MedicinePage'
 import { useState, useEffect } from "react"
 import apiClient from '../../services/apiClient'
 
@@ -44,7 +44,7 @@ function App() {
                     <Route path="/register" element={<Register user={user} setUser={setUser} />} />
                     <Route path="/create" element={<CreateMedication user={user} setUser={setUser} addMedications={addMedications} />}/>
                     <Route path="/interaction" element={<Interaction/>}/>
-                    <Route path="/cabinet" element={<MedicineCard user={user} setUser={setUser} />}/>
+                    <Route path="/cabinet" element={<Medicine user={user} setUser={setUser} />}/>
 
 
                 </Routes>
