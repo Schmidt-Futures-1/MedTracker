@@ -286,7 +286,7 @@ export default function Interaction({ }) {
                     </div>
                 }
 
-                
+
         </div>
     </div>
     )
