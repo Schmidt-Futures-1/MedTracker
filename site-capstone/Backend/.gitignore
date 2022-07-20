@@ -25,3 +25,5 @@ dist-ssr
 
 # Added by us
 .env
+
+node_modules
