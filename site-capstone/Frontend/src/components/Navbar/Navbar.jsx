@@ -28,14 +28,23 @@ export default function NavBar({user, setUser}){
             </li>
             <li className="nav-item">
               {user?.email?(
-                <a className="nav-link" href="/create">Create Medicine</a>
+                <Link className="nav-link" to="/create">Create Medicine</Link>
               ):(
                 ""
               )}
             </li>
             <li className="nav-item">
               {user?.email?(
-                <a className="nav-link" href="/cabinet">Medicine Cabinet</a>
+                <Link className="nav-link" to="/cabinet">Medicine Cabinet</Link>
+              ):(
+                ""
+              )}
+              </li>
+
+              {/* Nav link for interaction tracker */}
+              <li className="nav-item">
+              {user?.email?(
+                <Link className="nav-link" to="/interaction">Interaction Checker</Link>
               ):(
                 ""
               )}
