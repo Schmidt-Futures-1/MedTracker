@@ -48,16 +48,30 @@ export default function Login({setUser, user}){
         }
     }, [user, navigate])
 
+    console.log(error)
+
     return(
 
-<form className="form">
-    <div className="container">
-        <div className="col-4 mx-auto">
-        <h2 className="fw-bold mb-5">Login now</h2>
-            {/* <!-- Email input --> */}
-            <div className="form-outline mb-4">
-                <label for="email" className="form-label" >Email address</label>
-                <input type="email" id="email" name="email" className="form-control" placeholder="user@gmail.com" value={form.email} onChange={handleOnInputChange}/>
+        <form className="form">
+            <div className="container">
+                <div className="col-4 mx-auto">
+                    <h2 className="fw-bold mb-5">Login now</h2>
+                    
+                    {/* Error handling outputs to webpage */}
+                    {error?.form &&
+                        <div className="error">
+                            {error.form}
+                        </div>
+                    }
+
+                    {/* <!-- Email input --> */}
+                    <div className="form-outline mb-4">
+
+                        
+                        <label for="email" className="form-label" >Email address</label>
+                        
+                        <input type="email" id="email" name="email" className="form-control" placeholder="user@gmail.com" value={form.email} onChange={handleOnInputChange} />
+                        
             </div>
 
             {/* <!-- Password input --> */}
