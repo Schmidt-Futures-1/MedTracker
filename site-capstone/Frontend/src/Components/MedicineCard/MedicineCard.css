@@ -2,3 +2,12 @@
     margin-right: 2%;
 }
 
+.capitalize-me::first-letter {
+    text-transform: capitalize;
+  }
+
+
+.center{
+    justify-content: center;
+
+}

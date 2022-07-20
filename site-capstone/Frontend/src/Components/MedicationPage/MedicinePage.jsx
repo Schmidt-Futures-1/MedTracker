@@ -2,6 +2,7 @@ import "./MedicinePage.css"
 import MedicineCard from "../MedicineCard/MedicineCard"
 import apiClient from "../../services/apiClient";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function MedicinePage({ user, setUser })
 {
@@ -46,7 +47,7 @@ export default function MedicinePage({ user, setUser })
     console.log("med page meds", medications)
 
     return(
-        <div className="container">
+        <div className="container marg">
 
             {/* Page Title */}
             <div className="row">
@@ -56,15 +57,24 @@ export default function MedicinePage({ user, setUser })
             {/* Add Medication button */}
             <div className="text-center">
                 {/* <!-- Submit button --> */}
-                <button type="submit" className="btn btn-dark btn-block mb-4"><a href="/create">Add Medication</a></button>
+                <Link to="/create">
+                    <button type="submit" className="btn btn-dark btn-block mb-4">Add Medication</button>
+                    </Link>
             </div>
 
             {/* Medicine cards */}
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 ">
             {isLoading? <h1>Loading...</h1> :
-                medications?.map((item, idx) => (
+                medications?.map((item, idx) => {
+                    return(<>
                     <MedicineCard key={idx} medication={item}/>
-                ))
-            }
+                    </>
+                    )
+                })
+                }
+            </div>        
+            
+            
 
         </div>
 
