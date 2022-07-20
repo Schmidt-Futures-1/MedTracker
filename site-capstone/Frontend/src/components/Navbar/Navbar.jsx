@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom"
 import "./Navbar.css"
 import logo from "../../Assets/codepath.70a9a31f.svg"
+import apiClient from "../../services/apiClient"
 
 
-export default function NavBar(){
+export default function NavBar({user, setUser}){
+  const handleLogout = async() => {
+    await apiClient.logout()
+    setUser({})
+
+  }
+
     return(
 
         <nav className="navbar navbar-expand-lg bg-light">
@@ -20,27 +27,42 @@ export default function NavBar(){
                 </div>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Menu 1</a>
+              {user?.email?(
+                <a className="nav-link" href="/create">Create Medicine</a>
+              ):(
+                ""
+              )}
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Menu 2</a>
+              {user?.email?(
+                <a className="nav-link" href="/cabinet">Medicine Cabinet</a>
+              ):(
+                ""
+              )}
             </li>
           </ul>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
                 <div className="nav-link">
-                    <button className="btn-secondary">
-                        <Link to="/login"><li>Login</li></Link>
-                    </button>
-                
-                    </div>
+                    {user?.email?(
+                        ""
+                        ):(
+                          <button className="btn-secondary">
+                            <Link to="/login"><li>Login</li></Link>
+                          </button> 
+                        )}
+                </div>
             </li>
             <li className="nav-item">
                 <div className="nav-link">
-                    <button className="btn-secondary">
-                        <Link to="/register"><li>Sign Up</li></Link>
-                    </button>
-                    </div>
+                     {user?.email?(
+                        <button onClick={handleLogout} className="btn-secondary">Sign Out</button> 
+                        ):(
+                          <button className="btn-secondary">
+                            <Link to="/register"><li>Sign Up</li></Link>
+                          </button>  
+                        )}
+                  </div>
             </li>
         </ul>
         </div>

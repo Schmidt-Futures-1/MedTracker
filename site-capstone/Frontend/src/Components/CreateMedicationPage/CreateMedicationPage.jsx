@@ -2,10 +2,12 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import "./CreateMedicationPage.css"
 import TimePicker from "react-time-picker"
+import apiClient from "../../services/apiClient"
+import { useNavigate } from "react-router-dom"
 
 
 
-export default function CreateMedication() {
+export default function CreateMedication({user, setUser, addMedications}) {
 
     // State Variables --------------------------------------------------------
 
@@ -22,7 +24,10 @@ export default function CreateMedication() {
     const [time, setTime] = useState("")
     const [dosage, setDosage] = useState("")
 
+    const [isLoading, setIsLoading] = useState(false)
     const [errors, setErrors] = useState({});
+
+    const navigate = useNavigate()
 
     // Functions --------------------------------------------------------------
 
@@ -42,6 +47,7 @@ export default function CreateMedication() {
     }
 
     const handleOnSubmit = async () => {
+        /////////// Error Checking ///////////
         if (form.rxcui === 0) {
             setErrors((e) => ({ ...e, form: "Invalid Medication Name" }));
             return;
@@ -82,7 +88,22 @@ export default function CreateMedication() {
         } else {      
             setErrors((e) => ({ ...e, form: null }));
         }
-        
+
+        /////////// Api Call ///////////
+        setIsLoading(true)
+
+        const { data, error } = await apiClient.createMedication({name: form.medicationName, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount})
+
+        if (data) {
+          addMedications(data.post)
+          setForm({ medicationName: "", rxcui: 0, strength: "", units: "mg", frequency: "As Needed", currentPillCount: "",maxPillCount: ""})
+          navigate("/cabinet")
+        }
+        if (error) {
+            setErrors((e) => ({ ...e, form:error }));
+        }
+    
+        setIsLoading(false)
     };
 
     console.log(time)
@@ -103,6 +124,7 @@ export default function CreateMedication() {
             })
         
     }, [form.medicationName])
+
 
     return (
         <div className="container px-4 px-lg-5 h-100">
