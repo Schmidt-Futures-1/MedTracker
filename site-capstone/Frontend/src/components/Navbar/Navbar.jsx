@@ -27,32 +27,42 @@ export default function NavBar({user, setUser}){
                 </div>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/create">Create Medicine</a>
+              {user?.email?(
+                <a className="nav-link" href="/create">Create Medicine</a>
+              ):(
+                ""
+              )}
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/cabinet">Medicine Cabinet</a>
+              {user?.email?(
+                <a className="nav-link" href="/cabinet">Medicine Cabinet</a>
+              ):(
+                ""
+              )}
             </li>
           </ul>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
                 <div className="nav-link">
-                    <button className="btn-secondary">
-                        <Link to="/login"><li>Login</li></Link>
-                    </button>
-                
-                    </div>
+                    {user?.email?(
+                        ""
+                        ):(
+                          <button className="btn-secondary">
+                            <Link to="/login"><li>Login</li></Link>
+                          </button> 
+                        )}
+                </div>
             </li>
             <li className="nav-item">
                 <div className="nav-link">
-                    <button className="btn-secondary">
-                        <Link to="/register"><li>Sign Up</li></Link>
-                    </button>
-                    </div>
-            </li>
-            <li className="nav-item">
-                <div className="nav-link">
-                    <button onClick={handleLogout} className="btn-secondary">Sign Out</button>
-                    </div>
+                     {user?.email?(
+                        <button onClick={handleLogout} className="btn-secondary">Sign Out</button> 
+                        ):(
+                          <button className="btn-secondary">
+                            <Link to="/register"><li>Sign Up</li></Link>
+                          </button>  
+                        )}
+                  </div>
             </li>
         </ul>
         </div>
