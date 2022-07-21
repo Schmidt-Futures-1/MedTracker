@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom"
 import apiClient from "../../services/apiClient"
 
 export default function Register({setUser, user}){
+  // States and variables
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState({})
@@ -16,12 +17,15 @@ export default function Register({setUser, user}){
     passwordConfirm: ""
   })
 
+  // If user is logged in send them to the landing page
+  // Change to send them to dashboard when dashboard is created
   useEffect(() => {
     if (user?.email) {
         navigate("/")
     }
 }, [user,navigate])
 
+  // Updates form and error messages when user is typing in the input boxes on register form
   const handleOnInputChange = (event) =>{
     if (event.target.name === "password") {
       if (form.passwordConfirm && form.passwordConfirm !== event.target.value) {
@@ -49,10 +53,12 @@ export default function Register({setUser, user}){
 
   }
 
+  // Function called when user clicks the create account button
   const handleOnSubmit = async () => {
     setIsLoading(true)
     setError((e) => ({ ...e, form: null }))
 
+    // Check if passwords match and if not, send error message
     if (form.passwordConfirm !== form.password) {
       setError((e) => ({ ...e, passwordConfirm: "Passwords do not match." }))
       console.log(error)
@@ -62,6 +68,7 @@ export default function Register({setUser, user}){
       setError((e) => ({ ...e, passwordConfirm: null }))
     }
 
+    // Api call to add user to database
     const { data, error } = await apiClient.signup({
       email: form.email,
       firstName: form.firstName,
@@ -69,11 +76,13 @@ export default function Register({setUser, user}){
       password: form.password,
     })
 
+    // If user successfully registered, set user and token
     if (data?.user) {
       setUser(data.user);
       apiClient.setToken(data.token);
     }
 
+    // If not successfully registered, set errors
     if (error) {
       setError((e) => ({ ...e, form: error }))
     }
