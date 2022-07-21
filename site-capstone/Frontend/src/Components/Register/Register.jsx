@@ -1,4 +1,4 @@
-import "./Resister.css"
+import "./Register.css"
 import { useState, useEffect } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import apiClient from "../../services/apiClient"
@@ -21,7 +21,7 @@ export default function Register({setUser, user}){
   // Change to send them to dashboard when dashboard is created
   useEffect(() => {
     if (user?.email) {
-        navigate("/")
+        navigate("/dashboard")
     }
 }, [user,navigate])
 

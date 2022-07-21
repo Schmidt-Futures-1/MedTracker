@@ -44,7 +44,7 @@ export default function Login({setUser, user}){
 
     useEffect(() => {
         if(user?.email){
-            navigate("/")
+            navigate("/dashboard")
         }
     }, [user, navigate])
 
