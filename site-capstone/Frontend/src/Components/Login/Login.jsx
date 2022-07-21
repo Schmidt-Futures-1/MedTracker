@@ -54,8 +54,8 @@ export default function Login({setUser, user}){
 
         <form className="form">
             <div className="container">
-                <div className="col-4 mx-auto">
-                    <h2 className="fw-bold mb-5">Login now</h2>
+                <div className="col-8 mx-auto">
+                    <h2 className="fw-bold mb-5">Login</h2>
                     
                     {/* Error handling outputs to webpage */}
                     {error?.form &&

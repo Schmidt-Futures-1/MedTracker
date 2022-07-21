@@ -99,10 +99,13 @@ export default function MedicationDetails (){
 
                     {/* Used to treat */}
                     <div className="row mb-4">
-                    <p className="h4">Used to treat:</p> 
-                    {filteredMayTreat.map((item, idx) => (
-                        <span  key={idx}>{item}</span>
-                    ))}
+                        <p className="h4">Used to treat:</p> 
+
+                        <div className="together">
+                            {filteredMayTreat.map((item, idx) => (
+                                <span  key={idx}>{item}; </span>
+                            ))}
+                        </div>
                     </div>
                 
 
