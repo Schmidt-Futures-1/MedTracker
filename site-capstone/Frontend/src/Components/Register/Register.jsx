@@ -13,10 +13,14 @@ export default function Register({setUser, user}){
     email: "",
     date: "",
     password: "",
-    passwordConfirm: "",
-    location: "Local Clinic",
-    agreeToTerms: false,
+    passwordConfirm: ""
   })
+
+  useEffect(() => {
+    if (user?.email) {
+        navigate("/")
+    }
+}, [user,navigate])
 
   const handleOnInputChange = (event) =>{
     if (event.target.name === "password") {
@@ -46,13 +50,13 @@ export default function Register({setUser, user}){
   }
 
   const handleOnSubmit = async () => {
-   
+    setIsLoading(true)
     setError((e) => ({ ...e, form: null }))
 
     if (form.passwordConfirm !== form.password) {
       setError((e) => ({ ...e, passwordConfirm: "Passwords do not match." }))
       console.log(error)
-      
+      setIsLoading(false)
       return
     } else {
       setError((e) => ({ ...e, passwordConfirm: null }))
@@ -63,7 +67,6 @@ export default function Register({setUser, user}){
       firstName: form.firstName,
       lastName: form.lastName,
       password: form.password,
-      username: form.username,
     })
 
     if (data?.user) {
@@ -71,22 +74,14 @@ export default function Register({setUser, user}){
       apiClient.setToken(data.token);
     }
 
-    if (data) {
-    
-      apiClient.setToken(data.token)
-    }
     if (error) {
       setError((e) => ({ ...e, form: error }))
     }
     
-    
+    setIsLoading(false)
   }
 
-  useEffect(() => {
-    if (user?.email) {
-        navigate("/")
-    }
-}, [user,navigate])
+
 
   return(
     <form>
@@ -122,7 +117,7 @@ export default function Register({setUser, user}){
     <input type="password" className="form-control" name="password" placeholder="Enter a secure password" value={form.password} onChange={handleOnInputChange}/>
   </div>
   <div className="form-outline mb-4">
-    <label className="form-label">Confirm Email</label>
+    <label className="form-label">Confirm Password</label>
     <input type="password" className="form-control" name="passwordConfirm" placeholder="Enter a secure password" value={form.passwordConfirm} onChange={handleOnInputChange}/>
   </div>
 
