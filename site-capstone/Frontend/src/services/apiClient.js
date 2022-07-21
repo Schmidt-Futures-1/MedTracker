@@ -58,6 +58,10 @@ class ApiClient {
     async fetchUserMedications() {
         return await this.request({ endpoint: `medication`, method: `GET` })
     }
+
+    async fetchMedicationById(medicationId) {
+        return await this.request({ endpoint: `medication/${medicationId}`, method: `GET` })
+    }
 }
 
 export default new ApiClient(API_BASE_URL);

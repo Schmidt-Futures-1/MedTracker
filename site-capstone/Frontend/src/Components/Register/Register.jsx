@@ -95,7 +95,7 @@ export default function Register({setUser, user}){
   return(
     <form>
       <div className="container">
-      <div className="col-5 mx-auto">
+      <div className="col-8 mx-auto">
   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
   <div className="row mb-4">
   <h2 className="fw-bold mb-5">Create Account</h2>
