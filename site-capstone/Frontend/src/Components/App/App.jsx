@@ -8,6 +8,7 @@ import Login from '../Login/Login'
 import CreateMedication from '../CreateMedicationPage/CreateMedicationPage'
 import Interaction from '../Interaction/Interaction'
 import MedicinePage from '../MedicationPage/MedicinePage'
+import Dashboard from "../Dashboard/Dashboard"
 import { useState, useEffect } from "react"
 import apiClient from '../../services/apiClient'
 import MedicationDetails from '../MedicationDetails/MedicationDetails'
@@ -46,6 +47,7 @@ function App() {
                     <Route path="/interaction" element={<Interaction/>}/>
                     <Route path="/cabinet" element={<MedicinePage user={user} setUser={setUser} />}/>
                     <Route path="/cabinet/:medicationId" element={<MedicationDetails user={user} setUser={setUser} />}/>
+                    <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />}/>
 
                 </Routes>
                 <Footer></Footer>
