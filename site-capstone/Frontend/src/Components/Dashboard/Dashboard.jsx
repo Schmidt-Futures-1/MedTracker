@@ -5,8 +5,10 @@ export default function Dashboard({user, setUser}){
     return(
         <div className="container">
             <div className="row">
+                {/* welcome tag for the user name */}
                 <h2 className="fw-bold mb-3">Welcome, User</h2>
                     <div className="col-8">
+                        {/* Table to show todays upcoming meds */}
                     <h3 className="fw-bold mb-4">Today's Medication</h3>
                         <table className="table table-striped table-bordered table-hover">
                             <thead>
@@ -41,6 +43,7 @@ export default function Dashboard({user, setUser}){
                     </div>
                        
                     <div className="col-4">
+                        {/* shows the current refills on medication within this table */}
                     <h3 className="fw-bold mb-4">Currently Low On</h3>
                         <table className="table table-striped table-bordered table-hover">
                             <thead>
