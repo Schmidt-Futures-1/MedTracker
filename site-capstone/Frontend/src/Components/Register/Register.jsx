@@ -100,6 +100,13 @@ export default function Register({setUser, user}){
   <div className="row mb-4">
   <h2 className="fw-bold mb-5">Create Account</h2>
 
+  {/* Error handling outputs to webpage */}
+  {error?.form &&
+                        <div className="error">
+                            {error.form}
+                        </div>
+                    }
+
     <div className="col">
       <div className="form-outline">
         <label className="form-label">First name</label>
