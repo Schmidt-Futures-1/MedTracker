@@ -63,7 +63,7 @@ export default function MedicinePage({ user, setUser })
             </div>
 
             {/* Medicine cards */}
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 ">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 ">
             {isLoading? <h1>Loading...</h1> :
                 medications?.map((item, idx) => {
                     return(<>
