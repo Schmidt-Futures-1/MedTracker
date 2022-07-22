@@ -128,7 +128,7 @@ export default function CreateMedication({user, setUser, addMedications}) {
 
     return (
         <div className="container px-4 px-lg-5 h-100">
-            <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5">
+            <div className="col gx-4 gx-lg-5 h-100 mx-auto pb-5">
                 <div className="form-row row">
                     <h2 className="fw-bold mb-5 row">Create Medication</h2>
                 </div>

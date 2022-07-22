@@ -98,11 +98,12 @@ export default function Register({setUser, user}){
       <div className="col-8 mx-auto">
   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
   <div className="row mb-4">
-  <h2 className="fw-bold mb-5">Create Account</h2>
-
+    <div className="form-row row">
+      <h2 className="fw-bold mb-5 text-center">Create Account</h2>
+    </div>
     <div className="col">
       <div className="form-outline">
-        <label className="form-label">First name</label>
+        <label className="form-label float-left">First name</label>
         <input type="text" className="form-control" name="firstName" placeholder="First Name" value={form.firstName} onChange={handleOnInputChange}/>
       </div>
     </div>
@@ -131,15 +132,16 @@ export default function Register({setUser, user}){
   </div>
 
            {/* <!-- Submit button --> */}
+            <div className="align-self-baseline text-center mt-4 mb-4">
+              <button type="submit" className="btn btn-dark btn-block" disabled={isLoading} onClick={handleOnSubmit}>{isLoading ? "Loading..." : "Create Account"}</button>
+            </div>
 
-            <button type="submit" className="btn btn-dark btn-block mb-4" disabled={isLoading} onClick={handleOnSubmit}>{isLoading ? "Loading..." : "Create Account"}</button>
-           
-
-  {/* <!-- Register buttons --> */}
-    <div className="text-center">
-        <p>Already a member? <a href="/login">Login
-            </a></p>
-    </div>
+            {/* <!-- login buttons --> */}
+            <div className="register text-center">
+                <p>Already a member? <a href="/login">
+                    Login
+                    </a></p>
+            </div>
     </div>
     </div>
 </form>
