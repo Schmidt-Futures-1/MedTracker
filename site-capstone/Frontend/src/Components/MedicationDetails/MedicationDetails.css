@@ -1,3 +1,7 @@
 .together{
     display:inline-block;
 }
+
+.capitalize-me::first-letter {
+    text-transform: capitalize;
+  }

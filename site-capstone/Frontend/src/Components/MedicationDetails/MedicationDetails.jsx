@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import apiClient from "../../services/apiClient";
 import axios from "axios"
+import LoadingPage from "../LoadingPage/LoadingPage";
+import AccessForbidden from "../Error Pages/AccessForbidden";
+import NotFound from "../Error Pages/NotFound";
 
 
 export default function MedicationDetails (){
@@ -10,7 +13,8 @@ export default function MedicationDetails (){
     const {medicationId} = useParams();
     const [medication, setMedication] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    const [errors, setErrors] = useState(null);
+    const [errors, setErrors] = useState(null);     // Errors for fetchMedicationById api call
+    const [nlmError, setNLMError] = useState(null); // Errors for api call from nlm api
     const [foundId, setFoundId] = useState(false);
     const [mayTreat, setMayTreat] = useState([])
 
@@ -20,15 +24,17 @@ export default function MedicationDetails (){
         async function fetchById() {
             setIsLoading(true);
 
-            const { data, error } = await apiClient.fetchMedicationById(medicationId);
+            const { data, error, errorStatus } = await apiClient.fetchMedicationById(medicationId);
 
             if (error) {
-                setErrors((e) => ({error}));
+                setErrors((e) => ({error, errorStatus}));
+                console.log("error", error, errorStatus)
             }
         
             if (data?.medication) {
                 setMedication(data.medication);
                 setFoundId(true);
+                setErrors(null);
             }    
 
             setIsLoading(false);
@@ -47,13 +53,14 @@ export default function MedicationDetails (){
       })
 
       .catch((error)=>{
-          setErrors(errors)
+        setNLMError(error)
 
       })
     }, [ medication.rxcui])
 
 
-    
+    // If med info was successfully pulled from api, filter it
+    // Must filter or else the info will appear twice
     if (mayTreat) {
         var tempMayTreat = mayTreat.map((current) => {
 
@@ -64,22 +71,30 @@ export default function MedicationDetails (){
 
     }
 
-    if (medication.rxcui !== 0 && filteredMayTreat) {
-        console.log(medication.rxcui)
-        for (let i = 0; i < filteredMayTreat.length; i++){
-            console.log(filteredMayTreat[i])
+    // if (medication.rxcui !== 0 && filteredMayTreat) {
+    //     console.log(medication.rxcui)
+    //     for (let i = 0; i < filteredMayTreat.length; i++){
+    //         console.log(filteredMayTreat[i])
 
-        }
-    }
+    //     }
+    // }
+
+    console.log("errors", errors?.errorStatus)
 
 
     return (
+        <div className="med-details-page">
+        {/* Error checks for page, if user attempts to access another user's med details page or if they try to access med details that don't exist */}
+        {isLoading? <LoadingPage /> :
+        (errors?.errorStatus === 403)? <AccessForbidden message={errors.error}/> :
+        (errors?.errorStatus === 404)? <NotFound /> :
+        <>
         <div className="container px-4 px-lg-5 h-100">
             <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5">
 
                 {/* Title row */}
                 <div className="row">
-                    <h2 className="fw-bold mb-5 row">{medication.name}</h2>
+                    <h2 className="fw-bold mb-5 row capitalize-me">{medication.name}</h2>
                 </div>
                 
                     {/* Strength */}
@@ -110,7 +125,14 @@ export default function MedicationDetails (){
                 
 
             </div>
+        </div>        
+        
+        </>        
+        }
         </div>
+        
+
+
 
     )
 }
