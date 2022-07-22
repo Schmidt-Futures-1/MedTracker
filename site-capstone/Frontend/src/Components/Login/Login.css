@@ -1,6 +1,6 @@
 .container{
     /* display: inline-block; */
-    padding-top: 10%;
+    padding-top: 5%;
     /* justify-content: center; */
     
  
@@ -17,4 +17,4 @@
 
 .error {
     color: #f29766;
-  }
+}

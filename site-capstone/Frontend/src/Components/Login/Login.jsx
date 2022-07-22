@@ -55,7 +55,9 @@ export default function Login({setUser, user}){
         <form className="form">
             <div className="container">
                 <div className="col-8 mx-auto">
-                    <h2 className="fw-bold mb-5">Login</h2>
+                <div className="form-row row">
+                    <h2 className="fw-bold mb-5 text-center">Login</h2>
+                </div>
                     
                     {/* Error handling outputs to webpage */}
                     {error?.form &&
@@ -72,7 +74,7 @@ export default function Login({setUser, user}){
                         
                         <input type="email" id="email" name="email" className="form-control" placeholder="user@gmail.com" value={form.email} onChange={handleOnInputChange} />
                         
-            </div>
+                    </div>
 
             {/* <!-- Password input --> */}
             <div className="form-outline mb-4">
@@ -81,8 +83,9 @@ export default function Login({setUser, user}){
             </div>
 
             {/* <!-- Submit button --> */}
-            <button type="submit" className="btn btn-dark btn-block mb-4" disabled={isLoading} onClick={handleOnSubmit}>Sign in</button>
-
+            <div className="align-self-baseline text-center mt-4 mb-4">
+                <button type="submit" className="btn btn-dark btn-block" disabled={isLoading} onClick={handleOnSubmit}>Login</button>
+             </div>
             {/* <!-- Register buttons --> */}
             <div className="register text-center">
                 <p>Not a member? <a href="/register">

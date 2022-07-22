@@ -50,7 +50,7 @@ export default function MedicinePage({ user, setUser })
         <div className="container marg">
 
             {/* Page Title */}
-            <div className="row">
+            <div className="row text-center">
                 <h2 className="fw-bold mb-3">Medicine Cabinet</h2>
             </div>
             
