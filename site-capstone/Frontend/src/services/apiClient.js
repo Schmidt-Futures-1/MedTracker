@@ -30,7 +30,8 @@ class ApiClient {
         }catch(error) {
             console.error({ errorResponse: error.response})
             const message = error?.response?.data?.error?.message;
-            return {data: null, error: message || String(error)};
+            const status = error?.response?.data?.error?.status;
+            return {data: null, error: message || String(error), errorStatus: status || 0};
         }
     }
 
