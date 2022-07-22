@@ -1,8 +1,8 @@
-export default function AccessForbidden(){
+export default function AccessForbidden({message}){
     return(
-    <div className="access-forbidden">
+    <div className="access-forbidden text-center">
         <h1>Access Forbidden</h1>
-        <a className="btn btn-dark btn-x1" href="/login">Login</a>
+        <h3>{message}</h3>
     </div>
     )   
 }
