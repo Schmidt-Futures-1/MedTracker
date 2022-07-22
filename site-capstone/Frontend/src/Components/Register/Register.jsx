@@ -29,14 +29,14 @@ export default function Register({setUser, user}){
   const handleOnInputChange = (event) =>{
     if (event.target.name === "password") {
       if (form.passwordConfirm && form.passwordConfirm !== event.target.value) {
-        set((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+        setError((e) => ({ ...e, passwordConfirm: "Password's do not match!" }))
       } else {
         setError((e) => ({ ...e, passwordConfirm: null }))
       }
     }
     if (event.target.name === "passwordConfirm") {
-      if (form.password && form.password !== event.target.value) {
-        setError((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+      if (form.password !== event.target.value) {
+        setError((e) => ({ ...e, passwordConfirm: "Password's do not match!" }))
       } else {
         setError((e) => ({ ...e, passwordConfirm: null }))
       }
@@ -60,8 +60,7 @@ export default function Register({setUser, user}){
 
     // Check if passwords match and if not, send error message
     if (form.passwordConfirm !== form.password) {
-      setError((e) => ({ ...e, passwordConfirm: "Passwords do not match." }))
-      console.log(error)
+      setError((e) => ({ ...e, form: "Passwords do not match." }))
       setIsLoading(false)
       return
     } else {
@@ -91,16 +90,24 @@ export default function Register({setUser, user}){
   }
 
 
-
   return(
     <form>
       <div className="container">
       <div className="col-8 mx-auto">
   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
   <div className="row mb-4">
+
     <div className="form-row row">
       <h2 className="fw-bold mb-5 text-center">Create Account</h2>
     </div>
+
+  {/* Error handling outputs to webpage */}
+  {error?.form &&
+                        <div className="error">
+                            {error.form}
+                        </div>
+                    }
+
     <div className="col">
       <div className="form-outline">
         <label className="form-label float-left">First name</label>
@@ -128,8 +135,16 @@ export default function Register({setUser, user}){
   </div>
   <div className="form-outline mb-4">
     <label className="form-label">Confirm Password</label>
-    <input type="password" className="form-control" name="passwordConfirm" placeholder="Enter a secure password" value={form.passwordConfirm} onChange={handleOnInputChange}/>
-  </div>
+            <input type="password" className="form-control" name="passwordConfirm" placeholder="Enter a secure password" value={form.passwordConfirm} onChange={handleOnInputChange} />
+              {/* Error handling outputs to webpage */}
+  {error?.passwordConfirm &&
+                        <div className="error">
+                            {error.passwordConfirm}
+                        </div>
+                    }
+          </div>
+
+        
 
            {/* <!-- Submit button --> */}
             <div className="align-self-baseline text-center mt-4 mb-4">
@@ -138,9 +153,9 @@ export default function Register({setUser, user}){
 
             {/* <!-- login buttons --> */}
             <div className="register text-center">
-                <p>Already a member? <a href="/login">
+                <p>Already a member? <Link to="/login">
                     Login
-                    </a></p>
+                    </Link></p>
             </div>
     </div>
     </div>
