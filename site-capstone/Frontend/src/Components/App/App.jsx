@@ -14,6 +14,7 @@ import apiClient from '../../services/apiClient'
 import MedicationDetails from '../MedicationDetails/MedicationDetails'
 import NotFound from "../Error Pages/NotFound"
 import AccessForbidden from "../Error Pages/AccessForbidden"
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 
 
 function App() {
@@ -43,13 +44,21 @@ function App() {
               
                 <Routes>
                     <Route path="/" element={<Landing user={user} setUser={setUser} />}/>
+
                     <Route path="/login" element={<Login user={user} setUser={setUser} />}/>
+
                     <Route path="/register" element={<Register user={user} setUser={setUser} />} />
-                    <Route path="/create" element={(user?.email)?<CreateMedication user={user} setUser={setUser} addMedications={addMedications} /> : <AccessForbidden />}/>
-                    <Route path="/interaction" element={<Interaction/>}/>
-                    <Route path="/cabinet" element={<MedicinePage user={user} setUser={setUser} />}/>
-                    <Route path="/cabinet/:medicationId" element={<MedicationDetails user={user} setUser={setUser} />}/>
-                    <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />}/>
+
+                    <Route path="/create" element={<ProtectedRoute element={<CreateMedication user={user} setUser={setUser} addMedications={addMedications} />} user={user} setUser={setUser}/>}/>
+
+                    <Route path="/interaction" element={<ProtectedRoute element={<Interaction/>} user={user} setUser={setUser}/>}/>
+
+                    <Route path="/cabinet" element={<ProtectedRoute element={<MedicinePage user={user} setUser={setUser} />} user={user} setUser={setUser}/>}/>
+
+                    <Route path="/cabinet/:medicationId" element={<ProtectedRoute element={<MedicationDetails user={user} setUser={setUser} />} user={user} setUser={setUser}/>}/>
+
+                    <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard user={user} setUser={setUser} />} user={user} setUser={setUser}/>}/>
+
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
                 <Footer></Footer>
