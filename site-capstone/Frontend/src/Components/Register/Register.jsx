@@ -61,7 +61,6 @@ export default function Register({setUser, user}){
     // Check if passwords match and if not, send error message
     if (form.passwordConfirm !== form.password) {
       setError((e) => ({ ...e, form: "Passwords do not match." }))
-      //console.log(error)
       setIsLoading(false)
       return
     } else {

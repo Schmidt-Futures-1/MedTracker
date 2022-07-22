@@ -65,7 +65,6 @@ class User {
     //////// Takes in user's email, password, firstName and lastName
     //////// Registers user and then inserts their user info into database 
     static async register(credentials) {
-        console.log("Registering User");
         // User should submit email, password
         const requiredFields = ["email", "password", "firstName", "lastName"];
 
