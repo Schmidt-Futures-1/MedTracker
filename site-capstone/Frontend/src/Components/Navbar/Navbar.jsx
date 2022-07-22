@@ -2,13 +2,16 @@ import { Link } from "react-router-dom"
 import "./Navbar.css"
 import logo from "../../Assets/codepath.70a9a31f.svg"
 import apiClient from "../../services/apiClient"
+import { useNavigate } from "react-router-dom"
 
 
 export default function NavBar({user, setUser}){
+  const navigate = useNavigate() 
+
   const handleLogout = async() => {
     await apiClient.logout()
     setUser({})
-
+    navigate("/")
   }
 
     return(
