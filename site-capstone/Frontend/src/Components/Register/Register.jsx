@@ -29,14 +29,14 @@ export default function Register({setUser, user}){
   const handleOnInputChange = (event) =>{
     if (event.target.name === "password") {
       if (form.passwordConfirm && form.passwordConfirm !== event.target.value) {
-        set((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+        setError((e) => ({ ...e, passwordConfirm: "Password's do not match!" }))
       } else {
         setError((e) => ({ ...e, passwordConfirm: null }))
       }
     }
     if (event.target.name === "passwordConfirm") {
-      if (form.password && form.password !== event.target.value) {
-        setError((e) => ({ ...e, passwordConfirm: "Password's do not match" }))
+      if (form.password !== event.target.value) {
+        setError((e) => ({ ...e, passwordConfirm: "Password's do not match!" }))
       } else {
         setError((e) => ({ ...e, passwordConfirm: null }))
       }
@@ -60,8 +60,8 @@ export default function Register({setUser, user}){
 
     // Check if passwords match and if not, send error message
     if (form.passwordConfirm !== form.password) {
-      setError((e) => ({ ...e, passwordConfirm: "Passwords do not match." }))
-      console.log(error)
+      setError((e) => ({ ...e, form: "Passwords do not match." }))
+      //console.log(error)
       setIsLoading(false)
       return
     } else {
@@ -91,7 +91,6 @@ export default function Register({setUser, user}){
   }
 
 
-
   return(
     <form>
       <div className="container">
@@ -99,6 +98,13 @@ export default function Register({setUser, user}){
   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
   <div className="row mb-4">
   <h2 className="fw-bold mb-5">Create Account</h2>
+
+  {/* Error handling outputs to webpage */}
+  {error?.form &&
+                        <div className="error">
+                            {error.form}
+                        </div>
+                    }
 
     <div className="col">
       <div className="form-outline">
@@ -127,18 +133,26 @@ export default function Register({setUser, user}){
   </div>
   <div className="form-outline mb-4">
     <label className="form-label">Confirm Password</label>
-    <input type="password" className="form-control" name="passwordConfirm" placeholder="Enter a secure password" value={form.passwordConfirm} onChange={handleOnInputChange}/>
-  </div>
+            <input type="password" className="form-control" name="passwordConfirm" placeholder="Enter a secure password" value={form.passwordConfirm} onChange={handleOnInputChange} />
+              {/* Error handling outputs to webpage */}
+  {error?.passwordConfirm &&
+                        <div className="error">
+                            {error.passwordConfirm}
+                        </div>
+                    }
+          </div>
+
+        
 
            {/* <!-- Submit button --> */}
 
-            <button type="submit" className="btn btn-dark btn-block mb-4" disabled={isLoading} onClick={handleOnSubmit}>{isLoading ? "Loading..." : "Create Account"}</button>
+            <button className="btn btn-dark btn-block mb-4" disabled={isLoading} onClick={handleOnSubmit}>{isLoading ? "Loading..." : "Create Account"}</button>
            
 
   {/* <!-- Register buttons --> */}
     <div className="text-center">
-        <p>Already a member? <a href="/login">Login
-            </a></p>
+        <p>Already a member? <Link to="/login">Login
+            </Link></p>
     </div>
     </div>
     </div>

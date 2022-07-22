@@ -68,6 +68,7 @@ class User {
         console.log("Registering User");
         // User should submit email, password
         const requiredFields = ["email", "password", "firstName", "lastName"];
+
         // Error: if any fields are missing
         requiredFields.forEach(field => {
             if(!credentials.hasOwnProperty(field)) {
@@ -75,10 +76,27 @@ class User {
             }
         })
 
+        // Error check the first name
+        if (credentials.firstName === "") {
+            throw new BadRequestError("Invalid first name.");
+        }
+
+        // Error check the last name
+        if (credentials.lastName === "") {
+            throw new BadRequestError("Invalid last name.");
+        }
+
+        // Error check the email
         if (credentials.email.indexOf("@") <= 0) {
-            throw new BadRequestError("Invalid email");
+            throw new BadRequestError("Invalid email.");
         }
         
+        // Error check the password
+        if (credentials.password === "") {
+            throw new BadRequestError("Invalid password.");
+        }
+
+
         // Error: if user with same email already exists
         const existingUser = await User.fetchUserByEmail(credentials.email);
         if (existingUser) {
