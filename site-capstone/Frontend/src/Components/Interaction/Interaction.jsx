@@ -81,7 +81,7 @@ export default function Interaction({ }) {
                 
             // Valid request handling for successful interaction
             .then((response) => {
-                    
+
                 if (form1.rxcui1 !== form2.rxcui2) {
                     setInteractionInfo({
                         ...interactionInfo, severity: response.data.fullInteractionTypeGroup[0].fullInteractionType[0].interactionPair[0].severity,
@@ -92,6 +92,18 @@ export default function Interaction({ }) {
                     
                     setName1(response.data.fullInteractionTypeGroup[0].fullInteractionType[0].minConcept[0].name)
                     setName2(response.data.fullInteractionTypeGroup[0].fullInteractionType[0].minConcept[1].name)
+                }
+                else if (form1.rxcui1 === 0 && form2.rxcui2 === 0) {
+                    setInteractionInfo({
+                        ...interactionInfo, severity: "invalid",
+                        description: "Invalid request! Please enter valid medication names!"
+                    })
+                }
+                else if (form1.rxcui1 === form2.rxcui2 ) {
+                    setInteractionInfo({
+                        ...interactionInfo, severity: "invalid",
+                        description: "These two medications are the same. Please enter differing names."
+                    })
                 }
             })
             
