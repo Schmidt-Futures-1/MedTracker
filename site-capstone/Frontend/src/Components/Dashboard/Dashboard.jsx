@@ -26,70 +26,58 @@ export default function Dashboard({ user, setUser }) {
         <div className="container">
             <div className="row">
                 {/* welcome tag for the user name */}
-                <h2 className="fw-bold mb-3">{greet}, { user.firstName}</h2>
-                    <div className="col-8">
+                <h1 className="fw-bold mb-5">{greet}, { user.firstName}</h1>
+                    <div className="col-8 tables " >
                         {/* Table to show todays upcoming meds */}
                     <h3 className="fw-bold mb-4">Today's Medication</h3>
-                        <table className="table table-striped table-bordered table-hover">
+                        <table className="table-style medications-padding">
                             <thead>
                                 <tr>
-                                <th className="col-sm-2" scope="col">Time</th>
-                                <th className="col-sm-4"scope="col">Medication</th>
-                                <th className="col-sm-4" scope="col">Dosage</th>
+                                    <th className="col-sm-2" scope="col">Time</th>
+                                    <th className="col-sm-4"scope="col">Medication</th>
+                                    <th className="col-sm-4" scope="col">Dosage</th>
                                 </tr>
                             </thead>
-                            <tbody>
                                 <tr>
-                                <th scope="row">8:00</th>
-                                <td>Zoloft</td>
-                                <td>2 pills</td>
+                                    <td scope="row">8:00</td>
+                                    <td>Zoloft</td>
+                                    <td>2 pills</td>
                                 </tr>
-                            </tbody>
-                            <tbody>
                                 <tr>
-                                <th scope="row">10:00</th>
-                                <td>albuterol</td>
-                                <td>4 pills</td>
+                                    <td scope="row">10:00</td>
+                                    <td>Albuterol</td>
+                                    <td>4 pills</td>
                                 </tr>
-                            </tbody>
-                            <tbody>
                                 <tr>
-                                <th scope="row">3:00</th>
-                                <td>Xanax</td>
-                                <td>1 pill</td>
+                                    <td scope="row">3:00</td>
+                                    <td>Xanax</td>
+                                    <td>1 pill</td>
                                 </tr>
-                            </tbody>
                         </table>
                     </div>
-                       
-                    <div className="col-4">
+
+                    <div className="col-4 tables">
                         {/* shows the current refills on medication within this table */}
-                    <h3 className="fw-bold mb-4">Currently Low On</h3>
-                        <table className="table table-striped table-bordered table-hover">
+                    <h3 className="fw-bold mb-4">Currently Low</h3>
+                        <table className="table-style">
                             <thead>
                                 <tr>
-                                <th className="col-sm-2" scope="col">Medication Name</th>
+                                <th className="col-sm-2" scope="col">Medication</th>
                                 <th className="col-sm-2" scope="col">Amount Left</th>
                                 </tr>
                             </thead>
-                            <tbody>
                                 <tr>
-                                <td>Zoloft</td>
-                                <th scope="row">4/10</th>
+                                    <td>Zoloft</td>
+                                    <td scope="row ">4/10</td>
                                 </tr>
-                            </tbody>
-                            <tbody>
                                 <tr>
-                                <td>Albuterol</td>
-                                <th scope="row">5/10</th>
+                                    <td>Albuterol</td>
+                                    <td scope="row">5/10</td>
                                 </tr>
-                            </tbody>
-                            <tbody>
                                 <tr>
-                                <td>Xanax</td>
-                                <th scope="row">30/40</th>
+                                    <td>Xanax</td>
+                                    <td scope="row">30/40</td>
                                 </tr>
-                            </tbody>
                         </table>
                     </div>
             </div>

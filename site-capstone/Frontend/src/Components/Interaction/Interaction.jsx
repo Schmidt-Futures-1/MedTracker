@@ -146,6 +146,8 @@ export default function Interaction({ }) {
 
 
 
+
+
     // HTML ---------------------------------------------------------------------------------------
     return (
         <div className="container px-4 px-lg-5 h-100">
@@ -153,6 +155,8 @@ export default function Interaction({ }) {
                 <div className="form-row row">
                     <h2 className="fw-bold mb-5 row">Interaction Checker</h2>
                 </div>
+
+
                 <form>
 
                     {errors?.form1 ?
@@ -169,7 +173,7 @@ export default function Interaction({ }) {
                         <div className="col-md-4 mb-3" >
                             
                         <label className="form-label"> Medication 1</label>
-                            <input name="medication1" type="text" className="form-control" placeholder="Medication 1" value={form1.medication1} onChange={handleOnInputChange1} />
+                            <input name="medication1" type="text"  autoComplete="off" className="form-control " placeholder="Medication 1" value={form1.medication1} onChange={handleOnInputChange1} />
                             
                             {/* Error handling for form 1*/}
                             <div>
@@ -198,7 +202,7 @@ export default function Interaction({ }) {
                         {/* Input form 2 */}
                         <div className="col-md-4 mb-3" >                           
                             <label className="form-label"> Medication 2</label>
-                            <input name="medication2" type="text" className="form-control" placeholder="Medication 2" value={form2.medication2} onChange={handleOnInputChange2} />
+                            <input id='myInput' name="medication2" type="text" className="form-control" placeholder="Medication 2" value={form2.medication2} onChange={handleOnInputChange2} />
                             <div>
                                 {form2.rxcui2 !== 0 && form2.medication2.length !== 0 ?
                                     <div className="success">
