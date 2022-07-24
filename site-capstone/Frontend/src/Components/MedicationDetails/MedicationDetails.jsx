@@ -114,6 +114,10 @@ export default function MedicationDetails (){
                                     <Link className="back-link" to="/cabinet">
                                             <button className="back-link "> &#8249; Back to Medicine Cabinet</button>
                                     </Link>
+
+                                    <Link className=" btn-dark btn btn-block edit-button" to="/cabinet">
+                                           Edit
+                                    </Link>
                                     <div className="row">
 
                                         <h2 className="fw-bold mb-5 row capitalize">{medication.name}</h2>

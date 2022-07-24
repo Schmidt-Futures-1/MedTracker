@@ -34,8 +34,8 @@ a{
     text-decoration: none;
 }
 
-/* Screen for phone */
-@media only screen and (max-width: 768px) and (min-width: 0px){
+/* Screen for very small phone */
+@media only screen and (max-width: 360px) and (min-width: 0px){
   .exam-details{
   
       margin-left: 10%;
@@ -43,10 +43,89 @@ a{
           
       
   }
+
+  .edit-button{
+    margin-left: 13%;
+  }
 }
 
+/* Screen for small phone */
+@media only screen and (max-width: 413px) and (min-width: 361px){
+  .exam-details{
+  
+      margin-left: 10%;
+      margin-right: 10%;
+          
+      
+  }
+
+  .edit-button{
+    margin-left: 18%;
+  }
+}
+
+/* Screen for phone */
+@media only screen and (max-width: 767px) and (min-width: 414px){
+  .exam-details{
+  
+      margin-left: 10%;
+      margin-right: 10%;
+          
+      
+  }
+
+  .edit-button{
+    margin-left: 22%;
+  }
+}
+
+@media only screen and (width: 667px) {
+  .exam-details{
+  
+      margin-left: 10%;
+      margin-right: 10%;
+          
+      
+  }
+
+  .edit-button{
+    margin-left: 55%;
+  }
+}
+
+/* Screen for small tablet */
+@media only screen and (max-width: 900px) and (min-width: 768px){
+  .exam-details{
+  
+      margin-left: 10%;
+      margin-right: 10%;
+          
+      
+  }
+
+  .edit-button{
+    margin-left: 60%;
+  }
+}
+
+/* Screen for normal tablet */
+@media only screen and (max-width: 950px) and (min-width: 901px){
+  .exam-details{
+  
+      margin-left: 10%;
+      margin-right: 10%;
+          
+      
+  }
+
+  .edit-button{
+    margin-left: 66%;
+  }
+}
+
+
 /* Screen for screen larger than tablet */
-@media only screen and (max-width: 1800px) and (min-width: 768px){
+@media only screen and (max-width: 1800px) and (min-width: 951px){
   .exam-details{
   
       padding-left: 20%;
@@ -54,4 +133,8 @@ a{
           
       
   }
+  .edit-button{
+    margin-left: 50%;
+  }
 }
+
