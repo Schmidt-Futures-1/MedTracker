@@ -108,7 +108,7 @@ export default function MedicationDetails (){
                             <div className="container px-4 px-lg-5 h-100">
                                 
                                 
-            <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5">
+            <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5 exam-details">
 
                                     {/* Title row */}
                                     <Link className="back-link" to="/cabinet">
@@ -116,7 +116,7 @@ export default function MedicationDetails (){
                                     </Link>
                                     <div className="row">
 
-                                        <h2 className="fw-bold mb-5 row capitalize-me">{medication.name}</h2>
+                                        <h2 className="fw-bold mb-5 row capitalize">{medication.name}</h2>
                                     </div>
                                     
                 

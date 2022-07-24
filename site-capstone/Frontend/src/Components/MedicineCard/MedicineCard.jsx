@@ -8,7 +8,7 @@ export default function MedicineCard({medication}){
         
         <div >
             {/* Single card starts here */}
-            <div className="card mb-4 text-center center card-color" >
+            <div className="card mb-4 text-center center card-color zoom" >
                 <div className="card-body">
                     <Link className="links" to={`/cabinet/${medication.id}`}>
                         <h5 className="card-title capitalize-me">{medication.name}</h5>

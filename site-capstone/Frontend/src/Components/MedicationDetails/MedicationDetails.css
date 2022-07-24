@@ -6,6 +6,11 @@
     text-transform: capitalize;
   }
 
+.capitalize{
+  text-transform: capitalize;
+
+}
+
   .pill {
     background-color: #ddd;
     border: none;
@@ -27,4 +32,26 @@
 
 a{
     text-decoration: none;
+}
+
+/* Screen for phone */
+@media only screen and (max-width: 768px) and (min-width: 0px){
+  .exam-details{
+  
+      margin-left: 10%;
+      margin-right: 10%;
+          
+      
+  }
+}
+
+/* Screen for screen larger than tablet */
+@media only screen and (max-width: 1800px) and (min-width: 768px){
+  .exam-details{
+  
+      padding-left: 20%;
+      padding-right: 20%;
+          
+      
+  }
 }
