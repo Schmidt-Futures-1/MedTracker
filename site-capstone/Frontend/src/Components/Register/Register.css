@@ -18,14 +18,16 @@
 
     .register-box{
         border-style: solid;
-        border-color: black;
+        border-color: transparent;
         border-radius: 15px;
-        background-color: #c9eaf2;
+        background-color: #c9eaf2a8;
         padding-top: 3%;
         padding-bottom: 3%;
         z-index: 100;
         position: relative;
         width: 80vw;    
+        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
+
     }
 
     .login-background{
@@ -69,13 +71,15 @@
 
     .register-box{
         border-style: solid;
-        border-color: black;
+        border-color: transparent;
         border-radius: 15px;
-        background-color: #c9eaf2;
+        background-color: #c9eaf2a8;
         padding-top: 3%;
         z-index: 100;
         position: relative;
         width: 42vw;
+        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
+
     }
 
     .login-background{
