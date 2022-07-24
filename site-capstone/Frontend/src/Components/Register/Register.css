@@ -1,0 +1,104 @@
+/* Screen for phone */
+@media only screen and (max-width: 768px) and (min-width: 0px){
+    .exam{
+    
+        margin-left: 10%;
+        margin-right: 10%;
+            
+        
+    }
+
+    .names-left{
+        margin-left: 9.5%;
+    }
+
+    .names-right{
+        margin-right: 9.5%;
+    }
+
+    .register-box{
+        border-style: solid;
+        border-color: black;
+        border-radius: 15px;
+        background-color: #c9eaf2;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        z-index: 100;
+        position: relative;
+        width: 80vw;    
+    }
+
+    .login-background{
+        position: absolute;
+        padding-top: -5%;
+        max-width: 100%;
+        height: auto;
+        z-index: 0;
+    bottom: 0;
+    right: 0;
+    }
+
+    .error-spacing{
+        padding-left: 10%;
+        padding-right: 10%;
+        text-align: center;
+        padding-bottom: 5px;
+
+
+
+    }
+}
+
+/* Screen for screen larger than tablet */
+@media only screen and (max-width: 1800px) and (min-width: 768px){
+    .exam{
+    
+        margin-left: 20%;
+        margin-right: 20%;
+            
+        
+    }
+
+    .names-left{
+        margin-left: 19.5%;
+    }
+
+    .names-right{
+        margin-right: 19.5%;
+    }
+
+    .register-box{
+        border-style: solid;
+        border-color: black;
+        border-radius: 15px;
+        background-color: #c9eaf2;
+        padding-top: 3%;
+        z-index: 100;
+        position: relative;
+        width: 42vw;
+    }
+
+    .login-background{
+        position: absolute;
+        padding-top: -5%;
+        max-width: 50%;
+        height: auto;
+        z-index: 0;
+    bottom: 0;
+    right: 0;
+
+    }
+
+    .error-spacing{
+        padding-left: 20%;
+        padding-right: 20%;
+        text-align: center;
+        padding-bottom: 5px;
+
+    }
+
+    .bottom-portion{
+        padding-bottom: 3%;
+    }
+}
+

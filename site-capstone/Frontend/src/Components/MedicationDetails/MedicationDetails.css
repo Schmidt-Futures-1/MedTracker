@@ -5,3 +5,26 @@
 .capitalize-me::first-letter {
     text-transform: capitalize;
   }
+
+  .pill {
+    background-color: #ddd;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    border-radius: 16px;
+  }
+
+  .back-link{
+      color: black;
+      text-decoration: none;
+      background-color: transparent;
+      border-color: transparent;
+      margin-bottom: 40px;
+  }
+
+a{
+    text-decoration: none;
+}

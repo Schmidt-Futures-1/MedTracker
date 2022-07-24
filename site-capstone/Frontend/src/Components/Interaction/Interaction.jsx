@@ -164,7 +164,7 @@ export default function Interaction({ }) {
                                 {form1?.rxcui1 !== 0 && form1.medication1?.length !== 0 ?
                                     
                                     <div className="success">
-                                        {form1.medication1} is a valid medication
+                                        {form1.medication1} is a valid medication &#10003;
                                     </div>
                                     :
                                     <div >
@@ -190,7 +190,7 @@ export default function Interaction({ }) {
                             <div>
                                 {form2.rxcui2 !== 0 && form2.medication2.length !== 0 ?
                                     <div className="success">
-                                        {form2.medication2} is a valid medication
+                                        {form2.medication2} is a valid medication &#10003;
                                     </div>
                                     :
                                     

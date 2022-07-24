@@ -1,12 +1,32 @@
 import "./Dashboard.css"
 
 
-export default function Dashboard({user, setUser}){
-    return(
+export default function Dashboard({ user, setUser }) {
+    
+
+
+
+    // Variables needed for custom greeting
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+    var greet;
+
+    // Customize greeting based on current time
+    if (hrs < 12) {
+        greet = 'Good Morning';
+    }
+    else if (hrs >= 12 && hrs <= 17) {
+        greet = 'Good Afternoon';
+    }
+    else if (hrs >= 17 && hrs <= 24) {
+        greet = 'Good Evening';
+    }
+
+    return (
         <div className="container">
             <div className="row">
                 {/* welcome tag for the user name */}
-                <h2 className="fw-bold mb-3">Welcome, User</h2>
+                <h2 className="fw-bold mb-3">{greet}, { user.firstName}</h2>
                     <div className="col-8">
                         {/* Table to show todays upcoming meds */}
                     <h3 className="fw-bold mb-4">Today's Medication</h3>
