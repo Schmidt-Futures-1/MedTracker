@@ -64,7 +64,7 @@ export default function Login({setUser, user}){
                     
                     {/* Error handling outputs to webpage */}
                     {error?.form &&
-                        <div className="error">
+                        <div className="error error-spacing">
                             {error.form}
                         </div>
                     }
@@ -91,7 +91,7 @@ export default function Login({setUser, user}){
              </div>
             {/* <!-- Register buttons --> */}
             <div className="register text-center">
-                <p>Not a member? <Link to="/register">
+                <p>Not a member? <Link  to="/register">
                     Register
                     </Link></p>
             </div>

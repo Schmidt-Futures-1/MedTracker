@@ -16,3 +16,8 @@
     text-decoration: none;
     color: black;
 }
+
+.card-color {
+    box-shadow: 6px 7px 10px 3px rgb(103 101 101 / 82%);
+    background-color: #def9ff;
+}

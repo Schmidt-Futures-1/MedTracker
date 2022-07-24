@@ -60,6 +60,16 @@
     bottom: 0;
     right: 0;
     }
+
+    .error-spacing{
+        padding-left: 10%;
+        padding-right: 10%;
+        text-align: center;
+        padding-bottom: 5px;
+
+
+
+    }
 }
 
 /* Screen for screen larger than tablet */
@@ -94,6 +104,14 @@
         z-index: 0;
     bottom: 0;
     right: 0;
+    }
+
+    .error-spacing{
+        padding-left: 20%;
+        padding-right: 20%;
+        text-align: center;
+        padding-bottom: 5px;
+
     }
 
     
