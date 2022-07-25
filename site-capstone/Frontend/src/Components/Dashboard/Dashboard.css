@@ -10,12 +10,71 @@ table.table-bordered{
        
 
         width:fit-content;
+        width: 100vw;
+
+
+    }
+
+    .header-text  {
         text-align: center;
     }
 
 
     .medications-padding{
         margin-bottom: 50px;
+    }
+    .currently-low{
+        padding-bottom: 100px;
+    }
+    
+}
+
+/* Screen for phone */
+@media only screen and (width: 896px) {
+    .tables{
+    
+       
+
+        width: 100vw;
+
+
+    }
+
+    .header-text  {
+        text-align: center;
+    }
+
+
+    .medications-padding{
+        margin-bottom: 50px;
+    }
+    .currently-low{
+        padding-bottom: 100px;
+    }
+    
+}
+
+/* Screen for landscape phone */
+@media only screen and (width: 844px) {
+    .tables{
+    
+       
+
+        width: 100vw;
+
+
+    }
+
+    .header-text  {
+        text-align: center;
+    }
+
+
+    .medications-padding{
+        margin-bottom: 50px;
+    }
+    .currently-low{
+        padding-bottom: 100px;
     }
     
 }

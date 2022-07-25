@@ -30,10 +30,16 @@ export default function Interaction({ }) {
 
     // API name for first medication
     const [name1, setName1] = useState("");
+    const [mayTreat1, setMayTreat1] = useState([])
+
 
     // API name for second medication
     const [name2, setName2] = useState("");
+    const [mayTreat2, setMayTreat2] = useState([])
+
     const [errors, setErrors] = useState({});
+    const [nlmError, setNLMError] = useState(null); // Errors for api call from nlm api
+
 
 
 
@@ -144,8 +150,60 @@ export default function Interaction({ }) {
             })
     }
 
+    // Fetch info on what medication 1 is used to treat 
+    useEffect(() => {
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui="+ form1.rxcui1 +"&relaSource=MEDRT&relas=may_treat")
+
+    .then((response) => {
+        setMayTreat1(response.data.rxclassDrugInfoList.rxclassDrugInfo)
+    })
+
+    .catch((error)=>{
+        setNLMError(error)
+        setMayTreat1([])
 
 
+    })
+    }, [form1.rxcui1])
+        
+    // Fetch info on what medication 2 is used to treat 
+    useEffect(() => {
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui="+ form2.rxcui2 +"&relaSource=MEDRT&relas=may_treat")
+
+    .then((response) => {
+        setMayTreat2(response.data.rxclassDrugInfoList.rxclassDrugInfo)
+    })
+
+    .catch((error)=>{
+        setNLMError(error)
+        setMayTreat2([])
+
+    })
+    }, [form2.rxcui2])
+
+    if (mayTreat1) {
+        var tempMayTreat1 = mayTreat1.map((current) => {
+
+            return current.rxclassMinConceptItem.className
+        })
+
+        var filteredMayTreat1 = [...new Set(tempMayTreat1)]
+
+    }
+
+    if (mayTreat2) {
+        var tempMayTreat2 = mayTreat2.map((current) => {
+
+            return current.rxclassMinConceptItem.className
+        })
+
+        var filteredMayTreat2 = [...new Set(tempMayTreat2)]
+
+    }
+
+    console.log(filteredMayTreat1)
+
+    console.log(filteredMayTreat2)
 
 
     // HTML ---------------------------------------------------------------------------------------
@@ -167,13 +225,13 @@ export default function Interaction({ }) {
                     }
 
                     {/* Input forms */}
-                    <div className="form-row row">
+                    <div className="form-row row ">
 
                         {/* Input form 1 */}
-                        <div className="col-md-4 mb-3" >
+                        <div className="col-md-4 mb-3 pt-3 pb-3 card side-card-padding card-color card-bottom interaction-cards" >
                             
-                        <label className="form-label"> Medication 1</label>
-                            <input name="medication1" type="text"  autoComplete="off" className="form-control " placeholder="Medication 1" value={form1.medication1} onChange={handleOnInputChange1} />
+                        <h5 className="form-label"> Medication 1</h5>
+                            <input name="medication1" type="text"  autoComplete="off" className="form-control " placeholder="Enter a medication" value={form1.medication1} onChange={handleOnInputChange1} />
                             
                             {/* Error handling for form 1*/}
                             <div>
@@ -197,12 +255,21 @@ export default function Interaction({ }) {
                                     
                                 } 
                             </div>   
+
+                            {filteredMayTreat1.length !== 0 &&
+                                <div className="together ">
+                                    <h6>May treat:</h6> 
+                                    {filteredMayTreat1.map((item, idx) => (
+                                        <span className="pill" key={idx}>{item} </span>
+                                    ))}
+                                </div>
+                            }
                         </div>
 
                         {/* Input form 2 */}
-                        <div className="col-md-4 mb-3" >                           
-                            <label className="form-label"> Medication 2</label>
-                            <input id='myInput' name="medication2" type="text" className="form-control" placeholder="Medication 2" value={form2.medication2} onChange={handleOnInputChange2} />
+                        <div className="col-md-4 mb-3 pt-3 pb-3 card card-color interaction-cards" >                           
+                            <h5 className="form-label"> Medication 2</h5>
+                            <input id='myInput' name="medication2" type="text" className="form-control" placeholder="Enter a medication" value={form2.medication2} onChange={handleOnInputChange2} />
                             <div>
                                 {form2.rxcui2 !== 0 && form2.medication2.length !== 0 ?
                                     <div className="success">
@@ -224,7 +291,17 @@ export default function Interaction({ }) {
                                         &nbsp;
                                     </div>
                                 } 
-                            </div>   
+                            </div>  
+                            
+                            {filteredMayTreat2.length !== 0 &&
+                                <div className="together ">
+                                   <h6 > May treat:</h6> 
+                                    {filteredMayTreat2.map((item, idx) => (
+                                        <span className="pill" key={idx}>{item} </span>
+                                    ))}
+                                </div>
+                            }
+                            
                         </div>
 
                         {/* Compare button */}
@@ -239,7 +316,11 @@ export default function Interaction({ }) {
                 {/* Valid interaction found */}
                 {interactionInfo.severity !== ""  && interactionInfo.severity !== "invalid" && interactionInfo.severity !== "same" &&
                     
-                    <div>
+                    <div className="card interaction-results">
+                        <h3 className="row">
+                            Results:
+                        </h3>
+                        <hr />
                         <div className="row response">
                             Severity: {interactionInfo.severity}
                         </div>

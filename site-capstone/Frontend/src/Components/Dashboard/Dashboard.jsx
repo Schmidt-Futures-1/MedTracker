@@ -33,9 +33,9 @@ export default function Dashboard({ user, setUser }) {
                         <table className="table-style medications-padding">
                             <thead>
                                 <tr>
-                                    <th className="col-sm-2" scope="col">Time</th>
-                                    <th className="col-sm-4"scope="col">Medication</th>
-                                    <th className="col-sm-4" scope="col">Dosage</th>
+                                    <th className="col-sm-2 header-text" scope="col">Time</th>
+                                    <th className="col-sm-4 header-text"scope="col">Medication</th>
+                                    <th className="col-sm-4 header-text" scope="col">Dosage</th>
                                 </tr>
                             </thead>
                                 <tr>
@@ -56,14 +56,14 @@ export default function Dashboard({ user, setUser }) {
                         </table>
                     </div>
 
-                    <div className="col-4 tables">
+                    <div className="col-4 tables currently-low">
                         {/* shows the current refills on medication within this table */}
                     <h3 className="fw-bold mb-4">Currently Low</h3>
-                        <table className="table-style">
+                        <table className="table-style ">
                             <thead>
                                 <tr>
-                                <th className="col-sm-2" scope="col">Medication</th>
-                                <th className="col-sm-2" scope="col">Amount Left</th>
+                                <th className="col-sm-2 header-text" scope="col">Medication</th>
+                                <th className="col-sm-2 header-text" scope="col">Amount Left</th>
                                 </tr>
                             </thead>
                                 <tr>
