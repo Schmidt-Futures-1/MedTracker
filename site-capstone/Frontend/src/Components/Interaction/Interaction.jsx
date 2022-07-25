@@ -231,7 +231,7 @@ export default function Interaction({ }) {
                         <div className="col-md-4 mb-3 pt-3 pb-3 card side-card-padding card-color card-bottom interaction-cards" >
                             
                         <h5 className="form-label"> Medication 1</h5>
-                            <input name="medication1" type="text"  autoComplete="off" className="form-control " placeholder="Enter a medication" value={form1.medication1} onChange={handleOnInputChange1} />
+                            <input name="medication1" type="text"  className="form-control " placeholder="Enter a medication" value={form1.medication1} onChange={handleOnInputChange1} />
                             
                             {/* Error handling for form 1*/}
                             <div>
