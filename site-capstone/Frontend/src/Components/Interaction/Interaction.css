@@ -1,7 +1,56 @@
 .response {
+    
+
     justify-content: left;
+    margin-left: 5%;
+    margin-right: 5%;
+
 }
 
 .links{
     display: inline;
+}
+
+.side-card-padding{
+    margin-right: 10%;
+}
+
+.card-color {
+    box-shadow: 6px 7px 10px 3px rgb(103 101 101 / 82%);
+    background-color: #def9ff;
+}
+
+/* Screen for phone */
+@media only screen and (max-width: 768px) and (min-width: 0px){
+    .interaction-cards{
+    
+       
+
+        margin: auto;
+        width: 100%;
+        font-weight: 1px;
+    }
+
+
+    .medications-padding{
+        margin-bottom: 50px;
+    }
+
+    .interaction-results{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    
+    }
+    
+}
+
+.interaction-results{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: 6px 7px 10px 3px rgb(103 101 101 / 82%);
+    background-color: #def9ff;
+
+
 }

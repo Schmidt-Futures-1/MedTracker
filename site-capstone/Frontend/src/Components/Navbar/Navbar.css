@@ -15,7 +15,57 @@
 
 }
 
+.navbar-nav{
+    --bs-nav-link-hover-color: white;
+}
+
 .navbar a{
     text-decoration: none;
-    color: inherit;
+    color: white;
+    
 }
+
+
+ul:hover{
+    color: #95d7e7;
+}
+
+.btn-secondary{
+    color: white;
+    border-color: white
+}
+
+.btn-secondary:hover{
+    color: #95d7e7;
+    border-color: #95d7e7
+}
+
+
+.navbar :hover{
+    color: #95d7e7;
+    border-color: #95d7e7
+    
+}
+
+.bg-color{
+    color: white;
+    border-color: white;
+}
+
+
+
+ .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, .75)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+
+  navbar-nav > .active > a {
+    color: #95d7e7;
+    background-color: chartreuse;  
+    text-decoration: none;
+  
+  }
+  .nav-item > a:hover {
+    color: #95d7e7;
+    text-decoration: none;
+
+  }

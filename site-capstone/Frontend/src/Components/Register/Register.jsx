@@ -92,10 +92,10 @@ export default function Register({setUser, user}){
 
   return(
     <form>
-      <div className="container">
-      <div className="col-8 mx-auto">
+      <div className="container bottom-portion">
+      <div className="col-8 mx-auto register-box">
   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
-  <div className="row mb-4">
+  <div className="row mb-4 ">
 
     <div className="form-row row">
       <h2 className="fw-bold mb-5 text-center">Create Account</h2>
@@ -103,18 +103,18 @@ export default function Register({setUser, user}){
 
   {/* Error handling outputs to webpage */}
   {error?.form &&
-                        <div className="error">
+                        <div className="error exam error-spacing">
                             {error.form}
                         </div>
                     }
 
-    <div className="col">
+    <div className="col names-left">
       <div className="form-outline">
         <label className="form-label float-left">First name</label>
-        <input type="text" className="form-control" name="firstName" placeholder="First Name" value={form.firstName} onChange={handleOnInputChange}/>
+        <input type="text" className="form-control " name="firstName" placeholder="First Name" value={form.firstName} onChange={handleOnInputChange}/>
       </div>
     </div>
-    <div className="col">
+    <div className="col names-right">
       <div className="form-outline">
       <label className="form-label">Last name</label>
         <input type="text" className="form-control" name="lastName" placeholder="Last Name" value={form.lastName} onChange={handleOnInputChange}/>
@@ -123,18 +123,18 @@ export default function Register({setUser, user}){
   </div>
 
   {/* <!-- Email input --> */}
-  <div className="form-outline mb-4">
+  <div className="form-outline mb-4 exam">
     <label className="form-label">Email </label>
     <input type="email" className="form-control" name="email" placeholder="Enter a valid email" value={form.email} onChange={handleOnInputChange} />
   </div>
 
   {/* <!-- Password input --> */}
-  <div className="form-outline mb-4">
+  <div className="form-outline mb-4 exam">
     <label className="form-label">Password</label>
     <input type="password" className="form-control" name="password" placeholder="Enter a secure password" value={form.password} onChange={handleOnInputChange}/>
   </div>
-  <div className="form-outline mb-4">
-    <label className="form-label">Confirm Password</label>
+  <div className="form-outline mb-4 exam">
+    <label className="form-label ">Confirm Password</label>
             <input type="password" className="form-control" name="passwordConfirm" placeholder="Enter a secure password" value={form.passwordConfirm} onChange={handleOnInputChange} />
               {/* Error handling outputs to webpage */}
   {error?.passwordConfirm &&

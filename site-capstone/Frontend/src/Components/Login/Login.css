@@ -1,7 +1,15 @@
+:root {
+    --desktop: 1200px;
+    --laptop: 1024px;
+    --tablet: 768px;
+    --phone: 480px;
+
+  }
+
 .container{
     /* display: inline-block; */
-    padding-top: 5%;
     /* justify-content: center; */
+    padding-top: 5%;
     
  
 }
@@ -17,4 +25,105 @@
 
 .error {
     color: #f29766;
+}
+
+/* Screen for phone */
+@media only screen and (max-width: 768px) and (min-width: 0px){
+    .exam{
+    
+        margin-left: 10%;
+        margin-right: 10%;
+            
+        
+    }
+
+    .login-box{
+        border-style: solid;
+        border-color: transparent;
+        border-radius: 15px;
+        background-color: #c9eaf2a8;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        z-index: 100;
+        position: relative;
+        width: 80vw;    
+        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
+
+    }
+
+    .login-background{
+        position: absolute;
+        padding-top: -5%;
+        max-width: 100%;
+        height: auto;
+        z-index: 0;
+    bottom: 0;
+    right: 0;
+    }
+
+    .error-spacing{
+        padding-left: 10%;
+        padding-right: 10%;
+        text-align: center;
+        padding-bottom: 5px;
+
+
+
+    }
+}
+
+/* Screen for screen larger than tablet */
+@media only screen and (max-width: 1800px) and (min-width: 768px){
+    .exam{
+    
+        margin-left: 20%;
+        margin-right: 20%;
+            
+        
+    }
+
+    .login-box{
+        border-style: solid;
+        border-color: transparent
+        ;
+        border-radius: 15px;
+        background-color: #c9eaf2a8;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        z-index: 100;
+        position: relative;
+        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
+
+    }
+
+    .login-background{
+        position: absolute;
+        padding-top: -5%;
+        max-width: 50%;
+        height: auto;
+        z-index: 0;
+    bottom: 0;
+    right: 0;
+    }
+
+    .error-spacing{
+        padding-left: 20%;
+        padding-right: 20%;
+        text-align: center;
+        padding-bottom: 5px;
+
+    }
+
+    
+}
+
+
+
+.container{
+    background: #95d7e7;
+
+}
+
+.login-background-color {
+    background: #95d7e7;
 }

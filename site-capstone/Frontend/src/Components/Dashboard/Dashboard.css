@@ -2,3 +2,165 @@
 table.table-bordered{
     border:1px solid black;
 }
+
+/* Screen for phone */
+@media only screen and (max-width: 768px) and (min-width: 0px){
+    .tables{
+    
+       
+
+        width:fit-content;
+        width: 100vw;
+
+
+    }
+
+    .header-text  {
+        text-align: center;
+    }
+
+
+    .medications-padding{
+        margin-bottom: 50px;
+    }
+    .currently-low{
+        padding-bottom: 100px;
+    }
+    
+}
+
+/* Screen for phone */
+@media only screen and (width: 896px) {
+    .tables{
+    
+       
+
+        width: 100vw;
+
+
+    }
+
+    .header-text  {
+        text-align: center;
+    }
+
+
+    .medications-padding{
+        margin-bottom: 50px;
+    }
+    .currently-low{
+        padding-bottom: 100px;
+    }
+    
+}
+
+/* Screen for landscape phone */
+@media only screen and (width: 844px) {
+    .tables{
+    
+       
+
+        width: 100vw;
+
+
+    }
+
+    .header-text  {
+        text-align: center;
+    }
+
+
+    .medications-padding{
+        margin-bottom: 50px;
+    }
+    .currently-low{
+        padding-bottom: 100px;
+    }
+    
+}
+
+/* Screen for screen larger than tablet */
+@media only screen and (max-width: 1800px) and (min-width: 768px){
+    .exam{
+    
+        margin-left: 20%;
+        margin-right: 20%;
+            
+        
+    }
+
+    .names-left{
+        margin-left: 19.5%;
+    }
+
+    .names-right{
+        margin-right: 19.5%;
+    }
+
+    .register-box{
+        border-style: solid;
+        border-color: transparent;
+        border-radius: 15px;
+        background-color: #c9eaf2a8;
+        padding-top: 3%;
+        z-index: 100;
+        position: relative;
+        width: 42vw;
+        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
+
+    }
+
+    .login-background{
+        position: absolute;
+        padding-top: -5%;
+        max-width: 50%;
+        height: auto;
+        z-index: 0;
+    bottom: 0;
+    right: 0;
+
+    }
+
+    .error-spacing{
+        padding-left: 20%;
+        padding-right: 20%;
+        text-align: center;
+        padding-bottom: 5px;
+
+    }
+
+    .bottom-portion{
+        padding-bottom: 3%;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 5px;
+    border-style: hidden; /* hide standard table (collapsed) border */
+    box-shadow: 7px 8px 15px 5px rgb(103 101 101 / 82%);
+}
+
+.table-style {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table-style td, .table-style th {
+    border: 1px solid #0489aa00;
+    padding: 8px;
+  }
+  
+  .table-style tr:nth-child(even){background-color: #f2f2f2;}
+  .table-style tr:nth-child(odd){background-color: white;}
+
+  
+  .table-style tr:hover {background-color: #ddd;}
+  
+  .table-style th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #0489aa;
+    color: white;
+  }

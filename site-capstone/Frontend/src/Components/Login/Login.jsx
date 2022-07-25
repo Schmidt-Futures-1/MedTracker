@@ -2,6 +2,7 @@ import "./Login.css"
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import apiClient from "../../services/apiClient"
+import loginBackground from "../../assets/login-background.jpg"
 
 export default function Login({setUser, user}){
     const navigate = useNavigate()
@@ -48,38 +49,38 @@ export default function Login({setUser, user}){
         }
     }, [user, navigate])
 
-    console.log(error)
-
     return(
 
         <form className="form">
-            <div className="container">
-                <div className="col-8 mx-auto">
+            <div className="container login-background-color">
+            <img className="login-background" src={loginBackground} alt="Medicines, syringes, and bottles" />
+
+                <div className="col-4 mx-auto login-box">
                 <div className="form-row row">
                     <h2 className="fw-bold mb-5 text-center">Login</h2>
                 </div>
                     
                     {/* Error handling outputs to webpage */}
                     {error?.form &&
-                        <div className="error">
+                        <div className="error error-spacing">
                             {error.form}
                         </div>
                     }
 
                     {/* <!-- Email input --> */}
-                    <div className="form-outline mb-4">
+                    <div className="form-outline mb-4 exam" >
 
                         
-                        <label for="email" className="form-label" >Email address</label>
+                        <label  className="form-label" >Email address</label>
                         
-                        <input type="email" id="email" name="email" className="form-control" placeholder="user@gmail.com" value={form.email} onChange={handleOnInputChange} />
+                        <input type="email" id="email" name="email" className="form-control " placeholder="user@gmail.com" value={form.email} onChange={handleOnInputChange} />
                         
                     </div>
 
             {/* <!-- Password input --> */}
-            <div className="form-outline mb-4">
-                <label className="form-label">Password</label>
-                <input type="password" name="password" id="password" className="form-control" placeholder="**********" value={form.password} onChange={handleOnInputChange}/>
+            <div className="form-outline mb-4 exam">
+                <label className="form-label ">Password</label>
+                <input type="password" name="password" id="password" className="form-control " placeholder="**********" value={form.password} onChange={handleOnInputChange}/>
             </div>
 
             {/* <!-- Submit button --> */}
@@ -88,9 +89,9 @@ export default function Login({setUser, user}){
              </div>
             {/* <!-- Register buttons --> */}
             <div className="register text-center">
-                <p>Not a member? <a href="/register">
+                <p>Not a member? <Link  to="/register">
                     Register
-                    </a></p>
+                    </Link></p>
             </div>
 
         </div>
