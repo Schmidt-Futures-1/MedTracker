@@ -22,6 +22,7 @@ export default function Dashboard({ user, setUser }) {
         greet = 'Good Evening';
     }
 
+    console.log(user)
     return (
         <div className="container">
             <div className="row">

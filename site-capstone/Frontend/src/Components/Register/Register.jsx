@@ -2,6 +2,9 @@ import "./Register.css"
 import { useState, useEffect } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import apiClient from "../../services/apiClient"
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
 
 export default function Register({setUser, user}){
   // States and variables
@@ -16,6 +19,9 @@ export default function Register({setUser, user}){
     password: "",
     passwordConfirm: ""
   })
+
+  const [phoneNumber, setPhoneNumber] = useState("")
+
 
   // If user is logged in send them to the landing page
   // Change to send them to dashboard when dashboard is created
@@ -73,6 +79,7 @@ export default function Register({setUser, user}){
       firstName: form.firstName,
       lastName: form.lastName,
       password: form.password,
+      phone: phoneNumber
     })
 
     // If user successfully registered, set user and token
@@ -88,7 +95,6 @@ export default function Register({setUser, user}){
     
     setIsLoading(false)
   }
-
 
   return(
     <form>
@@ -142,6 +148,18 @@ export default function Register({setUser, user}){
                             {error.passwordConfirm}
                         </div>
                     }
+          </div>
+
+          {/* Phone number input field */}
+          <div className="form-outline mb-4 exam">
+            <label className="form-label">Phone Number</label>
+
+            <PhoneInput className="phone-styles"
+              defaultCountry="US"
+              placeholder="Enter phone number"
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+            />
           </div>
 
         
