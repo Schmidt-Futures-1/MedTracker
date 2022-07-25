@@ -31,8 +31,6 @@ export default function CreateMedication({user, setUser, addMedications}) {
 
     // Functions --------------------------------------------------------------
 
-    console.log(dosage)
-
     const handleOnInputChange = (event) => {
        
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
@@ -106,17 +104,10 @@ export default function CreateMedication({user, setUser, addMedications}) {
         setIsLoading(false)
     };
 
-    console.log(time)
-
-    console.log(form)
-        if(errors?.form != null){
-            console.log(errors?.form)
-        }
 
     useEffect(() => {
         axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + form.medicationName + "&search=1")
             .then((response) => {
-                console.log(response.data.idGroup.rxnormId[0])
                 setForm({...form ,rxcui: response.data.idGroup.rxnormId[0]})
             })
             .catch((error) => {

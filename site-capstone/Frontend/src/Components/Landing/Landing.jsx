@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 
 export default function Landing({ user }) {
     
-    console.log(user?.firstName)
     return(
     <div className="container px-4 px-lg-5 h-100">
         <div className="headingRow row gx-4 gx-lg-5 h-100">

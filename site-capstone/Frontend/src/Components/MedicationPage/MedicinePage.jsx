@@ -18,10 +18,8 @@ export default function MedicinePage({ user, setUser })
     useEffect(() => {
         const fetchMedications = async () => {
             const { data, error} = await apiClient.fetchUserMedications();
-            console.log("fetch meds data", data);
             if (data) {
                 setMedications(data.medications);
-                console.log("after setting meds", medications)
                 setError(null);
             } 
             if (error) {
@@ -43,8 +41,6 @@ export default function MedicinePage({ user, setUser })
       }, [user]);
 
 
-
-    console.log("med page meds", medications)
 
     return(
         <div className="container marg">

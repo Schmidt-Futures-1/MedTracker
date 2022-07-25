@@ -49,8 +49,6 @@ export default function Login({setUser, user}){
         }
     }, [user, navigate])
 
-    console.log(error)
-
     return(
 
         <form className="form">

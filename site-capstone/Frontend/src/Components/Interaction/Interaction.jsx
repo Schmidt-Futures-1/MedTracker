@@ -201,9 +201,6 @@ export default function Interaction({ }) {
 
     }
 
-    console.log(filteredMayTreat1)
-
-    console.log(filteredMayTreat2)
 
 
     // HTML ---------------------------------------------------------------------------------------
