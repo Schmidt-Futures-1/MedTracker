@@ -11,7 +11,8 @@ class User {
             email:user.email,
             firstName:user.first_name,
             lastName:user.last_name,
-            created_at:user.created_at
+            created_at: user.created_at,
+            phone:user.phone_number
         }
     }
 
@@ -66,7 +67,7 @@ class User {
     //////// Registers user and then inserts their user info into database 
     static async register(credentials) {
         // User should submit email, password
-        const requiredFields = ["email", "password", "firstName", "lastName"];
+        const requiredFields = ["email", "password", "firstName", "lastName", "phone"];
 
         // Error: if any fields are missing
         requiredFields.forEach(field => {
@@ -77,22 +78,27 @@ class User {
 
         // Error check the first name
         if (credentials.firstName === "") {
-            throw new BadRequestError("Invalid first name.");
+            throw new BadRequestError("Invalid first name");
         }
 
         // Error check the last name
         if (credentials.lastName === "") {
-            throw new BadRequestError("Invalid last name.");
+            throw new BadRequestError("Invalid last name");
         }
 
         // Error check the email
         if (credentials.email.indexOf("@") <= 0) {
-            throw new BadRequestError("Invalid email.");
+            throw new BadRequestError("Invalid email");
         }
         
         // Error check the password
         if (credentials.password === "") {
-            throw new BadRequestError("Invalid password.");
+            throw new BadRequestError("Invalid password");
+        }
+
+        // Error check the password
+        if (credentials.phone === "") {
+            throw new BadRequestError("Invalid phone number");
         }
 
 
@@ -104,6 +110,7 @@ class User {
 
         // Take user password and hash it
         const hashedPassword = await bcrypt.hash(credentials.password, BCRYPT_WORK_FACTOR)
+        const hashedPhoneNumber = await bcrypt.hash(credentials.phone, BCRYPT_WORK_FACTOR)
 
 
         // Take user email and lowercase it
@@ -114,11 +121,12 @@ class User {
                 email,
                 first_name,
                 last_name,
-                password
+                password,
+                phone_number
             )
-            VALUES ($1, $2, $3, $4)
-            RETURNING id, email, first_name, last_name, password, created_at;
-        `, [lowerCasedEmail, credentials.firstName, credentials.lastName, hashedPassword])
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING id, email, first_name, last_name, password, phone_number, created_at;
+        `, [lowerCasedEmail, credentials.firstName, credentials.lastName, hashedPassword, hashedPhoneNumber])
 
         // Return user
         const user = result.rows[0];
