@@ -55,6 +55,10 @@ export default function CreateMedication({user, setUser, addMedications, medicat
         if (data) {
             addMedications(data.medication)
             setForm({ medicationName: "", rxcui: 0, strength: "", units: "mg", frequency: "As Needed", currentPillCount: "",maxPillCount: ""})
+
+            if (form.frequency === "As Needed") {
+                navigate("/cabinet")
+            }
            
         }
         if (error) {
@@ -84,9 +88,8 @@ export default function CreateMedication({user, setUser, addMedications, medicat
         }
         if (error) {
             setErrors((e) => ({ ...e, form:error }));
-
-        setIsLoading(false)
         }
+        setIsLoading(false)
     }
 
     // Submit button functionality
@@ -135,8 +138,11 @@ export default function CreateMedication({user, setUser, addMedications, medicat
 
         /////////// Api Calls ///////////
         const medicationData = await createMedication();
-        await createNotification(medicationData);
-
+        if (form.frequency !== "As Needed") {
+            await createNotification(medicationData);
+        }
+        setIsLoading(false);
+        
     };
 
     // Get the rxcui from the API if the nmedication name is valid

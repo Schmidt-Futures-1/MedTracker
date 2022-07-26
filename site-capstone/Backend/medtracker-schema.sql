@@ -22,8 +22,8 @@ CREATE TABLE medications (
 
 CREATE TABLE notifications (
     id                  SERIAL PRIMARY KEY,
-    notification_time   TEXT NOT NULL,   
-    dosage              INTEGER NOT NULL,
+    notification_time   TEXT,   
+    dosage              INTEGER,
     has_taken           BOOLEAN NOT NULL DEFAULT FALSE,
     med_id              INTEGER NOT NULL REFERENCES medications(id) ON DELETE CASCADE,
     user_id             INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
