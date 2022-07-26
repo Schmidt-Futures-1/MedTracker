@@ -91,6 +91,57 @@ class Medication {
         return medication;
     }
 
+    static async editMedication({ medicationUpdate, medicationId }) {
+        // User should submit fields: '"name", "strength", "units", "rxcui", "current_pill_count", "total_pill_count", "frequency"
+        const requiredFields = ["name", "strength", "units", "rxcui", "current_pill_count", "total_pill_count", "frequency"];
+        
+        // Error if missing required field
+        requiredFields.forEach((field) => {
+            if (!medicationUpdate.hasOwnProperty(field)) {
+                throw new BadRequestError(`Required field ${field} missing from request body `);
+            }
+        })
+
+        // Insert medication entry into database
+        const results = await db.query(
+            `
+                UPDATE medications
+                SET     name = $1,
+                        rxcui = $2,
+                        strength = $3,
+                        units = $4,
+                        frequency = $5,
+                        current_pill_count = $6,
+                        total_pill_count = $7
+                WHERE id = $8
+                RETURNING   id,
+                            name,
+                            rxcui,
+                            strength,
+                            units,
+                            frequency,
+                            current_pill_count,
+                            total_pill_count,
+                            user_id
+            `, [medicationUpdate.name, medicationUpdate.rxcui, medicationUpdate.strength, medicationUpdate.units, medicationUpdate.frequency,  medicationUpdate.current_pill_count, medicationUpdate.total_pill_count, medicationId]
+        )
+        
+        return results.rows[0];          
+    }
+
+    static async deleteMedication({ medicationId }) {
+        
+        const results = await db.query(
+            `
+                DELETE FROM medications
+                WHERE id = $1
+                RETURNING *
+            `, [medicationId]
+        )
+
+        return results.rows[0];
+    }
+
 }
 
 module.exports = Medication; 
