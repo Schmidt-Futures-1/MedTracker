@@ -15,6 +15,7 @@ import MedicationDetails from '../MedicationDetails/MedicationDetails'
 import NotFound from "../Error Pages/NotFound"
 import AccessForbidden from "../Error Pages/AccessForbidden"
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
+import UpdateMedication from "../UpdateMedicationPage/UpdateMedicationPage"
 
 
 function App() {
@@ -57,6 +58,8 @@ function App() {
                     <Route path="/cabinet" element={<ProtectedRoute element={<MedicinePage user={user} setUser={setUser} />} user={user} setUser={setUser}/>}/>
 
                     <Route path="/cabinet/:medicationId" element={<ProtectedRoute element={<MedicationDetails user={user} setUser={setUser} />} user={user} setUser={setUser}/>}/>
+
+                    <Route path="/cabinet/edit/:medicationId" element={<ProtectedRoute element={<UpdateMedication user={user} setUser={setUser} />} user={user} setUser={setUser}/>}/>
 
                     <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard user={user} setUser={setUser} />} user={user} setUser={setUser}/>}/>
 
