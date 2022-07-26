@@ -62,10 +62,6 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                 })
             }    
 
-            
-
-            console.log("med", medication)
-            console.log("form", form)
             setIsLoading(false);
         }
         

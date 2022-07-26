@@ -1,9 +1,27 @@
 import "./MedicineCard.css"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-
+import apiClient from "../../services/apiClient"
+import { useNavigate } from "react-router-dom"
 
 export default function MedicineCard({medication}){
+
+    const navigate = useNavigate();
+    
+    async function deleteMedicine(medicationId) {
+        const {data, error} = await apiClient.deleteMedication(medicationId);
+    
+        if (data?.code === 200) {
+          console.log(data.message)
+        }
+    
+        if (error) {
+          console.log("delete medicine error: ", error)
+        }
+
+        window.location.reload(false);
+    }
+
     return (
         
         <div >
@@ -18,7 +36,7 @@ export default function MedicineCard({medication}){
                     </Link>
                     <a href="#" className="btn btn-dark btn-space">Refill</a>
                     <a href={`/cabinet/edit/${medication.id}`} className="btn btn-dark btn-space">Edit</a>
-                    <a href="#" className="btn btn-dark btn-space">Delete</a>
+                    <button className="btn btn-dark btn-space" onClick={() => deleteMedicine(medication.id)} >Delete</button>
                 </div>          
                 
             </div>
