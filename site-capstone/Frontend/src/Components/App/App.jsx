@@ -21,6 +21,7 @@ function App() {
   const[user, setUser] = useState({})
   const[error,setError] = useState(null)
   const[medications, addMedications] = useState({})
+  const[notifications, addNotifications] = useState({})
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -49,7 +50,7 @@ function App() {
 
                     <Route path="/register" element={<Register user={user} setUser={setUser} />} />
 
-                    <Route path="/create" element={<ProtectedRoute element={<CreateMedication user={user} setUser={setUser} addMedications={addMedications} />} user={user} setUser={setUser}/>}/>
+                    <Route path="/create" element={<ProtectedRoute element={<CreateMedication user={user} setUser={setUser} addMedications={addMedications} medications={medications} addNotifications={addNotifications} />} user={user} setUser={setUser}/>}/>
 
                     <Route path="/interaction" element={<ProtectedRoute element={<Interaction/>} user={user} setUser={setUser}/>}/>
 

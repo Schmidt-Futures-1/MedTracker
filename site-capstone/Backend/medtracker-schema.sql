@@ -11,7 +11,7 @@ CREATE TABLE users (
 CREATE TABLE medications (
     id                  SERIAL PRIMARY KEY,
     name                TEXT NOT NULL,
-    strength            INTEGER NOT NULL,
+    strength            DOUBLE PRECISION NOT NULL,
     units               TEXT NOT NULL,
     frequency           TEXT NOT NULL,
     rxcui               TEXT NOT NULL,
@@ -22,8 +22,9 @@ CREATE TABLE medications (
 
 CREATE TABLE notifications (
     id                  SERIAL PRIMARY KEY,
-    notification_time   TIMESTAMP NOT NULL,   
+    notification_time   TEXT NOT NULL,   
     dosage              INTEGER NOT NULL,
     has_taken           BOOLEAN NOT NULL DEFAULT FALSE,
-    med_id              INTEGER NOT NULL REFERENCES medications(id) ON DELETE CASCADE
+    med_id              INTEGER NOT NULL REFERENCES medications(id) ON DELETE CASCADE,
+    user_id             INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );

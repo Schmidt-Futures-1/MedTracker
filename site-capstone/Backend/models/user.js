@@ -110,7 +110,7 @@ class User {
 
         // Take user password and hash it
         const hashedPassword = await bcrypt.hash(credentials.password, BCRYPT_WORK_FACTOR)
-        const hashedPhoneNumber = await bcrypt.hash(credentials.phone, BCRYPT_WORK_FACTOR)
+        //const hashedPhoneNumber = await bcrypt.hash(credentials.phone, BCRYPT_WORK_FACTOR)
 
 
         // Take user email and lowercase it
@@ -126,7 +126,7 @@ class User {
             )
             VALUES ($1, $2, $3, $4, $5)
             RETURNING id, email, first_name, last_name, password, phone_number, created_at;
-        `, [lowerCasedEmail, credentials.firstName, credentials.lastName, hashedPassword, hashedPhoneNumber])
+        `, [lowerCasedEmail, credentials.firstName, credentials.lastName, hashedPassword, credentials.phone])
 
         // Return user
         const user = result.rows[0];
