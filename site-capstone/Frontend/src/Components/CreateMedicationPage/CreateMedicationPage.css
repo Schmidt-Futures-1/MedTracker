@@ -31,3 +31,7 @@
   .success {
     color: black;
   }
+
+  .cron-inputs{
+      justify-content: center;
+  }

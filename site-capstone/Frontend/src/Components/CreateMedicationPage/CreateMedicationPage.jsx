@@ -4,10 +4,12 @@ import "./CreateMedicationPage.css"
 import TimePicker from "react-time-picker"
 import apiClient from "../../services/apiClient"
 import { useNavigate } from "react-router-dom"
+import { Cron } from 'react-js-cron';
+import 'react-js-cron/dist/styles.css';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 
 
-
-export default function CreateMedication({user, setUser, addMedications}) {
+export default function CreateMedication({user, setUser, addMedications, medications, addNotifications}) {
 
     // State Variables --------------------------------------------------------
 
@@ -18,32 +20,76 @@ export default function CreateMedication({user, setUser, addMedications}) {
         units: "mg",
         frequency: "As Needed",
         currentPillCount: "",
-        maxPillCount: ""
+        maxPillCount: "",
     });
 
-    const [time, setTime] = useState("")
-    const [dosage, setDosage] = useState("")
+    const [dosage, setDosage] = useState("")        // Amount of pills they are taking at a specific time
+    const [cronTime, setCronTime] = useState('');   // Notification time formatted in cronTime
+
 
     const [isLoading, setIsLoading] = useState(false)
     const [errors, setErrors] = useState({});
+
 
     const navigate = useNavigate()
 
     // Functions --------------------------------------------------------------
 
     const handleOnInputChange = (event) => {
-       
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
-        
     }
 
     const handleOnDosageChange = (event) => {
-
         setDosage(event.target.value)
-
-       
     }
 
+    const createMedication = async () => {
+        /////////// Api Call for Create Medication ///////////
+        setIsLoading(true)
+
+        const { data, error } = await apiClient.createMedication({name: form.medicationName, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount})
+
+        // Save medication data in variable that is returned by this function. It needs to be passed in to the createNotification call
+        const medicationData = data.medication;
+
+        if (data) {
+            addMedications(data.medication)
+            setForm({ medicationName: "", rxcui: 0, strength: "", units: "mg", frequency: "As Needed", currentPillCount: "",maxPillCount: ""})
+           
+        }
+        if (error) {
+            setErrors((e) => ({ ...e, form:error }));
+        }
+
+    
+        setIsLoading(false)
+
+        return medicationData;
+
+    }
+
+    
+    const createNotification = async (medicationData) => {
+        /////////// Api Call for Create Notification ///////////
+        setIsLoading(true)
+
+        const { data, error } = await apiClient.createNotification({notification:{notification_time:cronTime, dosage}, medication:medicationData})
+
+
+        if (data) {
+            addNotifications(data.newNotification)
+            setDosage("")
+            setCronTime('* * * * *')
+            navigate("/cabinet")
+        }
+        if (error) {
+            setErrors((e) => ({ ...e, form:error }));
+
+        setIsLoading(false)
+        }
+    }
+
+    // Submit button functionality
     const handleOnSubmit = async () => {
         /////////// Error Checking ///////////
         if (form.rxcui === 0) {
@@ -73,7 +119,7 @@ export default function CreateMedication({user, setUser, addMedications}) {
             setErrors((e) => ({ ...e, form: null }));
         }
 
-        if (time === "" && form.frequency === "Everyday") {
+        if (cronTime === '* * * * *' && form.frequency === "Everyday") {
             setErrors((e) => ({ ...e, form: "Invalid Time" }));
             return;
         } else {      
@@ -87,24 +133,13 @@ export default function CreateMedication({user, setUser, addMedications}) {
             setErrors((e) => ({ ...e, form: null }));
         }
 
-        /////////// Api Call ///////////
-        setIsLoading(true)
+        /////////// Api Calls ///////////
+        const medicationData = await createMedication();
+        await createNotification(medicationData);
 
-        const { data, error } = await apiClient.createMedication({name: form.medicationName, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount})
-
-        if (data) {
-          addMedications(data.post)
-          setForm({ medicationName: "", rxcui: 0, strength: "", units: "mg", frequency: "As Needed", currentPillCount: "",maxPillCount: ""})
-          navigate("/cabinet")
-        }
-        if (error) {
-            setErrors((e) => ({ ...e, form:error }));
-        }
-    
-        setIsLoading(false)
     };
 
-
+    // Get the rxcui from the API if the nmedication name is valid
     useEffect(() => {
         axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + form.medicationName + "&search=1")
             .then((response) => {
@@ -132,7 +167,7 @@ export default function CreateMedication({user, setUser, addMedications}) {
                 </div>
                 : ""
               }
-                    {/* ROW 1 */}
+                    {/* ROW 1 - Medication Name */}
                     <div className="form-row row">
                         <div className="col-md-6 mb-3" >                           
                             <label className="form-label"> Medication Name</label>
@@ -151,7 +186,7 @@ export default function CreateMedication({user, setUser, addMedications}) {
                         </div>
                     </div>
 
-                    {/* ROW 2 */}
+                    {/* ROW 2 -  */}
                     <div className="row mb-3 ">
                         <div className="md-2 col-md-3">
                             <div className="form-outline">
@@ -169,18 +204,7 @@ export default function CreateMedication({user, setUser, addMedications}) {
                         </div>
                     </div>
 
-                    {/* ROW 3 */}
-                    <div className="row mb-3 ">
-                    <div className="col-md-6">
-                            <label className="mb-2" >Frequency</label>
-                                <select name="frequency" id="inputState" className="form-control" value={form.frequency}  onChange={handleOnInputChange}>
-                                    <option defaultValue>As Needed</option>
-                                    <option>Everyday</option>
-                                </select>
-                        </div>
-                    </div>
-
-                     {/* ROW 4 */}
+                     {/* ROW 3 - Pill Counts */}
                     <div className="row mb-3 ">
                         <div className="md-2 col-md-3">
                             <div className="form-outline">
@@ -197,13 +221,37 @@ export default function CreateMedication({user, setUser, addMedications}) {
                         </div>
                     </div>
 
-                    {/* OPTIONAL ROW 5 */}
+                    {/* ROW 4 - Frequency */}
+                    <div className="row mb-3 ">
+                    <div className="col-md-6">
+                            <label className="mb-2" >Frequency</label>
+                                <select name="frequency" id="inputState" className="form-control" value={form.frequency}  onChange={handleOnInputChange}>
+                                    <option defaultValue>As Needed</option>
+                                    <option>Everyday</option>
+                                </select>
+                        </div>
+                    </div>
+                    
+                    {/* OPTIONAL ROW 5 - Timing */}
                     {form.frequency === "Everyday" ?
                         <div className=" text-center row mb-3 ">
                             <label className="form-label">Notification Time</label>
-                            <div className="time mb-3">
-                                <TimePicker onChange={setTime} value={time} />
-                                 
+                            <div className=" mb-3">
+
+                                <Cron className="cron-inputs"
+                                    defaultPeriod={'day'} 
+                                    allowedPeriods={[
+                                        'year',
+                                        'month',
+                                        'week',
+                                        'day'
+                                    ]}
+                                    leadingZero={'minutes'}
+                                    clockFormat={'12-hour-clock'}
+                                    value={cronTime}
+                                    setValue={setCronTime}
+                                />          
+                                
                             </div>
                             <div className=" text-center md-2 col-md-3 ">
                                     <label className="form-label">Dosage</label>
