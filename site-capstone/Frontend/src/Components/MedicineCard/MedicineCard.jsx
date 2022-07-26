@@ -12,13 +12,13 @@ export default function MedicineCard({medication}){
     async function deleteMedicine(medicationId) {
         const {data, error} = await apiClient.deleteMedication(medicationId);
     
-        if (data?.code === 200) {
-          console.log(data.message)
-        }
+        // if (data?.code === 200) {
+        //   console.log(data.message)
+        // }
     
-        if (error) {
-          console.log("delete medicine error: ", error)
-        }
+        // if (error) {
+        //   console.log("delete medicine error: ", error)
+        // }
         // Refresh's page on submit to remove deleted card
         window.location.reload(false);
     }

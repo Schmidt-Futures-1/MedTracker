@@ -44,7 +44,6 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
 
             if (error) {
                 setErrors((e) => ({error, errorStatus}));
-                console.log("error", error, errorStatus)
             }
         
             if (data?.medication) {
