@@ -18,8 +18,8 @@ function sendText(message, phone_number){
             // users inputted number need country code to work
             to: `${phone_number}`
             }) 
-            // console logs specfic message number to see if sent
-        .then(message => console.log(message.sid)) 
+        //     // console logs specfic message number to see if sent
+        // .then(message => console.log(message.sid)) 
         .done();
 }
 
