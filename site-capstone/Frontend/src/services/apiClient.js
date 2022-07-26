@@ -71,6 +71,14 @@ class ApiClient {
     async fetchUserNotifications() {
         return await this.request({ endpoint: `notification`, method: `GET` })
     }
+
+    async updateMedicationDetails(updatedMedication, medicationId) {
+        return await this.request({ endpoint: `medication/${medicationId}`, method: `PUT`, data: updatedMedication})
+    }
+
+    async deleteMedication(medicationId) {
+        return await this.request({ endpoint: `medication/${medicationId}`, method: `DELETE`})
+    }
 }
 
 export default new ApiClient(API_BASE_URL);

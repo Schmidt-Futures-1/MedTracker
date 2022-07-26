@@ -1,9 +1,28 @@
 import "./MedicineCard.css"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-
+import apiClient from "../../services/apiClient"
+import { useNavigate } from "react-router-dom"
 
 export default function MedicineCard({medication}){
+
+    const navigate = useNavigate();
+    
+    // Calls delete request in the backend
+    async function deleteMedicine(medicationId) {
+        const {data, error} = await apiClient.deleteMedication(medicationId);
+    
+        // if (data?.code === 200) {
+        //   console.log(data.message)
+        // }
+    
+        // if (error) {
+        //   console.log("delete medicine error: ", error)
+        // }
+        // Refresh's page on submit to remove deleted card
+        window.location.reload(false);
+    }
+
     return (
         
         <div >
@@ -17,8 +36,8 @@ export default function MedicineCard({medication}){
                         <p className="card-text mb-2">Pills Left: {medication.current_pill_count} / {medication.total_pill_count }</p>
                     </Link>
                     <a href="#" className="btn btn-dark btn-space">Refill</a>
-                    <a href="#" className="btn btn-dark btn-space">Edit</a>
-                    <a href="#" className="btn btn-dark btn-space">Delete</a>
+                    <a href={`/cabinet/edit/${medication.id}`} className="btn btn-dark btn-space">Edit</a>
+                    <button className="btn btn-dark btn-space" onClick={() => deleteMedicine(medication.id)} >Delete</button>
                 </div>          
                 
             </div>

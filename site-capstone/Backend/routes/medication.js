@@ -40,4 +40,25 @@ router.get("/:medicationId", security.requireAuthenticatedUser, permissions.auth
     }
 })
 
+// Edit medication entry
+router.put("/:medicationId", security.requireAuthenticatedUser, permissions.authedUserOwnsMedication, async (req, res, next) => {
+    try {
+        const {medicationId} = req.params;
+        const medication = await Medication.editMedication({ medicationUpdate: req.body, medicationId });
+        return res.status(200).json({ medication });
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.delete("/:medicationId", security.requireAuthenticatedUser, permissions.authedUserOwnsMedication, async (req, res, next) => {
+    try {
+        const {medicationId} = req.params;
+        const deletedMedication = await Medication.deleteMedication({ medicationId });
+        return res.status(200).json({ code: 200, message: "Medication deleted", deletedMedication});
+    } catch (err) {
+        next(err);
+    }
+})
+
 module.exports = router;

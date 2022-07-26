@@ -115,7 +115,7 @@ export default function MedicationDetails (){
                                             <button className="back-link "> &#8249; Back to Medicine Cabinet</button>
                                     </Link>
 
-                                    <Link className=" btn-dark btn btn-block edit-button" to="/cabinet">
+                                    <Link className=" btn-dark btn btn-block edit-button" to={`/cabinet/edit/${medicationId}`}>
                                            Edit
                                     </Link>
                                     <div className="row">
