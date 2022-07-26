@@ -8,6 +8,7 @@ export default function MedicineCard({medication}){
 
     const navigate = useNavigate();
     
+    // Calls delete request in the backend
     async function deleteMedicine(medicationId) {
         const {data, error} = await apiClient.deleteMedication(medicationId);
     
@@ -18,7 +19,7 @@ export default function MedicineCard({medication}){
         if (error) {
           console.log("delete medicine error: ", error)
         }
-
+        // Refresh's page on submit to remove deleted card
         window.location.reload(false);
     }
 
