@@ -63,6 +63,14 @@ class ApiClient {
     async fetchMedicationById(medicationId) {
         return await this.request({ endpoint: `medication/${medicationId}`, method: `GET` })
     }
+
+    async createNotification(notification) {
+        return await this.request({ endpoint: "notification", method:`POST`, data: notification} )
+    }
+
+    async fetchUserNotifications() {
+        return await this.request({ endpoint: `notification`, method: `GET` })
+    }
 }
 
 export default new ApiClient(API_BASE_URL);
