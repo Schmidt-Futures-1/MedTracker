@@ -17,7 +17,7 @@ export default function MedicineCard({medication}){
                         <p className="card-text mb-2">Pills Left: {medication.current_pill_count} / {medication.total_pill_count }</p>
                     </Link>
                     <a href="#" className="btn btn-dark btn-space">Refill</a>
-                    <a href="#" className="btn btn-dark btn-space">Edit</a>
+                    <a href={`/cabinet/edit/${medication.id}`} className="btn btn-dark btn-space">Edit</a>
                     <a href="#" className="btn btn-dark btn-space">Delete</a>
                 </div>          
                 
