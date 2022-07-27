@@ -132,6 +132,9 @@ table.table-bordered{
     .bottom-portion{
         padding-bottom: 3%;
     }
+    .empty{
+        width: 66%;
+    }
 }
 
 table {

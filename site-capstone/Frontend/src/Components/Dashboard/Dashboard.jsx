@@ -256,9 +256,9 @@ export default function Dashboard({ user, setUser }) {
                     </div>
                     :
                     // Display when there are no medications that are currently low
-                    <div className="col-4 tables currently-low empty">
+                    <div className="col-4 tables currently-low empty ">
                         <h3 className="fw-bold mb-4">Today's Remaining Medications</h3>
-                        <h2>Nothing here yet.</h2>
+                        <h2>Nothing scheduled for later</h2>
                     </div>
                 }
                 
@@ -295,7 +295,7 @@ export default function Dashboard({ user, setUser }) {
                     // Display when there are no medications that are currently low
                     <div className="col-4 tables currently-low empty">
                         <h3 className="fw-bold mb-4">Currently Low</h3>
-                        <h2>Nothing here yet.</h2>
+                        <h2>None</h2>
                         
                     </div>  
                 }
