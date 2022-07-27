@@ -55,7 +55,7 @@ export default function Login({setUser, user}){
             <div className="container login-background-color">
             <img className="login-background" src={loginBackground} alt="Medicines, syringes, and bottles" />
 
-                <div className="col-4 mx-auto login-box">
+                <div className="col-4 mx-auto login-box ">
                 <div className="form-row row">
                     <h2 className="fw-bold mb-5 text-center">Login</h2>
                 </div>
@@ -85,7 +85,7 @@ export default function Login({setUser, user}){
 
             {/* <!-- Submit button --> */}
             <div className="align-self-baseline text-center mt-4 mb-4">
-                <button type="submit" className="btn btn-dark btn-block" disabled={isLoading} onClick={handleOnSubmit}>Login</button>
+                <button type="submit" className="btn btn-dark btn-block login-button-shadow" disabled={isLoading} onClick={handleOnSubmit}>Login</button>
              </div>
             {/* <!-- Register buttons --> */}
             <div className="register text-center">
