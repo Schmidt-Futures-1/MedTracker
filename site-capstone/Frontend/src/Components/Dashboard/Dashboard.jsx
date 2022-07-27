@@ -89,6 +89,8 @@ export default function Dashboard({ user, setUser }) {
     // Variable holds medications that are currently low and are PILLS
     let filteredMedicine = medications.filter(medicine => ((medicine.current_pill_count < 10 && medicine.units === "mg") || (medicine.current_pill_count < 100 && medicine.units === "mL")))
     
+    // Create an array of objects to hold the filtered notification
+    // These are the notification to display for the CURRENT day
     let filteredNotifications = [{
         dosage: "",
         id: "",
@@ -100,6 +102,7 @@ export default function Dashboard({ user, setUser }) {
         timestamp: ""
     }]
 
+    // loop through the notifications for the user to start filtering
     for (let i = 0; i < notifications.length; i++) {
 
         // Parse the cron time from notifications table
@@ -119,10 +122,11 @@ export default function Dashboard({ user, setUser }) {
             let hr = parsedCron.next().getHours().toString()
             parsedCron.reset()
 
+            // Get the minutes for the cron string 
             let min = parsedCron.next().getMinutes().toString()
             parsedCron.reset()
 
-            
+            // Format the minute and hour time string for output
             if (min < 10) {
                 min = "0" + min
             }
@@ -137,15 +141,18 @@ export default function Dashboard({ user, setUser }) {
             else {
                 min = min + " AM"
             }
+
+            // Store the index for the last element in the array
             let lastIndex = filteredNotifications.length - 1
 
-
+            // Store values in the current element in filtered array
             filteredNotifications[lastIndex].hours = hr
-
             filteredNotifications[lastIndex].minutes = min
             filteredNotifications[lastIndex].timestamp = parsedCron.next().getTime().toString()
+
+            // Make sure that we get the correct time for the the next use of parsedCron
             parsedCron.reset()
-            
+
         }
 
         // This event occurs everyday at one hour, and then the next hour
@@ -179,31 +186,29 @@ export default function Dashboard({ user, setUser }) {
                 let hr = cronSplitOnHyphen[j]
                 let min = splitCron[0]
                 
-                if (min < 10) {
-                    min = "0" + min
-                }
-                
+                // Format the minute and hour time string for output
                 if (hr > 12) {
-                    hr = hr - 12
+                        hr = hr - 12
+                        min = min + " PM"
+                }
+                else if (hr === 12) {
                     min = min + " PM"
                 }
                 else {
                     min = min + " AM"
                 }
-            
+
         
                 // Store the last index of the filtered array
                 let lastIndex = filteredNotifications.length - 1
             
-
                 // Insert minutes and hours into the current array element
                 filteredNotifications[lastIndex].hours = hr
                 filteredNotifications[lastIndex].minutes = min
             
-                // Store a new cron time for the first hour
+                // Store relevant values for this element
                 filteredNotifications[lastIndex].notification_time = splitCron[0] + " " + cronSplitOnHyphen[j] + " " + splitCron[2] + " " + splitCron[3] + " " + splitCron[4]
                 let firstCronTime = parser.parseExpression(filteredNotifications[lastIndex].notification_time)
-
                 filteredNotifications[lastIndex].timestamp = firstCronTime.next().getTime().toString()
                 parsedCron.reset()
             }
