@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom"
 import apiClient from "../../services/apiClient"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import loginBackground from "../../assets/login-background.jpg"
+
 
 
 export default function Register({setUser, user}){
@@ -99,6 +101,8 @@ export default function Register({setUser, user}){
   return(
     <form>
       <div className="container bottom-portion">
+      <img className="login-background" src={loginBackground} alt="Medicines, syringes, and bottles" />
+
       <div className="col-8 mx-auto register-box">
   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
   <div className="row mb-4 ">
@@ -166,7 +170,7 @@ export default function Register({setUser, user}){
 
            {/* <!-- Submit button --> */}
             <div className="align-self-baseline text-center mt-4 mb-4">
-              <button type="submit" className="btn btn-dark btn-block" disabled={isLoading} onClick={handleOnSubmit}>{isLoading ? "Loading..." : "Create Account"}</button>
+              <button type="submit" className="btn btn-dark btn-block login-button-shadow" disabled={isLoading} onClick={handleOnSubmit}>{isLoading ? "Loading..." : "Create Account"}</button>
             </div>
 
             {/* <!-- login buttons --> */}

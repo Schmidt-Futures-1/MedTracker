@@ -126,8 +126,14 @@
 
     
 }
-.PhoneInputInput {
+.phone-styles {
     flex: 1;
     min-width: 0;
+    border-color: transparent;
+    border: 1px solid #ced4da;
+
+}
+
+.PhoneInputInput{
     border-color: transparent;
 }

@@ -62,7 +62,7 @@ export default function NavBar({user, setUser}){
                         ""
                   ) : (
                       <Link to="/login">
-                          <button className="btn-secondary  ">Login
+                          <button className="btn-secondary login-sizing ">Login
                         </button> 
                         </Link>
                         )}
