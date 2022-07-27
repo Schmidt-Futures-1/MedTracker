@@ -128,7 +128,10 @@ export default function Dashboard({ user, setUser }) {
             }
                 
             if (hr > 12) {
-                hr = hr - 12
+                    hr = hr - 12
+                    min = min + " PM"
+            }
+            else if (hr === 12) {
                 min = min + " PM"
             }
             else {
