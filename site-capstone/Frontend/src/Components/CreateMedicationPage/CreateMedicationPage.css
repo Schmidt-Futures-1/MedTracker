@@ -34,4 +34,11 @@
 
   .cron-inputs{
       justify-content: center;
+      width: auto;
+
   }
+button{
+    background-color: aliceblue;
+}
+ 
+ 

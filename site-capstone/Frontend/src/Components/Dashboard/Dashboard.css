@@ -164,3 +164,14 @@ table {
     background-color: #0489aa;
     color: white;
   }
+
+  .empty h2 {
+    font-size: 32px;
+    color: #fff;
+    color: white;
+    padding: 10px 20px;
+    background-color: #0489aa;
+    box-shadow: 7px 8px 15px 5px rgb(103 101 101 / 82%);
+
+}
+

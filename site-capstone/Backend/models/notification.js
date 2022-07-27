@@ -72,7 +72,8 @@ class Notification {
                         n.notification_time,
                         n.dosage,
                         u.phone_number,
-                        u.first_name as "user_name"
+                        u.first_name as "user_name",
+                        m.name
                 FROM notifications AS n
                     JOIN medications AS m ON m.id = n.med_id
                     JOIN users AS u ON u.id = m.user_id

@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom"
 import { Cron } from 'react-js-cron';
 import 'react-js-cron/dist/styles.css';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import "./CreateMedicationPage.css"
+
 
 
 export default function CreateMedication({user, setUser, addMedications, medications, addNotifications}) {
