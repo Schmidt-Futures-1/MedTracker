@@ -102,7 +102,7 @@ class Medication {
             }
         })
 
-        // Insert medication entry into database
+        // Update medication entry in database
         const results = await db.query(
             `
                 UPDATE medications
@@ -140,6 +140,33 @@ class Medication {
         )
 
         return results.rows[0];
+    }
+
+    static async refillMedication({ refillAmount, medicationId }) {
+        if(!refillAmount) {
+            throw new BadRequestError("No refill amount provided");
+        }
+
+        console.log("refill", refillAmount)
+
+        const results = await db.query(
+            `
+                UPDATE medications
+                SET     current_pill_count = current_pill_count + $1
+                WHERE id = $2
+                RETURNING   id,
+                            name,
+                            rxcui,
+                            strength,
+                            units,
+                            frequency,
+                            current_pill_count,
+                            total_pill_count,
+                            user_id
+            `, [refillAmount, medicationId]
+        )
+        
+        return results.rows[0];    
     }
 
 }

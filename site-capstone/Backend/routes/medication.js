@@ -51,6 +51,7 @@ router.put("/:medicationId", security.requireAuthenticatedUser, permissions.auth
     }
 })
 
+// Delete a medication entry by id
 router.delete("/:medicationId", security.requireAuthenticatedUser, permissions.authedUserOwnsMedication, async (req, res, next) => {
     try {
         const {medicationId} = req.params;
@@ -58,6 +59,17 @@ router.delete("/:medicationId", security.requireAuthenticatedUser, permissions.a
         return res.status(200).json({ code: 200, message: "Medication deleted", deletedMedication});
     } catch (err) {
         next(err);
+    }
+})
+
+// Refill medication by id
+router.put("/refill/:medicationId", security.requireAuthenticatedUser, permissions.authedUserOwnsMedication, async (req, res, next) => {
+    try {
+        const {medicationId} = req.params;
+        const medication = await Medication.refillMedication({ refillAmount: req.body.refillAmount, medicationId });
+        return res.status(200).json({ medication });
+    } catch (err) {
+        next(err)
     }
 })
 
