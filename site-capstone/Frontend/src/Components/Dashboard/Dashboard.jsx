@@ -135,7 +135,7 @@ export default function Dashboard({ user, setUser }) {
                     hr = hr - 12
                     min = min + " PM"
             }
-            else if (hr === 12) {
+            else if (hr === "12") {
                 min = min + " PM"
             }
             else {
@@ -191,7 +191,7 @@ export default function Dashboard({ user, setUser }) {
                         hr = hr - 12
                         min = min + " PM"
                 }
-                else if (hr === 12) {
+                else if (hr === "12") {
                     min = min + " PM"
                 }
                 else {
@@ -224,6 +224,7 @@ export default function Dashboard({ user, setUser }) {
     filteredNotifications.sort(function (x, y) {
         return x.timestamp - y.timestamp
     })
+
 
     // Filter remaining notifications for today
     let remainingNotifications = filteredNotifications.filter(reminder => (new Date(parseInt(reminder.timestamp)).getDate() === current.getDate()))  

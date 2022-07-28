@@ -85,6 +85,33 @@ class Notification {
         return results.rows;
     }
 
+    static async fetchNotificationById({user, notificationId}) {
+        if (!user) {
+            throw new BadRequestError("No user provided");
+        }
+
+        const results = await db.query(
+            `
+                SELECT  n.id,
+                        n.notification_time,
+                        n.dosage,
+                        n.med_id,
+                        u.email as "user_email"
+                FROM notifications AS n
+                    JOIN users AS u ON u.id = n.user_id
+                WHERE n.id=$1
+            `, [notificationId]
+        )
+
+        const notification = results.rows[0];
+
+        if (!notification) {
+            throw new NotFoundError()
+        }
+
+        return notification;
+    }
+
 }
 
 module.exports = Notification;

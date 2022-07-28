@@ -32,4 +32,14 @@ router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
     }
 })
 
+// Get notification based on notification id
+router.get("/:notificationId", security.requireAuthenticatedUser, permissions.authedUserOwnsNotification, async (req, res, next) => {
+    try {
+        const notificationEntry = res.locals.notification;
+        return res.status(200).json({notification: notificationEntry});
+    }catch(err) {
+        next(err);
+    }
+})
+
 module.exports = router;

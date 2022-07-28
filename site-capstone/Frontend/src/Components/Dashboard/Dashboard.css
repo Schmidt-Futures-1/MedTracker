@@ -106,7 +106,7 @@ table.table-bordered{
         z-index: 100;
         position: relative;
         width: 42vw;
-        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
+        box-shadow: 6px 7px 10px 3px #6c757d38;
 
     }
 
@@ -141,7 +141,7 @@ table {
     border-collapse: collapse;
     border-radius: 5px;
     border-style: hidden; /* hide standard table (collapsed) border */
-    box-shadow: 7px 8px 15px 5px rgb(103 101 101 / 82%);
+    box-shadow: 6px 7px 10px 3px #6c757d38;
 }
 
 .table-style {
@@ -174,7 +174,7 @@ table {
     color: white;
     padding: 10px 20px;
     background-color: #0489aa;
-    box-shadow: 7px 8px 15px 5px rgb(103 101 101 / 82%);
+    box-shadow: 6px 7px 10px 3px #6c757d38;
 
 }
 

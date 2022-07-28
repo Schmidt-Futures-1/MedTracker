@@ -75,9 +75,13 @@ class Medication {
                         m.frequency,
                         m.current_pill_count,
                         m.total_pill_count,
+                        n.id AS "notification_id",
+                        n.notification_time,
+                        n.dosage,
                         u.email as "user_email"
                 FROM medications AS m
                     JOIN users AS u ON u.id = m.user_id
+                    LEFT JOIN notifications AS n ON m.id = n.med_id
                 WHERE m.id=$1
             `, [medicationId]
         )
