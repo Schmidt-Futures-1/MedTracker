@@ -16,28 +16,29 @@ export default function MedicinePage({ user, setUser })
     // Functions ----------------------------------------------------------------------------------
 
     useEffect(() => {
+        // Fetch the user's medications using apiClient
         const fetchMedications = async () => {
             const { data, error} = await apiClient.fetchUserMedications();
+
             if (data) {
                 setMedications(data.medications);
                 setError(null);
             } 
+
             if (error) {
                 setError(error);
             }
 
-            
+            setIsLoading(false);
+        }
 
-            setIsLoading(false);
-        }
         
-        if (user?.email) {
-            setIsLoading(true);
-            setError(null);
-            fetchMedications();
-        } else {
-            setIsLoading(false);
-        }
+        // Call the fetch medications function
+        setIsLoading(true);
+        setError(null);
+        fetchMedications();
+
+        
       }, [user]);
 
 
@@ -55,21 +56,19 @@ export default function MedicinePage({ user, setUser })
                 {/* <!-- Submit button --> */}
                 <Link to="/create">
                     <button type="submit" className="btn btn-dark btn-block mb-4">Add Medication</button>
-                    </Link>
+                </Link>
             </div>
 
             {/* Medicine cards */}
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 ">
             {isLoading? <h1>Loading...</h1> :
                 medications?.map((item, idx) => {
-                    return(<>
+                    return(
                     <MedicineCard key={idx} medication={item}/>
-                    </>
                     )
                 })
                 }
             </div>        
-            
             
 
         </div>

@@ -23,6 +23,10 @@
     border-radius: 0;
 }
 
+.modal-content{
+  background-color: #def9ff;
+}
+
 .zoom {
     transition: transform .2s; /* Animation */
   }

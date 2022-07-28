@@ -21,9 +21,13 @@ export default function MedicationDetails() {
     const [foundId, setFoundId] = useState(false);
     const [mayTreat, setMayTreat] = useState([])
     const [drugbankLink, setDrugBankLink] = useState("")
+
+    const [refillAmount, setRefillAmount] = useState(0);
+    const [error, setError] = useState({})
     
     // Fetch medication info from medications database 
-    useEffect(() => {
+    // Update when refillAmount is changed (meaning current pill count will be updated when user refills medications)
+    useEffect( () => {
         async function fetchById() {
             setIsLoading(true);
 
@@ -44,7 +48,7 @@ export default function MedicationDetails() {
         
         fetchById();
 
-    }, [])
+    }, [refillAmount])
 
     // Fetch info on what medication is used to treat 
     useEffect(() => {
@@ -99,6 +103,25 @@ export default function MedicationDetails() {
 
             let nextMonthTemp = parsedCron.next().getMonth().toString()
             parsedCron.reset()
+
+    // Handles when user is typing into input in refill modal
+    const handleOnInputChange = (event) => {
+        setRefillAmount(event.target.value);
+    }
+
+    // Called when refill modal button is clicked
+    const handleOnSubmit = async () => {
+
+        const { data, error } = await apiClient.refillMedication(refillAmount, medication.id)
+
+        if (data) {
+            setRefillAmount(0);
+        }
+        if (error) {
+            setError((e) => ({ ...e, form:error }));
+        }
+
+    } 
 
             let nextDate = parsedCron.next().getDate().toString()
             parsedCron.reset()
@@ -223,89 +246,119 @@ export default function MedicationDetails() {
     }
     
     return (
-        <div className="med-details-page">
-        {/* Error checks for page, if user attempts to access another user's med details page or if they try to access med details that don't exist */}
-        {isLoading? <LoadingPage /> :
-        (errors?.errorStatus === 403)? <AccessForbidden message={errors.error}/> :
-        (errors?.errorStatus === 404)? <NotFound /> :
-                        <>
-                            
-                            
-                            <div className="container px-4 px-lg-5 h-100">
-                                
-                                
-            <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5 exam-details">
-
-                                    {/* Title row */}
-                                    <Link className="back-link" to="/cabinet">
-                                            <button className="back-link "> &#8249; Back to Medicine Cabinet</button>
-                                    </Link>
-
-                                    <Link className=" btn-dark btn btn-block edit-button" to={`/cabinet/edit/${medicationId}`}>
-                                           Edit
-                                    </Link>
-                                    <div className="row">
-
-                                        <h2 className="fw-bold mb-5 row capitalize">{medication.name}</h2>
-                                    </div>
-                                    
+        <>
+        
+            {/* Vertically Centered modal called when refill button is clicked*/}
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 
-                    {/* Strength */}
-                    <div className="row mb-4 ">
-                    <p className="h4">Strength: {medication.strength} {medication.units}</p> 
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="staticBackdropLabel">Refill Medication</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        {/* entered amount gets added to amount left  */}
+                        <form>
+                            <div className="form-outline">
+                                <label className="form-label">Enter Refill Amount</label>
+                                <input min={0} name="refillAmount" type="number" className="form-control" placeholder="Enter Refill Amount" value={refillAmount} onChange={handleOnInputChange} />
+                            </div>
+                        </form>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-dark" data-bs-dismiss="modal" onClick={handleOnSubmit}>Refill</button>
                     </div>
 
-                                    {/* Frequency is AS NEEDED */}
-                                    {medication.frequency === "As Needed" &&
-                                        <div className="row mb-4">
-                                            <p className="h4">Frequency: {medication.frequency}</p>
-                                        </div>
-                                    }
+                    </div>
+                </div>
+                </div>
+        
+            {/* Med Details Page */}
+            <div className="med-details-page">
+            {/* Error checks for page, if user attempts to access another user's med details page or if they try to access med details that don't exist */}
+            {isLoading? <LoadingPage /> :
+            (errors?.errorStatus === 403)? <AccessForbidden message={errors.error}/> :
+            (errors?.errorStatus === 404)? <NotFound /> :
+            <>             
+                <div className="container px-4 px-lg-5 h-100">
+                    
+                    <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5 exam-details">
 
-                                    {/* Frequency is SCHEDULED */}
-                                    {medication.frequency === "Everyday" && nextAlert &&
-                                        <div>
-                                            <div className="row mb-4">
-                                                <p className="h4">Frequency: {Cronstrue.toString(readableCronTime, { verbose: true })}</p>
-                                            </div>
-                                            <div className="row mb-4">
-                                                <p className="h4">Next Alert: {nextAlert }</p>
-                                            </div>
-                                            <div className="row mb-4">
-                                                <p className="h4">Last Alert: {prevAlert }</p>
-                                            </div>
-                                        </div>
-                                        
-                                    }
-                                    
+                        {/* Title row */}
+                        <Link className="back-link" to="/cabinet">
+                                <button className="back-link "> &#8249; Back to Medicine Cabinet</button>
+                        </Link>
 
-                    {/* Used to treat */}
-                    <div className="row mb-4">
-                        <p className="h4 ">Used to treat:</p> 
 
-                        <div className="together ">
-                            {filteredMayTreat.map((item, idx) => (
-                                <span className="pill" key={idx}>{item} </span>
-                            ))}
+                        {/* Edit and Refill buttons */}
+                        <Link className=" btn-dark btn btn-block edit-button" to={`/cabinet/edit/${medicationId}`}>
+                                Edit
+                        </Link>
+
+                        <button type="button" className="btn btn-dark btn-space refillBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Refill</button>
+
+
+                        {/* Medication Name */}           
+                        <div className="row">
+                            <h2 className="fw-bold mb-5 row capitalize">{medication.name}</h2>
+                        </div>           
+                    
+                        {/* Strength */}
+                        <div className="row mb-4 ">                     
+                        <p className="h4">Strength: {medication.strength} {medication.units}</p> 
                         </div>
-                                    </div>
-                                    
+                        
+                        {/* Frequency is AS NEEDED */}
+                        {medication.frequency === "As Needed" &&
+                            <div className="row mb-4">
+                                <p className="h4">Frequency: {medication.frequency}</p>
+                            </div>
+                        }
 
-                    {/* DrugBank Link */}
-                    <div className="row mb-4 mt-5 text-center">
-                        <p className="h4 ">Find more information on {medication.name} <a href={drugbankLink} target="_blank">here</a></p> 
+                        {/* Frequency is SCHEDULED */}
+                        {medication.frequency === "Everyday" && nextAlert &&
+                            <div>
+                                <div className="row mb-4">
+                                    <p className="h4">Frequency: {Cronstrue.toString(readableCronTime, { verbose: true })}</p>
+                                </div>
+                                <div className="row mb-4">
+                                    <p className="h4">Next Alert: {nextAlert }</p>
+                                </div>
+                                <div className="row mb-4">
+                                    <p className="h4">Last Alert: {prevAlert }</p>
+                                </div>
+                            </div>
+                                        
+                        }
+
+                        {/* Count */}
+                        <div className="row mb-4">
+                        <p className="h4">Pills Left: {medication.current_pill_count}/{medication.total_pill_count}</p> 
+                        </div>
+
+                        {/* Used to treat */}
+                        <div className="row mb-4">
+                            <p className="h4 ">Used to treat:</p> 
+
+                            <div className="together ">
+                                {filteredMayTreat.map((item, idx) => (
+                                    <span className="pill" key={idx}>{item} </span>
+                                ))}
+                            </div>
+                        </div>
+                                        
+
+                        {/* DrugBank Link */}
+                        <div className="row mb-4 mt-5 text-center">
+                            <p className="h4 ">Find more information on {medication.name} <a href={drugbankLink} target="_blank">here</a></p> 
+                        </div>
                     </div>
-                
-
-            </div>
-        </div>        
-        
-        </>        
-        }
-        </div>
-        
-
-
-
+                </div>        
+            </>        
+            }
+            </div>        
+        </>
     )
 }
