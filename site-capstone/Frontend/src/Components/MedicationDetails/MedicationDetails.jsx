@@ -92,8 +92,6 @@ export default function MedicationDetails (){
     // Handles when user is typing into input in refill modal
     const handleOnInputChange = (event) => {
         setRefillAmount(event.target.value);
-        // console.log("medication id in input change", medication.id)
-        // console.log("event", event)
     }
 
     // Called when refill modal button is clicked

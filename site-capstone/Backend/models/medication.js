@@ -147,8 +147,6 @@ class Medication {
             throw new BadRequestError("No refill amount provided");
         }
 
-        console.log("refill", refillAmount)
-
         const results = await db.query(
             `
                 UPDATE medications
