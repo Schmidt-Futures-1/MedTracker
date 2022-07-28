@@ -124,14 +124,14 @@ export default function CreateMedication({user, setUser, addMedications, medicat
             setErrors((e) => ({ ...e, form: null }));
         }
 
-        if (cronTime === '* * * * *' && form.frequency === "Everyday") {
+        if (cronTime === '* * * * *' && form.frequency === "Scheduled") {
             setErrors((e) => ({ ...e, form: "Invalid Time" }));
             return;
         } else {      
             setErrors((e) => ({ ...e, form: null }));
         }
 
-        if (dosage === "" && form.frequency === "Everyday") {
+        if (dosage === "" && form.frequency === "Scheduled") {
             setErrors((e) => ({ ...e, form: "Invalid Dosage" }));
             return;
         } else {      
@@ -235,13 +235,13 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                             <label className="mb-2" >Frequency</label>
                                 <select name="frequency" id="inputState" className="form-control" value={form.frequency}  onChange={handleOnInputChange}>
                                     <option defaultValue>As Needed</option>
-                                    <option>Everyday</option>
+                                    <option>Scheduled</option>
                                 </select>
                         </div>
                     </div>
                     
                     {/* OPTIONAL ROW 5 - Timing */}
-                    {form.frequency === "Everyday" ?
+                    {form.frequency === "Scheduled" ?
                         <div className=" text-center row mb-3 ">
                             <label className="form-label">Notification Time</label>
                             <div className=" mb-3">

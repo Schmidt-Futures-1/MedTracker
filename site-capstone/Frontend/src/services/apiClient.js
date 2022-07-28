@@ -72,6 +72,10 @@ class ApiClient {
         return await this.request({ endpoint: `notification`, method: `GET` })
     }
 
+    async deleteNotification(notificationId) {
+        return await this.request({ endpoint: `notification/${notificationId}`, method: `DELETE`})
+    }    
+
     async updateMedicationDetails(updatedMedication, medicationId) {
         return await this.request({ endpoint: `medication/${medicationId}`, method: `PUT`, data: updatedMedication})
     }
