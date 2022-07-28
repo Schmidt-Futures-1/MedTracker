@@ -26,12 +26,10 @@
 
     .sign-up-button {
         width: 150px;
-        box-shadow: 6px 7px 10px 3px rgba(103, 101, 101, 0.532);
     }
 
     .login-button{
         width: 150px;
-        box-shadow: 6px 7px 10px 3px rgba(103, 101, 101, 0.532);
     }
 }
 
@@ -45,17 +43,12 @@
     .sign-up-button {
         width: 150px;
         margin-right: 30px;
-        box-shadow: 6px 7px 10px 3px rgba(103, 101, 101, 0.532);
 
 
     }
 
     .login-button{
         width: 150px;
-        box-shadow: 6px 7px 10px 3px rgba(103, 101, 101, 0.532);
-
-        
-
     }
 
     .headingRow{
