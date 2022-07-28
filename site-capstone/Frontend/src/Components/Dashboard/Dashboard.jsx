@@ -135,7 +135,7 @@ export default function Dashboard({ user, setUser }) {
                     hr = hr - 12
                     min = min + " PM"
             }
-            else if (hr === 12) {
+            else if (hr === "12") {
                 min = min + " PM"
             }
             else {
@@ -185,13 +185,14 @@ export default function Dashboard({ user, setUser }) {
                 // Get the correct hour and minutes for this element
                 let hr = cronSplitOnHyphen[j]
                 let min = splitCron[0]
+                console.log(hr)
                 
                 // Format the minute and hour time string for output
                 if (hr > 12) {
                         hr = hr - 12
                         min = min + " PM"
                 }
-                else if (hr === 12) {
+                else if (hr === "12") {
                     min = min + " PM"
                 }
                 else {
@@ -225,8 +226,11 @@ export default function Dashboard({ user, setUser }) {
         return x.timestamp - y.timestamp
     })
 
+
     // Filter remaining notifications for today
     let remainingNotifications = filteredNotifications.filter(reminder => (new Date(parseInt(reminder.timestamp)).getDate() === current.getDate()))  
+
+    console.log(remainingNotifications)
 
     return (
         <div className="container">
