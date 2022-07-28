@@ -79,6 +79,10 @@ class ApiClient {
     async deleteMedication(medicationId) {
         return await this.request({ endpoint: `medication/${medicationId}`, method: `DELETE`})
     }
+
+    async refillMedication(refillAmount, medicationId) {
+        return await this.request({ endpoint: `medication/refill/${medicationId}`, method: `PUT`, data: {refillAmount}})
+    }
 }
 
 export default new ApiClient(API_BASE_URL);
