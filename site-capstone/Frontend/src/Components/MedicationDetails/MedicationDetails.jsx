@@ -31,7 +31,6 @@ export default function MedicationDetails() {
 
             if (error) {
                 setErrors((e) => ({ error, errorStatus }));
-                console.log("error", error, errorStatus)
             }
         
             if (data?.medication) {
@@ -46,7 +45,6 @@ export default function MedicationDetails() {
         fetchById();
 
     }, [])
-    console.log(medication)
 
     // Fetch info on what medication is used to treat 
     useEffect(() => {
@@ -92,7 +90,6 @@ export default function MedicationDetails() {
     // Parse the cron time from notifications table
     if (readableCronTime) { 
         var parsedCron = parser.parseExpression(medication?.notification_time)
-        console.log("hour " + parsedCron)
 
         if (parsedCron ) {
 
