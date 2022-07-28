@@ -22,6 +22,10 @@
     background-color: #def9ff;
 }
 
+.modal-content{
+  background-color: #def9ff;
+}
+
 .zoom {
     transition: transform .2s; /* Animation */
   }
