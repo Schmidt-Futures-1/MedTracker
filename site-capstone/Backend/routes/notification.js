@@ -42,4 +42,14 @@ router.get("/:notificationId", security.requireAuthenticatedUser, permissions.au
     }
 })
 
+router.delete("/:notificationId", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        const {notificationId} = req.params;
+        const deletedNotification = await Notification.deleteNotification({ notificationId });
+        return res.status(200).json({ code: 200, message: "Notification deleted", deletedNotification});
+    } catch (err) {
+        next(err);
+    }
+})
+
 module.exports = router;

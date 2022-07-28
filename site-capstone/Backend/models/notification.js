@@ -49,15 +49,22 @@ class Notification {
             `, [notification.notification_time, notification.dosage, medication.id, medication.user_id]
         )
 
+        // Get the newly added notification
+        const createdNotification = results.rows[0];
+        
+        // Create a unique name using the unique notification id
+        const uniqueNotificationName = `notification_${createdNotification.id}`;
+
         // Create a new node-schedule job, takes in the time the job is supposed to occur (in cron format)
         // and the function it should call
         // Cron time (minute hour day-of-month month day-of-week)
-        const job = schedule.scheduleJob(notification.notification_time, function(){
+        // Need to assign it a unique name to be able to reference the job later
+        const job = schedule.scheduleJob(uniqueNotificationName, notification.notification_time, function(){
             const message = `Hello ${user.firstName}! It is time to take ${notification.dosage} pill(s) of ${medication.name}`
             sendText(message, user.phone);
         });
         
-        return results.rows[0];  
+        return createdNotification;   
     }
 
     // Return array of user owned notifications
@@ -110,6 +117,29 @@ class Notification {
         }
 
         return notification;
+    }
+
+    static async deleteNotification({notificationId}) {
+        // Get the unique name of the job assigned to this notification
+        const uniqueNotificationName = `notification_${notificationId}`;
+
+        // Reference the job with that unique name
+        const job = schedule.scheduledJobs[uniqueNotificationName];
+
+        // Cancel that job
+        job.cancel();
+
+        // Delete the notification entry from the database
+        const results = await db.query(
+            `
+                DELETE FROM notifications
+                WHERE id = $1
+                RETURNING *
+            `, [notificationId]
+        )
+
+        // Return the deleted notification
+        return results.rows[0];
     }
 
 }

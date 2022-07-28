@@ -139,3 +139,10 @@ a{
   }
 }
 
+.refill-btn{
+  justify-content: center;
+}
+
+.delete-btn{
+  border-radius: 0;
+}

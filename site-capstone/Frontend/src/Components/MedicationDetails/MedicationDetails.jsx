@@ -9,10 +9,8 @@ import NotFound from "../Error Pages/NotFound";
 import Cronstrue from "cronstrue"
 import parser from "cron-parser"
 
-
-
 export default function MedicationDetails() {
-    // State Variables
+    //---------------------------------- State Variables
     const { medicationId } = useParams();
     const [medication, setMedication] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -21,10 +19,12 @@ export default function MedicationDetails() {
     const [foundId, setFoundId] = useState(false);
     const [mayTreat, setMayTreat] = useState([])
     const [drugbankLink, setDrugBankLink] = useState("")
+    const [notificationId, setNotificationId] = useState(0);
 
     const [refillAmount, setRefillAmount] = useState(0);
     const [error, setError] = useState({})
 
+    //---------------------------------- Refill Functions
     // Handles when user is typing into input in refill modal
     const handleOnInputChange = (event) => {
         setRefillAmount(event.target.value);
@@ -41,9 +41,9 @@ export default function MedicationDetails() {
         if (error) {
             setError((e) => ({ ...e, form:error }));
         }
-
     } 
     
+    //----------------------------------Fetch Medication Details
     // Fetch medication info from medications database 
     // Update when refillAmount is changed (meaning current pill count will be updated when user refills medications)
     useEffect( () => {
@@ -58,6 +58,7 @@ export default function MedicationDetails() {
         
             if (data?.medication) {
                 setMedication(data.medication);
+                setNotificationId(data?.medication?.notification_id)
                 setFoundId(true);
                 setErrors(null);
             }
@@ -69,6 +70,7 @@ export default function MedicationDetails() {
 
     }, [refillAmount])
 
+    //---------------------------------- Fetch Info from NLM Api
     // Fetch info on what medication is used to treat 
     useEffect(() => {
         axios.get("https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui=" + medication.rxcui + "&relaSource=MEDRT&relas=may_treat")
@@ -104,6 +106,7 @@ export default function MedicationDetails() {
 
     }
 
+    //---------------------------------- Formatting Cron Time
     // Store the cron time for this medicine
     let readableCronTime = medication?.notification_time
     let nextAlert = ""
@@ -244,6 +247,21 @@ export default function MedicationDetails() {
         }
         
     }
+
+    //---------------------------------- Delete Notification function
+    async function deleteNotification(notificationId) {
+        const {data, error} = await apiClient.deleteNotification(notificationId);
+    
+        if (data?.code === 200) {
+            console.log(data.message)
+        }
+    
+        if (error) {
+            console.log("delete notification error: ", error)
+        }
+        // Refresh's page on submit to remove deleted card
+        window.location.reload(false);
+    }
     
     return (
         <>
@@ -255,7 +273,7 @@ export default function MedicationDetails() {
                     <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="staticBackdropLabel">Refill Medication</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" className="btn-close btn-dark" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
                         {/* entered amount gets added to amount left  */}
@@ -297,17 +315,25 @@ export default function MedicationDetails() {
                                 Edit
                         </Link>
 
-                        <button type="button" className="btn btn-dark btn-space refillBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Refill</button>
 
 
                         {/* Medication Name */}           
                         <div className="row">
-                            <h2 className="fw-bold mb-5 row capitalize">{medication.name}</h2>
-                        </div>           
+                            <h2 className="fw-bold mb-3 row capitalize">{medication.name}</h2>
+                        </div>  
+                                        <div className="text-center">
+                            <button type="button" className="btn btn-dark btn-space  mb-5 refill-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Refill</button>
+                            
+                            </div>
                     
                         {/* Strength */}
                         <div className="row mb-4 ">                     
-                        <p className="h4">Strength: {medication.strength} {medication.units}</p> 
+                            <p className="h4">Strength: {medication.strength} {medication.units}</p> 
+                        </div>
+                                        
+                        {/* Count */}
+                        <div className="row mb-4">
+                            <p className="h4">Pills Left: {medication.current_pill_count}/{medication.total_pill_count}</p> 
                         </div>
                         
                         {/* Frequency is AS NEEDED */}
@@ -318,7 +344,7 @@ export default function MedicationDetails() {
                         }
 
                         {/* Frequency is SCHEDULED */}
-                        {medication.frequency === "Everyday" && nextAlert &&
+                        {medication.frequency === "Scheduled" && nextAlert &&
                             <div>
                                 <div className="row mb-4">
                                     <p className="h4">Frequency: {Cronstrue.toString(readableCronTime, { verbose: true })}</p>
@@ -333,27 +359,32 @@ export default function MedicationDetails() {
                                         
                         }
 
-                        {/* Count */}
-                        <div className="row mb-4">
-                        <p className="h4">Pills Left: {medication.current_pill_count}/{medication.total_pill_count}</p> 
-                        </div>
+                       
 
                         {/* Used to treat */}
-                        <div className="row mb-4">
-                            <p className="h4 ">Used to treat:</p> 
+                        {mayTreat.length > 0 &&
+                            <div className="row mb-4">
+                                <p className="h4 ">Used to treat:</p>
 
-                            <div className="together ">
-                                {filteredMayTreat.map((item, idx) => (
-                                    <span className="pill" key={idx}>{item} </span>
-                                ))}
+                                <div className="together ">
+                                    {filteredMayTreat.map((item, idx) => (
+                                        <span className="pill" key={idx}>{item} </span>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        }
                                         
 
                         {/* DrugBank Link */}
                         <div className="row mb-4 mt-5 text-center">
-                            <p className="h4 ">Find more information on {medication.name} <a href={drugbankLink} target="_blank">here</a></p> 
-                        </div>
+                            <p className="h4 ">Find more information on <span className="capitalize">{medication.name}</span> <a href={drugbankLink} target="_blank">here</a></p> 
+                                        </div>
+                                        {/* Delete notification button */}
+                                        {medication.notification_time !== null &&
+                                            <div className="text-center">
+                                                <button type="button" className="btn btn-danger btn-space mb-5 delete-btn" onClick={() => deleteNotification(notificationId)} >Delete Notification</button>
+                                            </div>
+                                        }
                     </div>
                 </div>        
             </>        

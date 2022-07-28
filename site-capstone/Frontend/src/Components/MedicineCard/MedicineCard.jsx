@@ -22,7 +22,7 @@ export default function MedicineCard({medication}){
 
                     {/* Clicking on any of these links will send user to medicine details page */}
                     <Link className="links" to={`/cabinet/${medication.id}`}>
-                        <h5 className="card-title capitalize-me">{medication.name}</h5>
+                        <h5 className="card-title capitalize">{medication.name}</h5>
                         <hr className="padding-hr"></hr>
                         <p className="card-text">Strength: {medication.strength} { medication.units}</p>
                         <p className="card-text mb-2">Pills Left: {medication.current_pill_count} / {medication.total_pill_count }</p>
