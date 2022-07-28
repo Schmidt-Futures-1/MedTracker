@@ -24,6 +24,25 @@ export default function MedicationDetails() {
 
     const [refillAmount, setRefillAmount] = useState(0);
     const [error, setError] = useState({})
+
+    // Handles when user is typing into input in refill modal
+    const handleOnInputChange = (event) => {
+        setRefillAmount(event.target.value);
+    }
+
+    // Called when refill modal button is clicked
+    const handleOnSubmit = async () => {
+
+        const { data, error } = await apiClient.refillMedication(refillAmount, medication.id)
+
+        if (data) {
+            setRefillAmount(0);
+        }
+        if (error) {
+            setError((e) => ({ ...e, form:error }));
+        }
+
+    } 
     
     // Fetch medication info from medications database 
     // Update when refillAmount is changed (meaning current pill count will be updated when user refills medications)
@@ -103,25 +122,6 @@ export default function MedicationDetails() {
 
             let nextMonthTemp = parsedCron.next().getMonth().toString()
             parsedCron.reset()
-
-    // Handles when user is typing into input in refill modal
-    const handleOnInputChange = (event) => {
-        setRefillAmount(event.target.value);
-    }
-
-    // Called when refill modal button is clicked
-    const handleOnSubmit = async () => {
-
-        const { data, error } = await apiClient.refillMedication(refillAmount, medication.id)
-
-        if (data) {
-            setRefillAmount(0);
-        }
-        if (error) {
-            setError((e) => ({ ...e, form:error }));
-        }
-
-    } 
 
             let nextDate = parsedCron.next().getDate().toString()
             parsedCron.reset()
