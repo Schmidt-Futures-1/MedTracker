@@ -16,7 +16,7 @@
 }
 
 .card-color {
-    box-shadow: 6px 7px 10px 3px rgb(103 101 101 / 82%);
+    box-shadow: 6px 7px 10px 3px #6c757d38;
     background-color: #def9ff;
 }
 
@@ -51,6 +51,11 @@
     margin-right: 10%;
     box-shadow: 6px 7px 10px 3px rgb(103 101 101 / 82%);
     background-color: #def9ff;
+    border-radius: 0;
 
 
+}
+
+.btn-dark{
+    border-radius: 0;
 }

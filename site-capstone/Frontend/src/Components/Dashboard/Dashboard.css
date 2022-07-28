@@ -141,7 +141,7 @@ table {
     border-collapse: collapse;
     border-radius: 5px;
     border-style: hidden; /* hide standard table (collapsed) border */
-    box-shadow: 7px 8px 15px 5px rgb(103 101 101 / 82%);
+    box-shadow: 6px 7px 10px 3px #6c757d38;
 }
 
 .table-style {
