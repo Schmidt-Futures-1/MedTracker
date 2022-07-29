@@ -33,7 +33,7 @@ export default function NavBar({user, setUser}){
             </li>
             <li className="nav-item">
               {user?.email?(
-                <Link className="nav-link" to="/create">Create Medicine</Link>
+                <Link className="nav-link" to="/create">Add Medication</Link>
               ):(
                 ""
               )}
