@@ -233,7 +233,7 @@ export default function Dashboard({ user, setUser }) {
         <div className="container">
             <div className="row">
                 {/* welcome tag for the user name */}
-                <h1 className="fw-bold mb-5">{greet}, {user.firstName}</h1>
+                <h1 className="fw-bold mb-6 text-center greeting">{greet}, {user.firstName}</h1>
                 
 
                 {/* Today's Remaining Medicine table */}

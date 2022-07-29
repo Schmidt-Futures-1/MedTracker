@@ -86,7 +86,7 @@ table.table-bordered{
         margin-left: 20%;
         margin-right: 20%;
             
-        
+    
     }
 
     .names-left{
@@ -178,3 +178,6 @@ table {
 
 }
 
+.greeting{
+    padding-bottom: 15px;
+}
