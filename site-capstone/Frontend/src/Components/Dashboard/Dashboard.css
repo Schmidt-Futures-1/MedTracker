@@ -24,7 +24,7 @@ table.table-bordered{
         margin-bottom: 50px;
     }
     .currently-low{
-        padding-bottom: 100px;
+        padding-bottom: 40px;
     }
     
 }
@@ -80,7 +80,7 @@ table.table-bordered{
 }
 
 /* Screen for screen larger than tablet */
-@media only screen and (max-width: 1800px) and (min-width: 768px){
+/* @media only screen and (max-width: 1800px) and (min-width: 768px){
     .exam{
     
         margin-left: 20%;
@@ -135,7 +135,7 @@ table.table-bordered{
     .empty{
         width: 66%;
     }
-}
+} */
 
 table {
     border-collapse: collapse;
@@ -169,7 +169,7 @@ table {
   }
 
   .empty h2 {
-    font-size: 32px;
+    font-size: 26px;
     color: #fff;
     color: white;
     padding: 10px 20px;

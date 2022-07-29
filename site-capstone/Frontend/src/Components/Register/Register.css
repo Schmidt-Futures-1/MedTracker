@@ -20,7 +20,7 @@
         border-style: solid;
         border-color: transparent;
         border-radius: 15px;
-        background-color: #c9eaf2a8;
+        background-color: #c9eaf2e3;
         padding-top: 3%;
         padding-bottom: 3%;
         z-index: 100;
@@ -52,7 +52,7 @@
 }
 
 /* Screen for screen larger than tablet */
-@media only screen and (max-width: 1800px) and (min-width: 768px){
+@media only screen  and (min-width: 768px){
     .exam{
     
         margin-left: 20%;

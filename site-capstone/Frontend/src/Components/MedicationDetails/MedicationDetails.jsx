@@ -302,7 +302,7 @@ export default function MedicationDetails() {
             <>             
                 <div className="container px-4 px-lg-5 h-100">
                     
-                    <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5 exam-details">
+                    <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5 exam-details ">
 
                         {/* Title row */}
                         <Link className="back-link" to="/cabinet">
@@ -376,15 +376,18 @@ export default function MedicationDetails() {
                                         
 
                         {/* DrugBank Link */}
+                        {drugbankLink !== "" &&
                         <div className="row mb-4 mt-5 text-center">
                             <p className="h4 ">Find more information on <span className="capitalize">{medication.name}</span> <a href={drugbankLink} target="_blank">here</a></p> 
-                                        </div>
-                                        {/* Delete notification button */}
-                                        {medication.notification_time !== null &&
-                                            <div className="text-center">
-                                                <button type="button" className="btn btn-danger btn-space mb-5 delete-btn" onClick={() => deleteNotification(notificationId)} >Delete Notification</button>
-                                            </div>
-                                        }
+                        </div>
+                        }
+                                        
+                        {/* Delete notification button */}
+                        {medication.notification_time !== null &&
+                            <div className="text-center">
+                                <button type="button" className="btn btn-danger btn-space mb-5 delete-btn" onClick={() => deleteNotification(notificationId)} >Delete Notification</button>
+                            </div>
+                        }
                     </div>
                 </div>        
             </>        
