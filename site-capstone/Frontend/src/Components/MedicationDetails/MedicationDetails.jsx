@@ -262,8 +262,6 @@ export default function MedicationDetails() {
         // Refresh's page on submit to remove deleted card
         window.location.reload(false);
     }
-
-    console.log(drugbankLink)
     
     return (
         <>
