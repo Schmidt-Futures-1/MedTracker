@@ -107,7 +107,6 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         }
         if (error) {
             setErrors((e) => ({ ...e, form:error }));
-            console.log("error", error)
         }
         setIsLoading(false)
     }
