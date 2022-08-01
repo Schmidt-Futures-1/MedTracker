@@ -68,7 +68,7 @@ export default function MedicationDetails() {
         
         fetchById();
 
-    }, [refillAmount])
+    }, [refillAmount, notificationId])
 
     //---------------------------------- Fetch Info from NLM Api
     // Fetch info on what medication is used to treat 
@@ -251,16 +251,6 @@ export default function MedicationDetails() {
     //---------------------------------- Delete Notification function
     async function deleteNotification(notificationId) {
         const {data, error} = await apiClient.deleteNotification(notificationId);
-    
-        if (data?.code === 200) {
-            console.log(data.message)
-        }
-    
-        if (error) {
-            console.log("delete notification error: ", error)
-        }
-        // Refresh's page on submit to remove deleted card
-        window.location.reload(false);
     }
     
     return (
