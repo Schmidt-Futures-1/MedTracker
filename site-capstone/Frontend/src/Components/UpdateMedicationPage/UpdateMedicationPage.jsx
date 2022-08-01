@@ -22,7 +22,13 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         frequency: "As Needed",
         currentPillCount: "",
         maxPillCount: "",
+        dosage: 0,
+        cronTime: ''
     });
+
+    const [dosage, setDosage] = useState("")        // Amount of pills they are taking at a specific time
+    const [cronTime, setCronTime] = useState('');   // Notification time formatted in cronTime
+    const [notificationId, setNotificationId] = useState(0);
 
     const [isLoading, setIsLoading] = useState(false)
     const [errors, setErrors] = useState({});
@@ -59,6 +65,9 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                     currentPillCount: medData.current_pill_count,
                     maxPillCount: medData.total_pill_count,            
                 })
+                setDosage(medData.dosage)
+                setCronTime(medData.notification_time)
+                setNotificationId(medData.notification_id)
             }    
 
             setIsLoading(false);
@@ -74,6 +83,33 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
 
     const handleOnInputChange = (event) => {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
+    }
+
+    const handleOnDosageChange = (event) => {
+        setDosage(event.target.value)
+    }
+
+    const updateNotification = async (medicationData) => {
+        /////////// Api Call for Create Notification ///////////
+        setIsLoading(true)
+
+        // Delete old notification details
+        await apiClient.deleteNotification(notificationId);
+
+        // Create new notification
+        const { data, error } = await apiClient.createNotification({notification:{notification_time:cronTime, dosage}, medication:medicationData})
+
+
+        if (data) {
+            setDosage("")
+            setCronTime('* * * * *')
+            navigate(`/cabinet/${medicationId}`)
+        }
+        if (error) {
+            setErrors((e) => ({ ...e, form:error }));
+            console.log("error", error)
+        }
+        setIsLoading(false)
     }
 
     // Submit button functionality
@@ -106,10 +142,25 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
             setErrors((e) => ({ ...e, form: null }));
         }
 
+        if (cronTime === '* * * * *' && form.frequency === "Scheduled") {
+            setErrors((e) => ({ ...e, form: "Invalid Time" }));
+            return;
+        } else {      
+            setErrors((e) => ({ ...e, form: null }));
+        }
+
+        if (dosage === "" && form.frequency === "Scheduled") {
+            setErrors((e) => ({ ...e, form: "Invalid Dosage" }));
+            return;
+        } else {      
+            setErrors((e) => ({ ...e, form: null }));
+        }
+
 
         /////////// Api Calls ///////////
         //setIsLoading(true);
 
+        // Update medication details
         const { data, error } = await apiClient.updateMedicationDetails({name: form.medicationName, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount}, medicationId)
 
         if (data) {
@@ -119,6 +170,11 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         }
         if (error) {
             setErrors((e) => ({ ...e, form:error }));
+        }
+
+        // If notification information was changed, then update notification
+        if (form.cronTime != cronTime || form.dosage != dosage) {
+            updateNotification(data.medication)
         }
 
         //setIsLoading(false)
@@ -208,6 +264,47 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                                 </div>
                             </div>
                         </div>
+
+                        {/* ROW 4 - Frequency */}
+                        <div className="row mb-3 ">
+                        <div className="col-md-6">
+                                <label className="mb-2" >Frequency</label>
+                                    <select name="frequency" id="inputState" className="form-control" value={form.frequency}  onChange={handleOnInputChange}>
+                                        <option defaultValue>As Needed</option>
+                                        <option>Scheduled</option>
+                                    </select>
+                            </div>
+                        </div>
+                        
+                        {/* OPTIONAL ROW 5 - Timing */}
+                        {form.frequency === "Scheduled" ?
+                            <div className=" text-center row mb-3 ">
+                                <label className="form-label">Notification Time</label>
+                                <div className=" mb-3">
+
+                                    <Cron className="cron-inputs"
+                                        defaultPeriod={'day'} 
+                                        allowedPeriods={[
+                                            'year',
+                                            'month',
+                                            'week',
+                                            'day'
+                                        ]}
+                                        leadingZero={'minutes'}
+                                        clockFormat={'12-hour-clock'}
+                                        value={cronTime}
+                                        setValue={setCronTime}
+                                    />          
+                                    
+                                </div>
+                                <div className=" text-center md-2 col-md-3 ">
+                                        <label className="form-label">Dosage</label>
+                                        <input min={1} name="dosage" type="number" className="form-control" placeholder="Dosage" value={dosage} onChange={handleOnDosageChange} />
+                                        
+                                    </div> 
+                            </div>
+                            : ""
+                        }
 
                         
 
