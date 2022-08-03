@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import "./CreateMedicationPage.css"
-import TimePicker from "react-time-picker"
 import apiClient from "../../services/apiClient"
 import { useNavigate } from "react-router-dom"
 import { Cron } from 'react-js-cron';
+import Cronstrue from "cronstrue"
 import 'react-js-cron/dist/styles.css';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import {medicineNames} from "../../../constants"
@@ -12,8 +12,6 @@ import ReactSelect from "../Autocomplete/ReactSelect";
 // import Select, { createFilter } from "react-select";
 // import { FixedSizeList as List } from "react-window";
 import "./CreateMedicationPage.css"
-
-
 
 export default function CreateMedication({user, setUser, addMedications, medications, addNotifications}) {
 
@@ -30,14 +28,14 @@ export default function CreateMedication({user, setUser, addMedications, medicat
     });
 
     const [dosage, setDosage] = useState("")        // Amount of pills they are taking at a specific time
-    const [cronTime, setCronTime] = useState('');   // Notification time formatted in cronTime
-
-
+    const [cronTime, setCronTime] = useState('0 0 * * *');   // Notification time formatted in cronTime
+    const [convertedCron, setConvertedCron] = useState("")   // Timezone adjusted cron value will be passed to database
     const [isLoading, setIsLoading] = useState(false)
     const [errors, setErrors] = useState({});
 
     const [selectedOption, setSelectedOption] = useState(null); // Selected option from medicine name drop down
 
+    const [timezone, setTimeZone] = useState("UTC")
 
     const navigate = useNavigate()
 
@@ -51,7 +49,89 @@ export default function CreateMedication({user, setUser, addMedications, medicat
         setDosage(event.target.value)
     }
 
+    // Variable needed to adjust the timezone
+    var timeChange = 0
+
+    async function handleOnCronTimeChange ()  {
+
+        // Split the cron string on spaces
+        const splitCron = cronTime.split(' ');
+
+        // Initialize variables required for for-loop
+        let loopLimit = 0
+        let cronSplitOnComma = ""
+
+        // Check if hour portion of cron string has any commas
+        if (splitCron[1].includes(',')) {
+
+            // Get the number of commas in this string
+            // allows us to know how many times to loop
+            loopLimit = ((splitCron[1].match(new RegExp(",", "g")) || []).length)
+                
+            // Split this string on the commas
+            cronSplitOnComma = splitCron[1].split(',')
+        }
+
+        // Create variables to hold temporary & final values for hour
+        let newHour = ""
+        let tempNewHour = 0
+
+        // Convert the hours in cron string based on the timezone
+        for (let i = 0; i < loopLimit + 1; i++){
+
+            if (timezone === "EST") { timeChange = 4 }
+            else if (timezone === "CST") { timeChange = 5 }
+            else if (timezone === "MST") { timeChange = 6 }
+            else if (timezone === "PST") { timeChange = 7 }
+
+            // Execute when we DO NOT have a comma
+            if (loopLimit === 0) {
+
+                // Add timezone difference
+                tempNewHour = parseInt(splitCron[1]) + timeChange
+
+                // Adjust time if tempNewHour goes above 0 or 23
+                if (tempNewHour < 0) { tempNewHour = parseInt(tempNewHour) + 24 }
+                else if (tempNewHour > 23) { tempNewHour = parseInt(tempNewHour) - 24 }
+            }
+
+            // Execute when we DO HAVE a comma
+            else {
+
+                // Add timezone difference
+                tempNewHour = parseInt(cronSplitOnComma[i]) + timeChange
+   
+                // Adjust time if tempNewHour goes above 0 or 23
+                if (tempNewHour < 0) { tempNewHour = parseInt(tempNewHour) + 24 }
+                else if (tempNewHour > 23) { tempNewHour = parseInt(tempNewHour) - 24 }
+            }
+
+            // Add onto the previous new hour string
+            newHour = newHour + tempNewHour  + ","
+        }
+
+        // We need to check if the string contains commas at all
+        if (newHour.includes(",")) {
+
+            // Drop the last comma to fix formatting
+            newHour = newHour.substring(0, newHour.length - 1);
+        }
+
+        // set the finalized cron time as convertedCron
+        setConvertedCron(splitCron[0] + " " + newHour + " " + splitCron[2] + " " + splitCron[3] + " " + splitCron[4])
+
+        return convertedCron
+    }
+
+    // Whenever the timezone is changed, save the changes
+    const handleOnTimezoneChange = (event) => {
+
+        setTimeZone(event.target.value)
+    }
+    
+    // Add medication to the database
     const createMedication = async () => {
+
         /////////// Api Call for Create Medication ///////////
         setIsLoading(true)
 
@@ -72,21 +152,18 @@ export default function CreateMedication({user, setUser, addMedications, medicat
         if (error) {
             setErrors((e) => ({ ...e, form:error }));
         }
-
     
         setIsLoading(false)
 
         return medicationData;
-
     }
-
     
+    // Save notification to the database
     const createNotification = async (medicationData) => {
         /////////// Api Call for Create Notification ///////////
         setIsLoading(true)
 
-        const { data, error } = await apiClient.createNotification({notification:{notification_time:cronTime, dosage}, medication:medicationData})
-
+        const { data, error } = await apiClient.createNotification({notification:{notification_time:convertedCron, dosage}, medication:medicationData})
 
         if (data) {
             addNotifications(data.newNotification)
@@ -150,10 +227,9 @@ export default function CreateMedication({user, setUser, addMedications, medicat
             await createNotification(medicationData);
         }
         setIsLoading(false);
-        
     };
 
-    // Get the rxcui from the API if the nmedication name is valid
+    // Get the rxcui from the API if the medication name is valid
     useEffect(() => {
         axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + selectedOption?.label + "&search=1")
             .then((response) => {
@@ -165,22 +241,30 @@ export default function CreateMedication({user, setUser, addMedications, medicat
         
     }, [selectedOption])
 
-
+    // Update the converted cron time whenever timezone selected time is changed
+    useEffect(() => {
+        handleOnCronTimeChange()
+        
+    }, [cronTime, timezone])
+    
     return (
         <div className="container px-4 px-lg-5 h-100">
             <div className="col gx-4 gx-lg-5 h-100 mx-auto pb-5">
+
+                {/* Page Title */}
                 <div className="form-row row">
                     <h2 className="fw-bold mb-5 row">Add Medication</h2>
                 </div>
                 <form>
 
-                {errors?.form ?
+                    {/* Error Messages */}
+                    {errors?.form ?
                         <div className="text-center">
-                        
-                <label className=" form-label error  "> { errors.form} </label>
-                </div>
-                : ""
-              }
+                            <label className=" form-label error  "> {errors.form} </label>
+                        </div>
+                        : ""
+                    }
+                    
                     {/* ROW 1 - Medication Name */}
                     <div className="form-row row">
                         <div className="col-md-6 mb-3" >                           
@@ -206,7 +290,7 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                         </div>
                     </div>
 
-                    {/* ROW 2 -  */}
+                    {/* ROW 2 - Strength & Units */}
                     <div className="row mb-3 ">
                         <div className="md-2 col-md-3">
                             <div className="form-outline">
@@ -214,7 +298,6 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                                 <input min={0} name="strength" type="number" className="form-control" placeholder="Strength" value={form.strength}  onChange={handleOnInputChange} />
                             </div>
                         </div>
-                        
                         <div className="col-md-3">
                             <label className="mb-2" >Units</label>
                                 <select name="units" id="inputState" className="form-control" value={form.units}  onChange={handleOnInputChange}>
@@ -251,8 +334,31 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                                 </select>
                         </div>
                     </div>
+
+                    {/* OPTIONAL ROW 5 - Timezone */}
+                    {form.frequency === "Scheduled" ?
+                        <div className="row mb-3 ">
+                            <div className="col-md-6">
+                                <label className="mb-2" >Timezone</label>
+                                <select name="Timezone" id="inputState" className="form-control" value={timezone} onChange={handleOnTimezoneChange}>
+                                    <option defaultValue>UTC</option>
+                                    <option>EST</option>
+                                    <option>CST</option>
+                                    <option>MST</option>
+                                    <option>PST</option>
+                                </select>
+                            </div>
+                        </div>
+                        : ""}
                     
-                    {/* OPTIONAL ROW 5 - Timing */}
+                    {/* OPTIONAL ROW 6 - Readable Frequency */}
+                    {form.frequency === "Scheduled" &&
+                        <div className="row mt-4 mb-2 text-center">
+                            <p className="h4">{Cronstrue.toString(cronTime, { verbose: true })}</p>
+                        </div>
+                    }
+
+                    {/* OPTIONAL ROW 7 - Timing */}
                     {form.frequency === "Scheduled" ?
                         <div className=" text-center row mb-3 ">
                             <label className="form-label">Notification Time</label>
@@ -261,27 +367,26 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                                 <Cron className="cron-inputs"
                                     defaultPeriod={'day'} 
                                     allowedPeriods={[
-                                        'year',
-                                        'month',
                                         'week',
                                         'day'
                                     ]}
                                     leadingZero={'minutes'}
                                     clockFormat={'12-hour-clock'}
                                     value={cronTime}
-                                    setValue={setCronTime}
+                                    setValue={setCronTime }
                                 />          
-                                
                             </div>
-                            <div className=" text-center md-2 col-md-3 ">
+
+                            {/* OPTIONAL ROW 8 - Dosage */}
+                            <div className=" text-center md-2 col-md-3 mb-3">
                                     <label className="form-label">Dosage</label>
                                     <input min={1} name="dosage" type="number" className="form-control" placeholder="Dosage" value={dosage} onChange={handleOnDosageChange} />
-                                    
                                 </div> 
                         </div>
                         : ""
                     }
 
+                    {/* Submit Button */}
                     <div className="align-self-baseline text-center mt-4 mb-5">
                         <a className="btn btn-dark btn-x1 row " onClick={handleOnSubmit}>Add Medication</a> 
                     </div>
