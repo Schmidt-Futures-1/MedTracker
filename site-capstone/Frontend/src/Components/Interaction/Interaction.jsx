@@ -84,7 +84,6 @@ export default function Interaction({ }) {
 
     // Retrieves API response data for an interaction
     const handleOnCompare = () => {
-        console.log("here", form1.rxcui1, " ", form2.rxcui2)
        
         axios.get("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=" + form1.rxcui1 + "+" + form2.rxcui2)
                 
