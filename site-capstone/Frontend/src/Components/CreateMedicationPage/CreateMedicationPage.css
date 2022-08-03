@@ -40,5 +40,35 @@
 button{
     background-color: aliceblue;
 }
+
+.react-select {
+    font-size: 16px;
+    border-radius: 0.375rem;
+}
  
+.react-select__option {
+    display: block;
+    font-size: 16px;
+    color: rgb(36, 36, 36);
+    padding: 11px 12px;
+    width: 100%;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.react-select__option:hover {
+    background-color: #EBECF0;
+}
  
+.react-select_selected {
+    background-color: #42526E;
+    color: #FFFFFF;
+}
+
+.react-select_selected:hover {
+    background-color: #42526E;
+}
+
+.css-tj5bde-Svg {
+    color:#212529;
+}
