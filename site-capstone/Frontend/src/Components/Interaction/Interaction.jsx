@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import "./Interaction.css"
+import ReactSelect from "../Autocomplete/ReactSelect";
+import {medicineNames} from "../../../constants"
 
 export default function Interaction({ }) {
     
@@ -40,8 +42,8 @@ export default function Interaction({ }) {
     const [errors, setErrors] = useState({});
     const [nlmError, setNLMError] = useState(null); // Errors for api call from nlm api
 
-
-
+    const [selectedOption1, setSelectedOption1] = useState(null); // Selected option from medicine name drop down
+    const [selectedOption2, setSelectedOption2] = useState(null); // Selected option from medicine name drop down
 
     // Functions ----------------------------------------------------------------------------------
 
@@ -58,7 +60,7 @@ export default function Interaction({ }) {
 
     // Retrieves API response data for medication 1
     useEffect(() => {
-        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + form1.medication1 + "&search=1")
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + selectedOption1?.label + "&search=1")
             .then((response) => {
                 setForm1({...form1 ,rxcui1: response.data.idGroup.rxnormId[0]})
             })
@@ -66,11 +68,11 @@ export default function Interaction({ }) {
                 setForm1({...form1 ,rxcui1: 0})
             })
         
-    }, [form1.medication1])
+    }, [selectedOption1])
 
     // Retrieves API response data for medication 2
     useEffect(() => {
-        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + form2.medication2 + "&search=1")
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + selectedOption2?.label + "&search=1")
             .then((response) => {                
                 setForm2({...form2 ,rxcui2: response.data.idGroup.rxnormId[0]})
             })
@@ -78,10 +80,11 @@ export default function Interaction({ }) {
                 setForm2({...form2 ,rxcui2: 0})
             })
         
-    }, [form2.medication2])
+    }, [selectedOption2])
 
     // Retrieves API response data for an interaction
     const handleOnCompare = () => {
+        console.log("here", form1.rxcui1, " ", form2.rxcui2)
        
         axios.get("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=" + form1.rxcui1 + "+" + form2.rxcui2)
                 
@@ -228,11 +231,19 @@ export default function Interaction({ }) {
                         <div className="col-md-4 mb-3 pt-3 pb-3 card side-card-padding card-color card-bottom interaction-cards" >
                             
                         <h5 className="form-label"> Medication 1</h5>
-                            <input name="medication1" type="text"  className="form-control " placeholder="Enter a medication" value={form1.medication1} onChange={handleOnInputChange1} />
+                            {/* <input name="medication1" type="text"  className="form-control " placeholder="Enter a medication" value={form1.medication1} onChange={handleOnInputChange1} /> */}
+
+                            {/* Code from https://codesandbox.io/s/react-select-large-list-ug2f2?file=/src/App.js:41-92*/}
+                            <ReactSelect
+                                options={medicineNames}
+                                onChange={(selectedValue) => setSelectedOption1(selectedValue)}
+                                value={selectedOption1}
+                                className="form-control"
+                            />
                             
                             {/* Error handling for form 1*/}
                             <div>
-                                {form1?.rxcui1 !== 0 && form1.medication1?.length !== 0 ?
+                                {form1?.rxcui1 !== 0 && selectedOption1?.label.length !== 0 ?
                                     
                                     <div className="success">
                                         {form1.medication1} is a valid medication &#10003;
@@ -243,7 +254,7 @@ export default function Interaction({ }) {
                                     </div>
                                 }
 
-                                {form1?.rxcui1 === 0 && form1.medication1?.length !== 0 ?
+                                {form1?.rxcui1 === 0 && selectedOption1?.label.length !== 0 ?
                                     <div className="error">Please enter a a valid medication!</div>
                                     :
                                     <div >
@@ -266,11 +277,18 @@ export default function Interaction({ }) {
                         {/* Input form 2 */}
                         <div className="col-md-4 mb-3 pt-3 pb-3 card card-color interaction-cards" >                           
                             <h5 className="form-label"> Medication 2</h5>
-                            <input id='myInput' name="medication2" type="text" className="form-control" placeholder="Enter a medication" value={form2.medication2} onChange={handleOnInputChange2} />
+                            {/* <input id='myInput' name="medication2" type="text" className="form-control" placeholder="Enter a medication" value={form2.medication2} onChange={handleOnInputChange2} /> */} 
+                            {/* Code from https://codesandbox.io/s/react-select-large-list-ug2f2?file=/src/App.js:41-92*/}
+                            <ReactSelect
+                                options={medicineNames}
+                                onChange={(selectedValue) => setSelectedOption2(selectedValue)}
+                                value={selectedOption2}
+                                className="form-control"
+                            />
                             <div>
-                                {form2.rxcui2 !== 0 && form2.medication2.length !== 0 ?
+                                {form2.rxcui2 !== 0 && selectedOption2?.label.length !== 0 ?
                                     <div className="success">
-                                        {form2.medication2} is a valid medication &#10003;
+                                        {selectedOption2?.label} is a valid medication &#10003;
                                     </div>
                                     :
                                     
@@ -280,7 +298,7 @@ export default function Interaction({ }) {
                                 }
 
                                 {/* Error handling for form 2 */}
-                                {form2.rxcui2 === 0 && form2.medication2.length !== 0 ?
+                                {form2.rxcui2 === 0 && selectedOption2?.label.length !== 0 ?
                                     
                                     <div className="error">Please enter a a valid medication!</div>
                                     :
