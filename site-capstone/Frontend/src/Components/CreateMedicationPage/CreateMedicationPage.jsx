@@ -7,6 +7,10 @@ import { Cron } from 'react-js-cron';
 import Cronstrue from "cronstrue"
 import 'react-js-cron/dist/styles.css';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import {medicineNames} from "../../../constants"
+import ReactSelect from "../Autocomplete/ReactSelect";
+// import Select, { createFilter } from "react-select";
+// import { FixedSizeList as List } from "react-window";
 import "./CreateMedicationPage.css"
 
 export default function CreateMedication({user, setUser, addMedications, medications, addNotifications}) {
@@ -28,6 +32,9 @@ export default function CreateMedication({user, setUser, addMedications, medicat
     const [convertedCron, setConvertedCron] = useState("")   // Timezone adjusted cron value will be passed to database
     const [isLoading, setIsLoading] = useState(false)
     const [errors, setErrors] = useState({});
+
+    const [selectedOption, setSelectedOption] = useState(null); // Selected option from medicine name drop down
+
     const [timezone, setTimeZone] = useState("UTC")
 
     const navigate = useNavigate()
@@ -128,7 +135,7 @@ export default function CreateMedication({user, setUser, addMedications, medicat
         /////////// Api Call for Create Medication ///////////
         setIsLoading(true)
 
-        const { data, error } = await apiClient.createMedication({name: form.medicationName, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount})
+        const { data, error } = await apiClient.createMedication({name: selectedOption.label, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount})
 
         // Save medication data in variable that is returned by this function. It needs to be passed in to the createNotification call
         const medicationData = data.medication;
@@ -224,7 +231,7 @@ export default function CreateMedication({user, setUser, addMedications, medicat
 
     // Get the rxcui from the API if the medication name is valid
     useEffect(() => {
-        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + form.medicationName + "&search=1")
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + selectedOption?.label + "&search=1")
             .then((response) => {
                 setForm({...form ,rxcui: response.data.idGroup.rxnormId[0]})
             })
@@ -232,7 +239,7 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                 setForm({...form ,rxcui: 0})
             })
         
-    }, [form.medicationName])
+    }, [selectedOption])
 
     // Update the converted cron time whenever timezone selected time is changed
     useEffect(() => {
@@ -262,15 +269,21 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                     <div className="form-row row">
                         <div className="col-md-6 mb-3" >                           
                             <label className="form-label"> Medication Name</label>
-                            <input name="medicationName" type="text" className="form-control" placeholder="Medication" value={form.medicationName} onChange={handleOnInputChange} />
+                            {/* Code from https://codesandbox.io/s/react-select-large-list-ug2f2?file=/src/App.js:41-92*/}
+                            <ReactSelect
+                                options={medicineNames}
+                                onChange={(selectedValue) => setSelectedOption(selectedValue)}
+                                value={selectedOption}
+                                className="form-control"
+                            />
                             <div>
-                        {form.rxcui !== 0 && form.medicationName.length !== 0 &&
+                        {form.rxcui !== 0 && selectedOption?.label.length !== 0 &&
                                     <div className="success">
-                                        {form.medicationName} is a valid medication
+                                        {selectedOption?.label} is a valid medication
                                     </div>
                         }
 
-                        {form.rxcui === 0 && form.medicationName.length !== 0 &&
+                        {form.rxcui === 0 && selectedOption?.label.length !== 0 &&
                             <div className="error">Please enter a a valid medication!</div>
                                 } 
                             </div>                        
