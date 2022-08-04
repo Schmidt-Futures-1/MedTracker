@@ -13,6 +13,9 @@ import ReactSelect from "../Autocomplete/ReactSelect";
 // import { FixedSizeList as List } from "react-window";
 import "./CreateMedicationPage.css"
 
+import { useAutocomplete } from "../Autocomplete/useAutocomplete";
+import SearchBar from "../Autocomplete/SearchBar";
+
 export default function CreateMedication({user, setUser, addMedications, medications, addNotifications}) {
 
     // State Variables --------------------------------------------------------
@@ -39,7 +42,18 @@ export default function CreateMedication({user, setUser, addMedications, medicat
 
     const navigate = useNavigate()
 
+    // The value of the search bar
+    const [searchQuery, setSearchQuery] = useState("");
+    // The hook to retrieve autocomplete results using "searchQuery"
+    const autocompleteResults = useAutocomplete(searchQuery);
+
+
     // Functions --------------------------------------------------------------
+
+    // The onChange handler for the search input
+    const handleSearchInputChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
 
     const handleOnInputChange = (event) => {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
@@ -135,7 +149,7 @@ export default function CreateMedication({user, setUser, addMedications, medicat
         /////////// Api Call for Create Medication ///////////
         setIsLoading(true)
 
-        const { data, error } = await apiClient.createMedication({name: selectedOption.label, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount})
+        const { data, error } = await apiClient.createMedication({name: searchQuery, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount})
 
         // Save medication data in variable that is returned by this function. It needs to be passed in to the createNotification call
         const medicationData = data.medication;
@@ -231,7 +245,7 @@ export default function CreateMedication({user, setUser, addMedications, medicat
 
     // Get the rxcui from the API if the medication name is valid
     useEffect(() => {
-        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + selectedOption?.label + "&search=1")
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + searchQuery + "&search=1")
             .then((response) => {
                 setForm({...form ,rxcui: response.data.idGroup.rxnormId[0]})
             })
@@ -239,7 +253,7 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                 setForm({...form ,rxcui: 0})
             })
         
-    }, [selectedOption])
+    }, [searchQuery])
 
     // Update the converted cron time whenever timezone selected time is changed
     useEffect(() => {
@@ -270,20 +284,29 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                         <div className="col-md-6 mb-3" >                           
                             <label className="form-label"> Medication Name</label>
                             {/* Code from https://codesandbox.io/s/react-select-large-list-ug2f2?file=/src/App.js:41-92*/}
-                            <ReactSelect
+                            {/* <ReactSelect
                                 options={medicineNames}
                                 onChange={(selectedValue) => setSelectedOption(selectedValue)}
                                 value={selectedOption}
                                 className="form-control"
+                            /> */}
+
+                            <SearchBar
+                                className="form-control"
+                                searchQuery={searchQuery}
+                                handleOnChange={(e) => {
+                                    handleSearchInputChange(e);
+                                }}
+                                autocompleteResults={autocompleteResults}
                             />
                             <div>
-                        {form.rxcui !== 0 && selectedOption?.label.length !== 0 &&
+                        {form.rxcui !== 0 && searchQuery.length !== 0 &&
                                     <div className="success">
-                                        {selectedOption?.label} is a valid medication
+                                        {searchQuery} is a valid medication
                                     </div>
                         }
 
-                        {form.rxcui === 0 && selectedOption?.label.length !== 0 &&
+                        {form.rxcui === 0 && searchQuery.length !== 0 &&
                             <div className="error">Please enter a a valid medication!</div>
                                 } 
                             </div>                        
