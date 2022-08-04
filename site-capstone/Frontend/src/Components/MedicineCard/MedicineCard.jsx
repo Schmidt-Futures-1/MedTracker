@@ -22,18 +22,18 @@ export default function MedicineCard({medication}){
 
                     {/* Clicking on any of these links will send user to medicine details page */}
                     <Link className="links" to={`/cabinet/${medication.id}`}>
-                        <h5 className="card-title capitalize">{medication.name}</h5>
+                        <h4 className="card-title capitalize">{medication.name}</h4>
                         <hr className="padding-hr"></hr>
                         <p className="card-text">Strength: {medication.strength} { medication.units}</p>
                         <p className="card-text mb-2">Pills Left: {medication.current_pill_count} / {medication.total_pill_count }</p>
                     </Link>
 
                     {/* Details, Edit and Delete buttons */}
-                    <Link className="btn btn-dark btn-space" to={`/cabinet/${medication.id}`}>Details</Link>
+                    {/* <Link className="btn btn-dark btn-space" to={`/cabinet/${medication.id}`}>Details</Link> */}
 
                     <Link to={`/cabinet/edit/${medication.id}`} className="btn btn-dark btn-space">Edit</Link>
 
-                    <button className="btn btn-dark btn-space" onClick={() => deleteMedicine(medication.id)} >Delete</button>
+                    <button className="btn btn-danger btn-space" onClick={() => deleteMedicine(medication.id)} >Delete</button>
                 </div>          
                 
             </div>

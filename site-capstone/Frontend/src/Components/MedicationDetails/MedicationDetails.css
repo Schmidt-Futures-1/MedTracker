@@ -44,24 +44,24 @@ a{
       
   }
 
-  .edit-button{
-    margin-left: 13%;
-  }
+  
 }
 
 /* Screen for small phone */
 @media only screen and (max-width: 413px) and (min-width: 361px){
   .exam-details{
   
-      margin-left: 10%;
-      margin-right: 10%;
+      margin-left: 0%;
+      margin-right: 0%;
           
       
   }
 
-  .edit-button{
-    margin-left: 18%;
+  .details-container{
+    width: 100vw;
   }
+
+  
 }
 
 /* Screen for phone */
@@ -74,9 +74,7 @@ a{
       
   }
 
-  .edit-button{
-    margin-left: 22%;
-  }
+  
 }
 
 @media only screen and (width: 667px) {
@@ -88,9 +86,7 @@ a{
       
   }
 
-  .edit-button{
-    margin-left: 55%;
-  }
+  
 }
 
 /* Screen for small tablet */
@@ -103,9 +99,7 @@ a{
       
   }
 
-  .edit-button{
-    margin-left: 60%;
-  }
+  
 }
 
 /* Screen for normal tablet */
@@ -118,9 +112,7 @@ a{
       
   }
 
-  .edit-button{
-    margin-left: 66%;
-  }
+  
 }
 
 
@@ -134,16 +126,173 @@ a{
           
       
   }
-  .edit-button{
-    margin-left: 50%;
-    margin-right: 2%;
-  }
+ 
 }
 
 .refill-btn{
   justify-content: center;
+  margin-left: 2%;
 }
 
 .delete-btn{
   border-radius: 0;
+}
+
+.alignment-left{
+  text-align: left;
+}
+
+.alignment-right{
+  float: right;
+}
+
+.edit-button{
+  width: 60px;
+  height: 38px;
+  
+}
+
+.column2{
+  justify-content: start;
+  align-items: flex-start;
+  top: 0;
+  margin: 0px;
+}
+
+.label-fonts{
+  font-size: large;
+}
+
+.please{
+  display: inline;
+}
+
+.row-justification{
+  align-items: flex-start;
+  justify-content: start;
+}
+
+
+
+@media only screen and (min-width: 1180px){
+
+  .second-column{
+    /* border-left: solid; */
+    /* border-color: #212529; */
+  }
+}
+
+@media only screen and (min-width: 700px){
+
+  .second-column{
+    /* border-left: solid; */
+    /* border-color: #212529; */
+  }
+}
+/* Screen for most phones */
+@media only screen and (max-width: 1179px){
+  .first-column{
+
+    width: 60%;
+    margin-bottom: 10%;
+  }
+
+  .second-column{
+    width: 40%;
+    margin: 0px;
+    text-align: left!important;
+    padding-left: 0px;
+
+
+  }
+
+  .column2{
+    margin: 0px;
+    text-align: left!important;
+    padding-left: 0px;
+    font-size: medium;
+  }
+
+  .details-container{
+    width: 100%;
+    padding: 0px;
+  }
+
+  
+}
+
+/* Screen for most phones */
+@media only screen and (max-width: 700px){
+  .first-column{
+
+    width: 100%;
+    margin-bottom: 10%;
+  }
+
+  .second-column{
+    width: 100%;
+    margin: 0px;
+    text-align: left!important;
+    padding-left: 0px;
+
+
+  }
+
+  .column2{
+    margin: 0px;
+    text-align: left!important;
+    padding-left: 0px;
+    font-size: medium;
+  }
+
+  .med-name{
+    padding: 0px;
+  }
+
+  .label-fonts{
+    font-size: 15px;
+  }
+
+  .details-container{
+    width: 100%;
+    padding: 0px;
+  }
+}
+
+
+@media only screen  and (max-width: 391px) and (min-width: 381px){
+  .label-fonts{
+    font-size: 12px;
+  }
+  .first-column{
+    width: 100%;
+  }
+
+  .details-container{
+    width: 100%;
+    padding: 0px;
+  }
+}
+
+
+@media only screen and (max-width: 380px){
+  .label-fonts{
+    font-size: 13px;
+  }
+
+  .edit-button{
+    height: 38px;
+    width: 50px;
+
+  }
+
+  .refill-btn{
+    height: 38px;
+    width: 58px;
+  }
+
+  .details-container{
+    width: 100%;
+    padding: 0px;
+  }
 }

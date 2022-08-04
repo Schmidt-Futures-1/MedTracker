@@ -284,7 +284,7 @@ export default function MedicationDetails() {
                 </div>
         
             {/* Med Details Page */}
-            <div className="med-details-page">
+            <div className="med-details-page row">
             {/* Error checks for page, if user attempts to access another user's med details page or if they try to access med details that don't exist */}
             {isLoading? <LoadingPage /> :
             (errors?.errorStatus === 403)? <AccessForbidden message={errors.error}/> :
@@ -292,70 +292,105 @@ export default function MedicationDetails() {
             <>             
                 <div className="container px-4 px-lg-5 h-100">
                     
-                    <div className="col gx-4 gx-lg-5 h-100 mx-auto  pb-5 exam-details ">
-
-                        {/* Title row */}
+                    <div className="row gx-4 gx-lg-5 h-100 mx-auto details-container pb-5 exam-details ">
+                
+                                        {/* Title row */}
+                                        <div className="please">
                         <Link className="back-link" to="/cabinet">
                                 <button className="back-link "> &#8249; Back to Medicine Cabinet</button>
                         </Link>
 
 
-                        {/* Edit and Refill buttons */}
-                        <Link className=" btn-dark btn btn-block edit-button" to={`/cabinet/edit/${medicationId}`}>
+                                            {/* Edit and Refill buttons */}
+                            <button type="button" className="btn btn-dark btn-space  alignment-right refill-btn " data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Refill</button>
+                            
+                        <Link className=" btn-dark btn btn-block alignment-right edit-button ml-3" to={`/cabinet/edit/${medicationId}`}>
                                 Edit
-                        </Link>
+                                                </Link>
+                                            </div>
 
-
-
+               
+                    
                         {/* Medication Name */}           
                         <div className="row">
-                            <h2 className="fw-bold mb-3 row capitalize">{medication.name}</h2>
+                            <h2 className="fw-bold mb-5 row capitalize justify-content-start med-name">{medication.name}</h2>
                         </div>  
-                                        <div className="text-center">
-                            <button type="button" className="btn btn-dark btn-space  mb-5 refill-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Refill</button>
-                            
-                            </div>
-                    
-                        {/* Strength */}
-                        <div className="row mb-4 ">                     
-                            <p className="h4">Strength: {medication.strength} {medication.units}</p> 
-                        </div>
                                         
+                <div className="col-6 first-column">
+                        {/* Strength */}
+                        <div className="">                     
+                                            <p className="alignment-left label-fonts">
+                                                Strength: 
+                                                <span className="alignment-right">
+                                                    {medication.strength} {medication.units}
+                                                </span>
+                                            </p> 
+                                        </div>
+                                                       
                         {/* Count */}
-                        <div className="row mb-4">
-                            <p className="h4">Pills Left: {medication.current_pill_count}/{medication.total_pill_count}</p> 
+                        <div className="">
+                                            <p className="alignment-left label-fonts">
+                                            Pills Left: 
+                                                <span className="alignment-right">
+                                                    {medication.current_pill_count}/{medication.total_pill_count}
+                                                </span>
+                                            </p> 
                         </div>
                         
                         {/* Frequency is AS NEEDED */}
                         {medication.frequency === "As Needed" &&
-                            <div className="row mb-4">
-                                <p className="h4">Frequency: {medication.frequency}</p>
+                            <div className="">
+                                                <p className="alignment-left label-fonts">
+                                                    Frequency:
+                                                    <span className="alignment-right">
+                                                        {medication.frequency}
+                                                    </span>
+                                                </p>
+
                             </div>
                         }
 
                         {/* Frequency is SCHEDULED */}
                         {medication.frequency === "Scheduled" && nextAlert &&
                             <div>
-                                <div className="row mb-4">
-                                    <p className="h4">Frequency: {Cronstrue.toString(readableCronTime, { verbose: true })}</p>
+                                <div className="">
+                                                    <p className="alignment-left label-fonts">
+                                                    Frequency:
+                                                    <span className="alignment-right">
+                                                        {Cronstrue.toString(readableCronTime, { verbose: true })}
+                                                        </span>
+                                                
+                                                    </p>
                                 </div>
-                                <div className="row mb-4">
-                                    <p className="h4">Next Alert: {nextAlert }</p>
+                                <div className="">
+                                                    <p className="alignment-left label-fonts">
+                                                        Next Alert:
+                                                        <span className="alignment-right">
+                                                            {nextAlert }
+                                                        </span>
+                                                    </p>
                                 </div>
-                                <div className="row mb-4">
-                                    <p className="h4">Last Alert: {prevAlert }</p>
+                                <div className="">
+                                                    <p className="alignment-left label-fonts">
+                                                        Last Alert: 
+                                                        <span className="alignment-right">
+                                                            {prevAlert }
+                                                        </span>
+                                                    </p>
                                 </div>
                             </div>
                                         
                         }
 
-                       
+                </div>
+            <div className="col-6 second-column" >
 
                         {/* Used to treat */}
                         {mayTreat.length > 0 &&
-                            <div className="row mb-4">
-                                <p className="h4 ">Used to treat:</p>
-
+                            <div className="row text-center column2">
+                                <p className="label-fonts">Used to treat:</p>
+                       
+            
                                 <div className="together ">
                                     {filteredMayTreat.map((item, idx) => (
                                         <span className="pill" key={idx}>{item} </span>
@@ -363,7 +398,8 @@ export default function MedicationDetails() {
                                 </div>
                             </div>
                         }
-                                        
+                
+            </div>                  
 
                         {/* DrugBank Link */}
                         {drugbankLink !== "" &&
@@ -379,7 +415,8 @@ export default function MedicationDetails() {
                             </div>
                         }
                     </div>
-                </div>        
+                </div>  
+                     
             </>        
             }
             </div>        
