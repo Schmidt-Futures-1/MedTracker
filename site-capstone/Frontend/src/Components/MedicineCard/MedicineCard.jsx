@@ -3,9 +3,25 @@ import { Link } from "react-router-dom"
 import apiClient from "../../services/apiClient"
 
 export default function MedicineCard({medication}){
+    // Returns the notification id based on the medication
+    async function fetchNotification(medicationId) {
+        const {data, error} = await apiClient.fetchMedicationById(medicationId);
+        return data?.medication?.notification_id;
+    }
+
+    async function deleteNotification(notificationId) {
+        const {data, error} = await apiClient.deleteNotification(notificationId);
+    }
 
     // Calls delete request in the backend
     async function deleteMedicine(medicationId) {
+        // Fetches notification id of notificaiton associated with medication id
+        const notificationId = await fetchNotification(medicationId);
+
+        // Delete the notification
+        await deleteNotification(notificationId);
+
+        // Delete the medication
         const {data, error} = await apiClient.deleteMedication(medicationId);
     
         // Refresh's page on submit to remove deleted card
