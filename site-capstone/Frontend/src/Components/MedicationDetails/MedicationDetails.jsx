@@ -297,7 +297,7 @@ export default function MedicationDetails() {
                                         {/* Title row */}
                                         <div className="please">
                         <Link className="back-link" to="/cabinet">
-                                <button className="back-link "> &#8249; Back to Medicine Cabinet</button>
+                                <button className="back-link "> &#8249; Back</button>
                         </Link>
 
 
@@ -388,7 +388,7 @@ export default function MedicationDetails() {
                         {/* Used to treat */}
                         {mayTreat.length > 0 &&
                             <div className="row text-center column2">
-                                <p className="label-fonts">Used to treat:</p>
+                                <p className="label-fonts"><b>Used to treat: </b></p>
                        
             
                                 <div className="together ">
