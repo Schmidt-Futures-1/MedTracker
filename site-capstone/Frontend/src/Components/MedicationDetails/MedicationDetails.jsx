@@ -313,14 +313,14 @@ export default function MedicationDetails() {
                     
                         {/* Medication Name */}           
                         <div className="row">
-                            <h2 className="fw-bold mb-5 row capitalize justify-content-start med-name">{medication.name}</h2>
+                                            <h2 className="fw-bold mb-5 row capitalize justify-content-start med-name">{medication.name}</h2>
                         </div>  
                                         
                 <div className="col-6 first-column">
                         {/* Strength */}
                         <div className="">                     
                                             <p className="alignment-left label-fonts">
-                                                Strength: 
+                                                <b>Strength: </b>
                                                 <span className="alignment-right">
                                                     {medication.strength} {medication.units}
                                                 </span>
@@ -330,7 +330,7 @@ export default function MedicationDetails() {
                         {/* Count */}
                         <div className="">
                                             <p className="alignment-left label-fonts">
-                                            Pills Left: 
+                                            <b>Pills Left: </b>
                                                 <span className="alignment-right">
                                                     {medication.current_pill_count}/{medication.total_pill_count}
                                                 </span>
@@ -341,7 +341,7 @@ export default function MedicationDetails() {
                         {medication.frequency === "As Needed" &&
                             <div className="">
                                                 <p className="alignment-left label-fonts">
-                                                    Frequency:
+                                                   <b> Frequency: </b>
                                                     <span className="alignment-right">
                                                         {medication.frequency}
                                                     </span>
@@ -355,7 +355,7 @@ export default function MedicationDetails() {
                             <div>
                                 <div className="">
                                                     <p className="alignment-left label-fonts">
-                                                    Frequency:
+                                                <b> Frequency: </b>
                                                     <span className="alignment-right">
                                                         {Cronstrue.toString(readableCronTime, { verbose: true })}
                                                         </span>
@@ -364,7 +364,7 @@ export default function MedicationDetails() {
                                 </div>
                                 <div className="">
                                                     <p className="alignment-left label-fonts">
-                                                        Next Alert:
+                                                       <b> Next Alert: </b>
                                                         <span className="alignment-right">
                                                             {nextAlert }
                                                         </span>
@@ -372,7 +372,7 @@ export default function MedicationDetails() {
                                 </div>
                                 <div className="">
                                                     <p className="alignment-left label-fonts">
-                                                        Last Alert: 
+                                                     <b>Last Alert: </b>
                                                         <span className="alignment-right">
                                                             {prevAlert }
                                                         </span>
@@ -393,7 +393,7 @@ export default function MedicationDetails() {
             
                                 <div className="together ">
                                     {filteredMayTreat.map((item, idx) => (
-                                        <span className="pill" key={idx}>{item} </span>
+                                        <span className="pill label-fonts" key={idx}>{item} </span>
                                     ))}
                                 </div>
                             </div>
