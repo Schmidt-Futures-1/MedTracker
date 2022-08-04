@@ -14,3 +14,11 @@
     padding-left: 5%;
     padding-right: 5%;
 }
+
+.btn-danger{
+  border-radius: 0;
+}
+
+a:hover{
+  color: rgba(0,0,0,0.85);
+}

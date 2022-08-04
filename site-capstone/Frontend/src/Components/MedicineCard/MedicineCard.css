@@ -17,6 +17,8 @@
     color: black;
 }
 
+
+
 .card-color {
     box-shadow: 6px 7px 10px 3px #6c757d38;
     background-color: #def9ff;
@@ -37,4 +39,8 @@
 
   .padding-hr{
     margin-top: -3px;
+  }
+
+
+  .card-title {
   }
