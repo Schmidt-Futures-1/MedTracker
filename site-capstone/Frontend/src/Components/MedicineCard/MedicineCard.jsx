@@ -30,6 +30,30 @@ export default function MedicineCard({medication}){
 
     return (
         <>
+            {/* Vertically Centered modal called when refill button is clicked*/}
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="staticBackdropLabel">Are You Sure?</h5>
+                            <button type="button" className="btn-close btn-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            {/* Span to let users know what they are confirming to */}
+                            <span className="Confirm">Do you really want to delete this medication? This process cannot be undone.</span>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => deleteMedicine(medication.id)}>Confirm Delete</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
         {/* Medicine Card Code */}
         <div >
             {/* Single card starts here */}
@@ -49,7 +73,7 @@ export default function MedicineCard({medication}){
 
                     <Link to={`/cabinet/edit/${medication.id}`} className="btn btn-dark btn-space">Edit</Link>
 
-                    <button className="btn btn-danger btn-space" onClick={() => deleteMedicine(medication.id)} >Delete</button>
+                    <button type="button" className="btn btn-danger btn-space" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Delete</button>
                 </div>          
                 
             </div>
