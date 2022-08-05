@@ -1,3 +1,4 @@
+// Credits: https://dev.to/gregorygaines/build-your-own-google-like-autocomplete-using-react-and-javascript-45co
 class TrieNode {
     children;
     isEndOfString;
