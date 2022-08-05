@@ -177,6 +177,10 @@ a{
 
 @media only screen and (min-width: 1180px){
 
+  .column2{
+    border-left: 1px solid #76abb8;
+
+  }
   .second-column{
     /* border-left: solid; */
     /* border-color: #212529; */
@@ -214,9 +218,10 @@ a{
 
   .column2{
     margin: 0px;
-    text-align: left!important;
+    text-align: center!important;
     padding-left: 0px;
     font-size: medium;
+    border-left: 1px solid #76abb8;
   }
 
   .details-container{
@@ -249,6 +254,8 @@ a{
     text-align: left!important;
     padding-left: 0px;
     font-size: medium;
+    border-left:none;
+
   }
 
   .med-name{
@@ -301,4 +308,8 @@ a{
     width: 100%;
     padding: 0px;
   }
+}
+
+.details-link{
+  color: #0053a0;
 }

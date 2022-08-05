@@ -5,6 +5,10 @@
 
 }
 
+a{
+  color:  #006dd2;
+}
+
 .links{
     display: inline;
 }
@@ -56,4 +60,12 @@
 
 .btn-dark{
     border-radius: 0;
+}
+
+.result-link{
+    padding: 0px;
+}
+
+.bold-padding{
+    padding: 0px;
 }

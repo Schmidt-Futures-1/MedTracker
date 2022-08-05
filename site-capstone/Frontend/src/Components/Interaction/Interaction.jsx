@@ -145,8 +145,8 @@ export default function Interaction({ }) {
                 }
                 else if (form1.rxcui1 !== 0 && form2.rxcui2 !== 0 ){
                     setInteractionInfo({
-                        ...interactionInfo, severity: "same",
-                        description: "These two medications are the same. Please enter differing names."
+                        ...interactionInfo, severity: "",
+                        description: "There was no interaction data found for these medications."
                     })
                 }
             })
@@ -203,8 +203,7 @@ export default function Interaction({ }) {
 
     }
 
-
-
+    
     // HTML ---------------------------------------------------------------------------------------
     return (
         <div className="container px-4 px-lg-5 h-100">
@@ -332,27 +331,23 @@ export default function Interaction({ }) {
                     
                     <div className="card interaction-results">
                         <h3 className="row">
-                            Results:
+                            Results
                         </h3>
                         <hr />
-                        <div className="row response">
-                            Severity: {interactionInfo.severity}
-                        </div>
-                        <br></br>
-
-                        <div className="row response">
-                            Description: {interactionInfo.description}
+                        
+                        <div className="row response ">
+                           <b className="bold-padding"> Description: </b> {interactionInfo.description}
                         </div>
                         <br></br>
                        
                         <br />
                         <div className="row response links">
-                            For more information on {name1}, click<a href={interactionInfo.link1} target="_blank">here</a>
+                            For more information on {name1}, click<a className="result-link" href={interactionInfo.link1} target="_blank">&nbsp;here</a>
                             
                         </div>
                         <br/>
                         <div className="row response links">
-                            For more information on {name2}, click<a href={interactionInfo.link2} target="_blank">here</a>
+                            For more information on {name2}, click<a className="result-link" href={interactionInfo.link2} target="_blank">&nbsp;here</a>
                         </div>
                         
                     </div>
