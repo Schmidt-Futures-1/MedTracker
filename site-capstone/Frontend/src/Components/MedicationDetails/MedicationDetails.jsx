@@ -313,7 +313,7 @@ export default function MedicationDetails() {
                     
                         {/* Medication Name */}           
                         <div className="row">
-                                            <h2 className="fw-bold mb-5 row capitalize justify-content-start med-name">{medication.name}</h2>
+                                            <h1 className="fw-bold mb-5 row capitalize justify-content-start med-name">{medication.name}</h1>
                         </div>  
                                         
                 <div className="col-6 first-column">
@@ -403,8 +403,10 @@ export default function MedicationDetails() {
 
                         {/* DrugBank Link */}
                         {drugbankLink !== "" &&
-                        <div className="row mb-4 mt-5 text-center">
-                            <p className="h4 ">Find more information on <span className="capitalize">{medication.name}</span> <a href={drugbankLink} target="_blank">here</a></p> 
+                            <div className="row mb-4 mt-5 text-center">
+                            <hr />
+
+                            <p className="h4 ">Find more information on <span className="capitalize">{medication.name}</span> <a className="details-link" href={drugbankLink} target="_blank">here</a></p> 
                         </div>
                         }
                                         
