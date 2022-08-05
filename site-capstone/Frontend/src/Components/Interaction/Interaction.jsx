@@ -203,11 +203,7 @@ export default function Interaction({ }) {
 
     }
 
-    console.log(selectedOption1)
-    console.log(selectedOption1)
-
-
-
+    
     // HTML ---------------------------------------------------------------------------------------
     return (
         <div className="container px-4 px-lg-5 h-100">
