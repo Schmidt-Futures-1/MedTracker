@@ -1,21 +1,19 @@
-
-
+// Credits: https://dev.to/gregorygaines/build-your-own-google-like-autocomplete-using-react-and-javascript-45co
 export default function SearchBar(props) {
-  // Check if we have any autocomplete results
-  const hasSearchResults = props.autocompleteResults.length > 0;
+
+  const name = props.name;  // Name of search bar - needed to differentiate datalist id's
 
   return (
+    
     <>
-      <div
-        className={`border `}
-      >
-        {/* <div className="grid place-items-center z-40">
-          <MagnifyingGlass />
-        </div> */}
+        {/* Input where user types in their medicine name */}
+        {/* list - references which data list is being shown for this input. requires a unique name if more than 1 datalist on a page */}
         <input
+          id="med-name-input"
           className="form-control"
-          list="datalistOptions"
+          list={"datalistOptions-"+name}
           type="text"
+          placeholder="Enter a medication"
           onChange={(e) => {
             if (props.handleOnChange) {
               props.handleOnChange(e);
@@ -23,43 +21,18 @@ export default function SearchBar(props) {
           }}
           value={props.searchQuery}
         />
-        <datalist id="datalistOptions">
+
+        {/* Datalist that shows the filtered medicine names */}
+        {/* Uses the autocomplete results to populate the datalist options */}
+        <datalist id={"datalistOptions-"+name}>
             {props.autocompleteResults.map((autocompleteResult, idx) => {
-              console.log(props.searchQuery)
               return (
-                <option key={idx} value={autocompleteResult}/>
+                <option key={autocompleteResult} value={autocompleteResult}/>
               );
             })}
         </datalist>
-      </div>
-      {/* {!hasSearchResults && <SearchButtons />} */}
-      {//</>hasSearchResults && (
-        // <div className="searchBar mx-auto border border-t-0 rounded-2xl rounded-t-none py-3 shadow-lg">
-        //   <ul>
-        //     {props.autocompleteResults.map((autocompleteResult) => {
-        //       return (
-        //         <li>
-        //           {/* <MagnifyingGlass />{" "} */}
-        //           {boldPassedPrefix(autocompleteResult, props.searchQuery)}
-        //         </li>
-        //       );
-        //     })}
-        //   </ul>
-
-        //   {/* <SearchButtons /> */}
-        // </div>
-      //)
-    }
-
+        
     </>
   );
   };
 
-export function boldPassedPrefix(text, prefix) {
-    return (
-      <span>
-        {text.slice(0, prefix.length)}
-        <span className="font-bold">{text.slice(prefix.length)}</span>
-      </span>
-    );
-  };
