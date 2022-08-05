@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import "./Interaction.css"
-import ReactSelect from "../Autocomplete/ReactSelect";
-import {medicineNames} from "../../../constants"
+import { useAutocomplete } from "../Autocomplete/useAutocomplete";
+import SearchBar from "../Autocomplete/SearchBar";
 
 export default function Interaction({ }) {
-    
-
 
     // State variables ----------------------------------------------------------------------------
 
@@ -45,22 +43,32 @@ export default function Interaction({ }) {
     const [selectedOption1, setSelectedOption1] = useState(null); // Selected option from medicine name drop down
     const [selectedOption2, setSelectedOption2] = useState(null); // Selected option from medicine name drop down
 
+    // The value of the search bar 1
+    const [searchQuery1, setSearchQuery1] = useState("");
+    // The hook to retrieve autocomplete 1 results using "searchQuery"
+    const autocompleteResults1 = useAutocomplete(searchQuery1);
+
+    // The value of the search bar 2
+    const [searchQuery2, setSearchQuery2] = useState("");
+    // The hook to retrieve autocomplete 2 results using "searchQuery"
+    const autocompleteResults2 = useAutocomplete(searchQuery2);
+
     // Functions ----------------------------------------------------------------------------------
 
-    // Updates form1
-    const handleOnInputChange1 = (event) => { 
-        setForm1((f) => ({ ...f, [event.target.name]: event.target.value })); 
-    }
+    // The onChange handler for the search input 1
+    const handleSearchInputChange1 = (e) => {
+        setSearchQuery1(e.target.value);
+    };
 
-    // Updates form 2
-    const handleOnInputChange2= (event) => { 
-        setForm2((f) => ({ ...f, [event.target.name]: event.target.value })); 
-    }
+    // The onChange handler for the search input 2
+    const handleSearchInputChange2 = (e) => {
+        setSearchQuery2(e.target.value);
+    };
 
 
     // Retrieves API response data for medication 1
     useEffect(() => {
-        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + selectedOption1?.label + "&search=1")
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + searchQuery1 + "&search=1")
             .then((response) => {
                 setForm1({...form1 ,rxcui1: response.data.idGroup.rxnormId[0]})
             })
@@ -68,11 +76,11 @@ export default function Interaction({ }) {
                 setForm1({...form1 ,rxcui1: 0})
             })
         
-    }, [selectedOption1])
+    }, [searchQuery1])
 
     // Retrieves API response data for medication 2
     useEffect(() => {
-        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + selectedOption2?.label + "&search=1")
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + searchQuery2 + "&search=1")
             .then((response) => {                
                 setForm2({...form2 ,rxcui2: response.data.idGroup.rxnormId[0]})
             })
@@ -80,7 +88,7 @@ export default function Interaction({ }) {
                 setForm2({...form2 ,rxcui2: 0})
             })
         
-    }, [selectedOption2])
+    }, [searchQuery2])
 
     // Retrieves API response data for an interaction
     const handleOnCompare = () => {
@@ -230,22 +238,23 @@ export default function Interaction({ }) {
                         <div className="col-md-4 mb-3 pt-3 pb-3 card side-card-padding card-color card-bottom interaction-cards" >
                             
                         <h5 className="form-label"> Medication 1</h5>
-                            {/* <input name="medication1" type="text"  className="form-control " placeholder="Enter a medication" value={form1.medication1} onChange={handleOnInputChange1} /> */}
 
-                            {/* Code from https://codesandbox.io/s/react-select-large-list-ug2f2?file=/src/App.js:41-92*/}
-                            <ReactSelect
-                                options={medicineNames}
-                                onChange={(selectedValue) => setSelectedOption1(selectedValue)}
-                                value={selectedOption1}
+                            <SearchBar
+                                name="medication1"
                                 className="form-control"
+                                searchQuery={searchQuery1}
+                                handleOnChange={(e) => {
+                                    handleSearchInputChange1(e);
+                                }}
+                                autocompleteResults={autocompleteResults1}
                             />
                             
                             {/* Error handling for form 1*/}
                             <div>
-                                {form1?.rxcui1 !== 0 && selectedOption1?.label.length !== 0 ?
+                                {form1?.rxcui1 !== 0 && searchQuery1.length !== 0 ?
                                     
                                     <div className="success">
-                                        {form1.medication1} is a valid medication &#10003;
+                                        {searchQuery1} is a valid medication &#10003;
                                     </div>
                                     :
                                     <div >
@@ -253,7 +262,7 @@ export default function Interaction({ }) {
                                     </div>
                                 }
 
-                                {form1?.rxcui1 === 0 && selectedOption1?.label.length !== 0 ?
+                                {form1?.rxcui1 === 0 && searchQuery1.length !== 0 ?
                                     <div className="error">Please enter a a valid medication!</div>
                                     :
                                     <div >
@@ -276,18 +285,20 @@ export default function Interaction({ }) {
                         {/* Input form 2 */}
                         <div className="col-md-4 mb-3 pt-3 pb-3 card card-color interaction-cards" >                           
                             <h5 className="form-label"> Medication 2</h5>
-                            {/* <input id='myInput' name="medication2" type="text" className="form-control" placeholder="Enter a medication" value={form2.medication2} onChange={handleOnInputChange2} /> */} 
-                            {/* Code from https://codesandbox.io/s/react-select-large-list-ug2f2?file=/src/App.js:41-92*/}
-                            <ReactSelect
-                                options={medicineNames}
-                                onChange={(selectedValue) => setSelectedOption2(selectedValue)}
-                                value={selectedOption2}
+
+                            <SearchBar
+                                name="medication2"
                                 className="form-control"
+                                searchQuery={searchQuery2}
+                                handleOnChange={(e) => {
+                                    handleSearchInputChange2(e);
+                                }}
+                                autocompleteResults={autocompleteResults2}
                             />
                             <div>
-                                {form2.rxcui2 !== 0 && selectedOption2?.label.length !== 0 ?
+                                {form2.rxcui2 !== 0 && searchQuery2.length !== 0 ?
                                     <div className="success">
-                                        {selectedOption2?.label} is a valid medication &#10003;
+                                        {searchQuery2} is a valid medication &#10003;
                                     </div>
                                     :
                                     
@@ -297,7 +308,7 @@ export default function Interaction({ }) {
                                 }
 
                                 {/* Error handling for form 2 */}
-                                {form2.rxcui2 === 0 && selectedOption2?.label.length !== 0 ?
+                                {form2.rxcui2 === 0 && searchQuery2.length !== 0 ?
                                     
                                     <div className="error">Please enter a a valid medication!</div>
                                     :

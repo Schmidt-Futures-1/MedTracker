@@ -7,16 +7,11 @@ import { Cron } from 'react-js-cron';
 import Cronstrue from "cronstrue"
 import 'react-js-cron/dist/styles.css';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-import {medicineNames} from "../../../constants"
-import ReactSelect from "../Autocomplete/ReactSelect";
-// import Select, { createFilter } from "react-select";
-// import { FixedSizeList as List } from "react-window";
 import "./CreateMedicationPage.css"
-
 import { useAutocomplete } from "../Autocomplete/useAutocomplete";
 import SearchBar from "../Autocomplete/SearchBar";
 
-export default function CreateMedication({user, setUser, addMedications, medications, addNotifications}) {
+export default function CreateMedication({addMedications, addNotifications}) {
 
     // State Variables --------------------------------------------------------
 
@@ -55,10 +50,12 @@ export default function CreateMedication({user, setUser, addMedications, medicat
         setSearchQuery(e.target.value);
     };
 
+    // The onChange handler for all input in form
     const handleOnInputChange = (event) => {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
     }
 
+    // The onChange handler for dosage input
     const handleOnDosageChange = (event) => {
         setDosage(event.target.value)
     }
@@ -283,22 +280,15 @@ export default function CreateMedication({user, setUser, addMedications, medicat
                     <div className="form-row row">
                         <div className="col-md-6 mb-3" >                           
                             <label className="form-label"> Medication Name</label>
-                            {/* Code from https://codesandbox.io/s/react-select-large-list-ug2f2?file=/src/App.js:41-92*/}
-                            {/* <ReactSelect
-                                options={medicineNames}
-                                onChange={(selectedValue) => setSelectedOption(selectedValue)}
-                                value={selectedOption}
-                                className="form-control"
-                            /> */}
-
-                            <SearchBar
-                                className="form-control"
-                                searchQuery={searchQuery}
-                                handleOnChange={(e) => {
-                                    handleSearchInputChange(e);
-                                }}
-                                autocompleteResults={autocompleteResults}
-                            />
+                                <SearchBar
+                                    name="create-medicine"
+                                    className="form-control"
+                                    searchQuery={searchQuery}
+                                    handleOnChange={(e) => {
+                                        handleSearchInputChange(e);
+                                    }}
+                                    autocompleteResults={autocompleteResults}
+                                />
                             <div>
                         {form.rxcui !== 0 && searchQuery.length !== 0 &&
                                     <div className="success">
