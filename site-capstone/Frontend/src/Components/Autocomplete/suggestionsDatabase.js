@@ -1,3 +1,5 @@
+// List of all medicine names pulled from nlm api display names endpoint
+// API: https://rxnav.nlm.nih.gov/REST/displaynames.json
 export const suggestionsDatabase = [
     "(((1-methyl-2-(5-methyl-3-oxazolidinyl)ethoxy)methoxy)methoxy)methanol",
     "((2s,3s,5s)-2-(2-(2,6-dimethylphenoxy)acetamido)-5-((s)-3-methyl-2-(2-oxotetrahydropyrimidin-1(2h)-yl)butanamido)-1,6-diphenylhexan-3-yl) 3-methyl-2-(2-oxotetrahydropyrimidin-1(2h)-yl)butanoate, (s)-",
