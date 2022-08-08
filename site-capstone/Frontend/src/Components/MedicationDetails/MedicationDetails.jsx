@@ -117,7 +117,7 @@ export default function MedicationDetails() {
 
     // Parse the cron time from notifications table
     if (readableCronTime) { 
-        var parsedCron = parser.parseExpression(medication?.notification_time)
+        var parsedCron = parser.parseExpression(medication?.non_converted_time)
 
         if (parsedCron ) {
 
@@ -224,22 +224,22 @@ export default function MedicationDetails() {
             
             
             // Conversions needed for displaying user's 
-            if (medication.timezone === "EST") {
-                nextHour = nextHour - 4
-                prevHour = prevHour - 4
-            }
-            else if (medication.timezone === "CST") {
-                nextHour = nextHour - 5
-                prevHour = prevHour - 5
-            }
-            else if (medication.timezone === "MST") {
-                nextHour = nextHour - 6
-                prevHour = prevHour - 6
-            }
-            else if (medication.timezone === "MST") {
-                nextHour = nextHour - 7
-                prevHour = prevHour - 7
-            }
+            // if (medication.timezone === "EST") {
+            //     nextHour = nextHour - 4
+            //     prevHour = prevHour - 4
+            // }
+            // else if (medication.timezone === "CST") {
+            //     nextHour = nextHour - 5
+            //     prevHour = prevHour - 5
+            // }
+            // else if (medication.timezone === "MST") {
+            //     nextHour = nextHour - 6
+            //     prevHour = prevHour - 6
+            // }
+            // else if (medication.timezone === "MST") {
+            //     nextHour = nextHour - 7
+            //     prevHour = prevHour - 7
+            // }
 
             console.log("Previous hour: " + prevHour)
             
