@@ -222,27 +222,7 @@ export default function MedicationDetails() {
                 prevMinute = "0" + prevMinute
              }
             
-            
-            // Conversions needed for displaying user's 
-            // if (medication.timezone === "EST") {
-            //     nextHour = nextHour - 4
-            //     prevHour = prevHour - 4
-            // }
-            // else if (medication.timezone === "CST") {
-            //     nextHour = nextHour - 5
-            //     prevHour = prevHour - 5
-            // }
-            // else if (medication.timezone === "MST") {
-            //     nextHour = nextHour - 6
-            //     prevHour = prevHour - 6
-            // }
-            // else if (medication.timezone === "MST") {
-            //     nextHour = nextHour - 7
-            //     prevHour = prevHour - 7
-            // }
 
-            console.log("Previous hour: " + prevHour)
-            
             if (prevHour > 12) {
                 prevHour = prevHour - 12
                 prevMinute = prevMinute + " PM"
@@ -290,8 +270,6 @@ export default function MedicationDetails() {
         setRefresh(!refresh);
     }
 
-    console.log(medication?.notification_time)
-    console.log(medication?.non_converted_time)
 
     
     return (
