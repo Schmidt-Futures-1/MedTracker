@@ -24,6 +24,8 @@ export default function MedicationDetails() {
     const [refillAmount, setRefillAmount] = useState(0);
     const [error, setError] = useState({})
 
+    const [refresh, setRefresh] = useState(false); // Used to call useEffect when state is changed
+
     //---------------------------------- Refill Functions
     // Handles when user is typing into input in refill modal
     const handleOnInputChange = (event) => {
@@ -68,7 +70,7 @@ export default function MedicationDetails() {
         
         fetchById();
 
-    }, [refillAmount, notificationId])
+    }, [refillAmount, notificationId, refresh])
 
     //---------------------------------- Fetch Info from NLM Api
     // Fetch info on what medication is used to treat 
@@ -213,35 +215,14 @@ export default function MedicationDetails() {
              if (nextMinute < 10) {
                 nextMinute = "0" + nextMinute
             }
-                
-            if (nextHour > 12) {
-                nextHour = nextHour - 12
-                    nextMinute = nextMinute + " PM"
-            }
-            else if (nextHour === "12") {
-                nextMinute = nextMinute + " PM"
-            }
-            else {
-                nextMinute = nextMinute + " AM"
-            }
-
+            
+            
              // Format the minute and hour time string for previous alert
              if (prevMinute < 10) {
                 prevMinute = "0" + prevMinute
-            }
-                
-            if (prevHour > 12) {
-                prevHour = prevHour - 12
-                prevMinute = prevMinute + " PM"
-            }
-            else if (prevHour === "12") {
-                prevMinute = prevMinute + " PM"
-            }
-            else {
-                prevMinute = prevMinute + " AM"
-            }
-
-
+             }
+            
+            
             // Conversions needed for displaying user's 
             if (medication.timezone === "EST") {
                 nextHour = nextHour - 4
@@ -259,7 +240,41 @@ export default function MedicationDetails() {
                 nextHour = nextHour - 7
                 prevHour = prevHour - 7
             }
+
+            console.log("Previous hour: " + prevHour)
+            
+            if (prevHour > 12) {
+                prevHour = prevHour - 12
+                prevMinute = prevMinute + " PM"
+            }
+            else if (prevHour === 12) {
+                prevMinute = prevMinute + " PM"
+            }
+            else {
+                prevMinute = prevMinute + " AM"
+            }
+
+            if (nextHour > 12) {
+                nextHour = nextHour - 12
+                    nextMinute = nextMinute + " PM"
+            }
+            else if (nextHour === 12) {
+                nextMinute = nextMinute + " PM"
+            }
+            else {
+                nextMinute = nextMinute + " AM"
+            }
                 
+            // Adjust time if hour goes above 0 or 23
+            if (nextHour < 0) { nextHour = parseInt(nextHour) + 12 }
+            else if (nextHour >= 23) { nextHour = parseInt(nextHour) - 12 }
+            else if (nextHour === 0) { nextHour = 12 }
+
+            // Adjust time if hour goes above 0 or 23
+            if (prevHour < 0) { prevHour = parseInt(prevHour) + 12 }
+            else if (prevHour >= 23) { prevHour = parseInt(prevHour) - 12 }
+            else if (prevHour === 0) { prevHour = 12 }
+
 
             
             // Set the full string for next and prev alerts
@@ -272,7 +287,11 @@ export default function MedicationDetails() {
     //---------------------------------- Delete Notification function
     async function deleteNotification(notificationId) {
         const {data, error} = await apiClient.deleteNotification(notificationId);
+        setRefresh(!refresh);
     }
+
+    console.log(medication?.notification_time)
+    console.log(medication?.non_converted_time)
 
     
     return (
