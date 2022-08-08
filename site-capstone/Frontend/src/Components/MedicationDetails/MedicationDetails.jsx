@@ -24,6 +24,8 @@ export default function MedicationDetails() {
     const [refillAmount, setRefillAmount] = useState(0);
     const [error, setError] = useState({})
 
+    const [refresh, setRefresh] = useState(false); // Used to call useEffect when state is changed
+
     //---------------------------------- Refill Functions
     // Handles when user is typing into input in refill modal
     const handleOnInputChange = (event) => {
@@ -68,7 +70,7 @@ export default function MedicationDetails() {
         
         fetchById();
 
-    }, [refillAmount, notificationId])
+    }, [refillAmount, notificationId, refresh])
 
     //---------------------------------- Fetch Info from NLM Api
     // Fetch info on what medication is used to treat 
@@ -108,14 +110,14 @@ export default function MedicationDetails() {
 
     //---------------------------------- Formatting Cron Time
     // Store the cron time for this medicine
-    let readableCronTime = medication?.notification_time
+    let readableCronTime = medication?.non_converted_time
     let nextAlert = ""
     let prevAlert = ""
 
 
     // Parse the cron time from notifications table
     if (readableCronTime) { 
-        var parsedCron = parser.parseExpression(medication?.notification_time)
+        var parsedCron = parser.parseExpression(medication?.non_converted_time)
 
         if (parsedCron ) {
 
@@ -213,33 +215,47 @@ export default function MedicationDetails() {
              if (nextMinute < 10) {
                 nextMinute = "0" + nextMinute
             }
-                
-            if (nextHour > 12) {
-                nextHour = nextHour - 12
-                    nextMinute = nextMinute + " PM"
-            }
-            else if (nextHour === "12") {
-                nextMinute = nextMinute + " PM"
-            }
-            else {
-                nextMinute = nextMinute + " AM"
-            }
-
+            
+            
              // Format the minute and hour time string for previous alert
              if (prevMinute < 10) {
                 prevMinute = "0" + prevMinute
-            }
-                
+             }
+            
+
             if (prevHour > 12) {
                 prevHour = prevHour - 12
                 prevMinute = prevMinute + " PM"
             }
-            else if (prevHour === "12") {
+            else if (prevHour === 12) {
                 prevMinute = prevMinute + " PM"
             }
             else {
                 prevMinute = prevMinute + " AM"
             }
+
+            if (nextHour > 12) {
+                nextHour = nextHour - 12
+                    nextMinute = nextMinute + " PM"
+            }
+            else if (nextHour === 12) {
+                nextMinute = nextMinute + " PM"
+            }
+            else {
+                nextMinute = nextMinute + " AM"
+            }
+                
+            // Adjust time if hour goes above 0 or 23
+            if (nextHour < 0) { nextHour = parseInt(nextHour) + 12 }
+            else if (nextHour >= 23) { nextHour = parseInt(nextHour) - 12 }
+            else if (nextHour === 0) { nextHour = 12 }
+
+            // Adjust time if hour goes above 0 or 23
+            if (prevHour < 0) { prevHour = parseInt(prevHour) + 12 }
+            else if (prevHour >= 23) { prevHour = parseInt(prevHour) - 12 }
+            else if (prevHour === 0) { prevHour = 12 }
+
+
             
             // Set the full string for next and prev alerts
             nextAlert = nextDay + ", " + nextMonth + " " + nextDate + ", " + nextYear + " at " + nextHour + ":" + nextMinute
@@ -251,10 +267,35 @@ export default function MedicationDetails() {
     //---------------------------------- Delete Notification function
     async function deleteNotification(notificationId) {
         const {data, error} = await apiClient.deleteNotification(notificationId);
+        setRefresh(!refresh);
     }
+
+
     
     return (
         <>
+
+            {/* Vertically Centered modal called when delete notification button is clicked*/}
+            <div className="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="staticBackdropLabel">Are You Sure?</h5>
+                            <button type="button" className="btn-close btn-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            {/* Span to let users know what they are confirming to */}
+                            <span className="Confirm">Do you really want to delete this notification? This process cannot be undone.</span>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => deleteNotification(notificationId)}>Confirm Delete</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         
             {/* Vertically Centered modal called when refill button is clicked*/}
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -413,7 +454,7 @@ export default function MedicationDetails() {
                         {/* Delete notification button */}
                         {medication.notification_time !== null &&
                             <div className="text-center">
-                                <button type="button" className="btn btn-danger btn-space mb-5 delete-btn" onClick={() => deleteNotification(notificationId)} >Delete Notification</button>
+                                <button type="button" className="btn btn-danger btn-space" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" >Delete Notification</button>
                             </div>
                         }
                     </div>

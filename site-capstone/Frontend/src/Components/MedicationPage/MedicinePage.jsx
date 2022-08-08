@@ -11,6 +11,7 @@ export default function MedicinePage({ user, setUser })
     const [medications, setMedications] = useState([]);
     const [errors, setError] = useState([]);
     const [isLoading, setIsLoading] = useState();
+    const [refresh, setRefresh] = useState(false); // Used to call useEffect when state is changed
 
 
     // Functions ----------------------------------------------------------------------------------
@@ -39,7 +40,7 @@ export default function MedicinePage({ user, setUser })
         fetchMedications();
 
         
-      }, [user]);
+      }, [user, refresh]);
 
 
 
@@ -64,7 +65,7 @@ export default function MedicinePage({ user, setUser })
             {isLoading? <h1>Loading...</h1> :
                 medications?.map((item, idx) => {
                     return(
-                    <MedicineCard key={idx} medication={item}/>
+                    <MedicineCard key={idx} medication={item} refresh={refresh} setRefresh={setRefresh}/>
                     )
                 })
                 }

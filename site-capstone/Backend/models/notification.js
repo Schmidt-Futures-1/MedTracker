@@ -27,7 +27,7 @@ class Notification {
 
     static async createNotification({notification, medication, user}) {
         // User should submit fields: '"notification time", "dosage"
-        const requiredFields = ["notification_time", "dosage"];
+        const requiredFields = ["notification_time", "dosage", "timezone", "non_converted_time"];
         
         // Error if missing required field
         requiredFields.forEach((field) => {
@@ -39,14 +39,16 @@ class Notification {
         // Insert medication entry into database
         const results = await db.query(
             `
-                INSERT INTO notifications (notification_time, dosage, med_id, user_id)
-                VALUES ($1, $2, $3, $4)
+                INSERT INTO notifications (notification_time, dosage, med_id, user_id, timezone, non_converted_time)
+                VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING   id,
                             notification_time,
                             dosage,
+                            timezone,
+                            non_converted_time,
                             med_id,
                             user_id
-            `, [notification.notification_time, notification.dosage, medication.id, medication.user_id]
+            `, [notification.notification_time, notification.dosage, medication.id, medication.user_id, notification.timezone, notification.non_converted_time]
         )
 
         // Get the newly added notification
@@ -78,6 +80,8 @@ class Notification {
                 SELECT  n.id,
                         n.notification_time,
                         n.dosage,
+                        n.timezone,
+                        n.non_converted_time,
                         u.phone_number,
                         u.first_name as "user_name",
                         m.name
@@ -102,6 +106,8 @@ class Notification {
                 SELECT  n.id,
                         n.notification_time,
                         n.dosage,
+                        n.timezone,
+                        n.non_converted_time,
                         n.med_id,
                         u.email as "user_email"
                 FROM notifications AS n

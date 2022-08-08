@@ -28,6 +28,7 @@ export default function CreateMedication({addMedications, addNotifications}) {
     const [dosage, setDosage] = useState("")        // Amount of pills they are taking at a specific time
     const [cronTime, setCronTime] = useState('0 0 * * *');   // Notification time formatted in cronTime
     const [convertedCron, setConvertedCron] = useState("")   // Timezone adjusted cron value will be passed to database
+
     const [isLoading, setIsLoading] = useState(false)
     const [errors, setErrors] = useState({});
 
@@ -174,7 +175,7 @@ export default function CreateMedication({addMedications, addNotifications}) {
         /////////// Api Call for Create Notification ///////////
         setIsLoading(true)
 
-        const { data, error } = await apiClient.createNotification({notification:{notification_time:convertedCron, dosage}, medication:medicationData})
+        const { data, error } = await apiClient.createNotification({notification:{notification_time:convertedCron, dosage, timezone, non_converted_time: cronTime}, medication:medicationData})
 
         if (data) {
             addNotifications(data.newNotification)
@@ -203,7 +204,6 @@ export default function CreateMedication({addMedications, addNotifications}) {
         } else {      
             setErrors((e) => ({ ...e, form: null }));
         }
-
         if (form.currentPillCount < 0 || form.currentPillCount === "") {
             setErrors((e) => ({ ...e, form: "Invalid Current Medicine Count" }));
             return;
@@ -213,6 +213,13 @@ export default function CreateMedication({addMedications, addNotifications}) {
         
         if (form.maxPillCount < 1 || form.maxPillCount === "") {
             setErrors((e) => ({ ...e, form: "Invalid Max Medicine Count" }));
+            return;
+        } else {      
+            setErrors((e) => ({ ...e, form: null }));
+        }
+
+        if (form.maxPillCount < form.currentPillCount) {
+            setErrors((e) => ({ ...e, form: "Max pill count must be greater or equal to current pill count" }));
             return;
         } else {      
             setErrors((e) => ({ ...e, form: null }));

@@ -25,6 +25,8 @@ CREATE TABLE notifications (
     notification_time   TEXT,   
     dosage              INTEGER,
     has_taken           BOOLEAN NOT NULL DEFAULT FALSE,
+    timezone            TEXT,
+    non_converted_time  TEXT,
     med_id              INTEGER NOT NULL REFERENCES medications(id) ON DELETE CASCADE,
     user_id             INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );

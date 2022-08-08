@@ -94,7 +94,7 @@ export default function Dashboard({ user, setUser }) {
     let filteredNotifications = [{
         dosage: "",
         id: "",
-        notification_time: "",
+        non_converted_time: "",
         phone_number: "",
         user_name: "",
         hours: "",
@@ -106,7 +106,7 @@ export default function Dashboard({ user, setUser }) {
     for (let i = 0; i < notifications.length; i++) {
 
         // Parse the cron time from notifications table
-        let parsedCron = parser.parseExpression(notifications[i].notification_time)
+        let parsedCron = parser.parseExpression(notifications[i].non_converted_time)
 
         // Get the next notification date for this entry
         parsedCron.reset()
@@ -173,7 +173,7 @@ export default function Dashboard({ user, setUser }) {
                 filteredNotifications.push({
                     dosage: notifications[i].dosage,
                     id: notifications[i].id,
-                    notification_time: notifications[i].notification_time,
+                    non_converted_time: notifications[i].non_converted_time,
                     phone_number: notifications[i].phone_number,
                     user_name: notifications[i].user_name,
                     hours: "",
@@ -187,6 +187,9 @@ export default function Dashboard({ user, setUser }) {
                 let min = splitCron[0]
                 
                 // Format the minute and hour time string for output
+                if (min < 10) {
+                    min = "0" + min
+                }
                 if (hr > 12) {
                         hr = hr - 12
                         min = min + " PM"
@@ -207,8 +210,8 @@ export default function Dashboard({ user, setUser }) {
                 filteredNotifications[lastIndex].minutes = min
             
                 // Store relevant values for this element
-                filteredNotifications[lastIndex].notification_time = splitCron[0] + " " + cronSplitOnHyphen[j] + " " + splitCron[2] + " " + splitCron[3] + " " + splitCron[4]
-                let firstCronTime = parser.parseExpression(filteredNotifications[lastIndex].notification_time)
+                filteredNotifications[lastIndex].non_converted_time = splitCron[0] + " " + cronSplitOnHyphen[j] + " " + splitCron[2] + " " + splitCron[3] + " " + splitCron[4]
+                let firstCronTime = parser.parseExpression(filteredNotifications[lastIndex].non_converted_time)
                 filteredNotifications[lastIndex].timestamp = firstCronTime.next().getTime().toString()
                 parsedCron.reset()
             }

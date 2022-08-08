@@ -2,7 +2,7 @@ import "./MedicineCard.css"
 import { Link } from "react-router-dom"
 import apiClient from "../../services/apiClient"
 
-export default function MedicineCard({medication}){
+export default function MedicineCard({medication, refresh, setRefresh}){
     // Returns the notification id based on the medication
     async function fetchNotification(medicationId) {
         const {data, error} = await apiClient.fetchMedicationById(medicationId);
@@ -23,9 +23,9 @@ export default function MedicineCard({medication}){
 
         // Delete the medication
         const {data, error} = await apiClient.deleteMedication(medicationId);
-    
-        // Refresh's page on submit to remove deleted card
-        window.location.reload(false);
+
+        // Change state so that component refreshes on Medicine Page
+        setRefresh(!refresh);
     }
 
     return (

@@ -78,6 +78,8 @@ class Medication {
                         n.id AS "notification_id",
                         n.notification_time,
                         n.dosage,
+                        n.timezone,
+                        n.non_converted_time,
                         u.email as "user_email"
                 FROM medications AS m
                     JOIN users AS u ON u.id = m.user_id
