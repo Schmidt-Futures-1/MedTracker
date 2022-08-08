@@ -242,6 +242,7 @@ export default function MedicationDetails() {
             }
 
 
+            // Conversions needed for displaying user's 
             if (medication.timezone === "EST") {
                 nextHour = nextHour - 4
                 prevHour = prevHour - 4
@@ -259,6 +260,7 @@ export default function MedicationDetails() {
                 prevHour = prevHour - 7
             }
                 
+
             
             // Set the full string for next and prev alerts
             nextAlert = nextDay + ", " + nextMonth + " " + nextDate + ", " + nextYear + " at " + nextHour + ":" + nextMinute
@@ -271,6 +273,7 @@ export default function MedicationDetails() {
     async function deleteNotification(notificationId) {
         const {data, error} = await apiClient.deleteNotification(notificationId);
     }
+
     
     return (
         <>
