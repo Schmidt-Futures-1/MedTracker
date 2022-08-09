@@ -64,7 +64,6 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         
             if (data?.medication) {
                 const medData = data.medication
-                console.log("data",medData)
                 setMedication(data.medication);
                 setErrors(null);
                 setDefaultValues({
