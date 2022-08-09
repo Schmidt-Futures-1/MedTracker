@@ -40,7 +40,7 @@
     .login-box{
         border-style: solid;
         border-color: transparent;
-        border-radius: 15px;
+        border-radius: 0px;
         background-color: #c9eaf2a8;
         padding-top: 3%;
         padding-bottom: 3%;
@@ -86,7 +86,7 @@
         border-style: solid;
         border-color: transparent
         ;
-        border-radius: 15px;
+        border-radius: 0px;
         background-color: #c9eaf2a8;
         padding-top: 3%;
         padding-bottom: 3%;

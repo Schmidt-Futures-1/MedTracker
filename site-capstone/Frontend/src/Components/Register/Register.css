@@ -26,8 +26,7 @@
         z-index: 100;
         position: relative;
         width: 80vw;    
-        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
-
+        box-shadow: 6px 7px 10px 3px #6c757d38;
     }
 
     .login-background{
@@ -72,13 +71,13 @@
     .register-box{
         border-style: solid;
         border-color: transparent;
-        border-radius: 15px;
+        border-radius: 0px;
         background-color: #c9eaf2a8;
         padding-top: 3%;
         z-index: 100;
         position: relative;
         width: 42vw;
-        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
+        box-shadow: 6px 7px 10px 3px #6c757d38;
 
     }
 
