@@ -231,10 +231,10 @@ export default function Interaction({ }) {
                     }
 
                     {/* Input forms */}
-                    <div className="form-row row ">
+                    <div className="form-row row card-sizes">
 
                         {/* Input form 1 */}
-                        <div className="col-md-4 mb-3 pt-3 pb-3 card side-card-padding card-color card-bottom interaction-cards" >
+                        <div className="col-md-4 mb-3 pt-3 pb-3 card side-card-padding card-color card-bottom interaction-cards " >
                             
                         <h5 className="form-label"> Medication 1</h5>
 
@@ -262,7 +262,7 @@ export default function Interaction({ }) {
                                 }
 
                                 {form1?.rxcui1 === 0 && searchQuery1.length !== 0 ?
-                                    <div className="error">Please enter a a valid medication!</div>
+                                    <div className="error">Please enter a valid medication!</div>
                                     :
                                     <div >
                                         &nbsp;
@@ -286,6 +286,7 @@ export default function Interaction({ }) {
                             <h5 className="form-label"> Medication 2</h5>
 
                             <SearchBar
+
                                 name="medication2"
                                 className="form-control"
                                 searchQuery={searchQuery2}
@@ -309,7 +310,7 @@ export default function Interaction({ }) {
                                 {/* Error handling for form 2 */}
                                 {form2.rxcui2 === 0 && searchQuery2.length !== 0 ?
                                     
-                                    <div className="error">Please enter a a valid medication!</div>
+                                    <div className="error">Please enter a valid medication!</div>
                                     :
                                     <div >
                                         &nbsp;

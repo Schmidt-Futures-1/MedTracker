@@ -11,7 +11,7 @@ export default function Landing({ user }) {
 
         <div className="headingRow row gx-4 gx-lg-5 h-100 container-axis">
             <div className="col-lg-8 align-self-end">
-                <h1 >MedTracker</h1>
+                <h1 className="fw-bold b-6">MedTracker</h1>
                 <hr className="divider"></hr>
             </div>
             <div className="col-lg-8 align-self-baseline">
