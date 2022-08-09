@@ -292,7 +292,6 @@ export default function MedicationDetails() {
                             <button type="button" className="btn btn-dark" data-bs-dismiss="modal">Close</button>
                             <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => deleteNotification(notificationId)}>Confirm Delete</button>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -319,7 +318,6 @@ export default function MedicationDetails() {
                         <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-dark" data-bs-dismiss="modal" onClick={handleOnSubmit}>Refill</button>
                     </div>
-
                     </div>
                 </div>
                 </div>

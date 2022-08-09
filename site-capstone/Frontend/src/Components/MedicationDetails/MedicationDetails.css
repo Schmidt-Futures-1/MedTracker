@@ -229,6 +229,7 @@ a{
     padding: 0px;
   }
 
+
   
 }
 
@@ -270,12 +271,16 @@ a{
     width: 100%;
     padding: 0px;
   }
+
+  .strength-box-padding{
+    margin-bottom: 16px;
+  }
 }
 
 
 @media only screen  and (max-width: 391px) and (min-width: 381px){
   .label-fonts{
-    font-size: 13px;
+    font-size: 12.5px;
   }
   .first-column{
     width: 100%;
@@ -285,8 +290,17 @@ a{
     width: 100%;
     padding: 0px;
   }
+
+  .strength-box-padding{
+    margin-bottom: 16px;
+  }
 }
 
+@media only screen and (max-width: 767px){
+  .strength-box-padding{
+    margin-bottom: 16px;
+  }
+}
 
 @media only screen and (max-width: 380px){
   .label-fonts{
@@ -307,6 +321,10 @@ a{
   .details-container{
     width: 100%;
     padding: 0px;
+  }
+
+  .strength-box-padding{
+    margin-bottom: 16px;
   }
 }
 

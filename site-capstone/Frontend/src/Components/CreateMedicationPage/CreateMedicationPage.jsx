@@ -304,7 +304,7 @@ export default function CreateMedication({addMedications, addNotifications}) {
                         }
 
                         {form.rxcui === 0 && searchQuery.length !== 0 &&
-                            <div className="error">Please enter a a valid medication!</div>
+                            <div className="error">Please enter a valid medication!</div>
                                 } 
                             </div>                        
                         </div>
@@ -315,7 +315,7 @@ export default function CreateMedication({addMedications, addNotifications}) {
                         <div className="md-2 col-md-3">
                             <div className="form-outline">
                                 <label className="form-label">Strength</label>
-                                <input min={0} name="strength" type="number" className="form-control" placeholder="Strength" value={form.strength}  onChange={handleOnInputChange} />
+                                <input min={0} name="strength" type="number" className="form-control strength-box-padding" placeholder="Strength" value={form.strength}  onChange={handleOnInputChange} />
                             </div>
                         </div>
                         <div className="col-md-3">
@@ -332,7 +332,7 @@ export default function CreateMedication({addMedications, addNotifications}) {
                         <div className="md-2 col-md-3">
                             <div className="form-outline">
                                 <label className="form-label">Current Pill Count</label>
-                                <input min={0} name="currentPillCount" type="number" className="form-control" placeholder="Current Pill Count" value={form.currentPillCount}  onChange={handleOnInputChange}/>
+                                <input min={0} name="currentPillCount" type="number" className="form-control strength-box-padding" placeholder="Current Pill Count" value={form.currentPillCount}  onChange={handleOnInputChange}/>
                             </div>
                         </div>
                         

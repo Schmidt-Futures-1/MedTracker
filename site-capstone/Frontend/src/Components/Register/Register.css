@@ -26,8 +26,7 @@
         z-index: 100;
         position: relative;
         width: 80vw;    
-        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
-
+        box-shadow: 6px 7px 10px 3px #6c757d38
     }
 
     .login-background{
@@ -78,7 +77,7 @@
         z-index: 100;
         position: relative;
         width: 42vw;
-        box-shadow:20px 20px 50px 10px rgba(138, 138, 138, 0.499);
+        box-shadow: 6px 7px 10px 3px #6c757d38;
 
     }
 
