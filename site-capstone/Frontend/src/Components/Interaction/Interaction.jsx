@@ -3,6 +3,8 @@ import axios from "axios"
 import "./Interaction.css"
 import { useAutocomplete } from "../Autocomplete/useAutocomplete";
 import SearchBar from "../Autocomplete/SearchBar";
+import React, { useRef } from "react";
+
 
 export default function Interaction({ }) {
 
@@ -53,6 +55,10 @@ export default function Interaction({ }) {
     // The hook to retrieve autocomplete 2 results using "searchQuery"
     const autocompleteResults2 = useAutocomplete(searchQuery2);
 
+
+    // References the component we would like to auto-scroll to
+    const titleRef = useRef();
+
     // Functions ----------------------------------------------------------------------------------
 
     // The onChange handler for the search input 1
@@ -91,9 +97,10 @@ export default function Interaction({ }) {
     }, [searchQuery2])
 
     // Retrieves API response data for an interaction
-    const handleOnCompare = () => {
+     const  handleOnCompare =  () => {
+
        
-        axios.get("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=" + form1.rxcui1 + "+" + form2.rxcui2)
+          axios.get("https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=" + form1.rxcui1 + "+" + form2.rxcui2)
                 
             // Valid request handling for successful interaction
             .then((response) => {
@@ -158,6 +165,16 @@ export default function Interaction({ }) {
                     })
                 }
             })
+            // Insert a slight time delay to allow for smoother animation
+            setTimeout(()=>{
+                titleRef.current.scrollIntoView({ behavior: "smooth" });
+                titleRef.current.style.animation = " linear 1s 1 blinker";
+            }, 100);
+     }
+    
+     // Allows page to know when the animation is over
+     const handleAnimationEnd = () => {
+        titleRef.current.style.animation = "none";
     }
 
     // Fetch info on what medication 1 is used to treat 
@@ -208,9 +225,7 @@ export default function Interaction({ }) {
         })
 
         var filteredMayTreat2 = [...new Set(tempMayTreat2)]
-
     }
-
     
     // HTML ---------------------------------------------------------------------------------------
     return (
@@ -330,7 +345,7 @@ export default function Interaction({ }) {
                         </div>
 
                         {/* Check Interaction button */}
-                        <div className="align-self-baseline text-center mt-4 mb-5">
+                        <div className="align-self-baseline text-center mt-4 mb-5" >
                             <a className="btn btn-dark btn-x1 row " onClick={handleOnCompare}>Check Interaction</a> 
                         </div>
                     </div>
@@ -341,7 +356,7 @@ export default function Interaction({ }) {
                 {/* Valid interaction found */}
                 {interactionInfo.severity !== ""  && interactionInfo.severity !== "invalid" && interactionInfo.severity !== "same" &&
                     
-                    <div className="card interaction-results">
+                    <div className="card interaction-results " ref={titleRef} onAnimationEnd={handleAnimationEnd}>
                         <h3 className="row">
                             Results
                         </h3>
@@ -369,7 +384,7 @@ export default function Interaction({ }) {
                 {interactionInfo.severity === "" && interactionInfo.description !== "" ?
                     
                     <div>
-                        <div className="row response">
+                        <div className="row response " ref={titleRef} onAnimationEnd={handleAnimationEnd}>
                             {interactionInfo.description}
                         </div>
                     </div>
@@ -383,7 +398,7 @@ export default function Interaction({ }) {
                 {/* Display invalid interaction */}
                 {interactionInfo.severity === "invalid" ?
                     <div>
-                        <div className="row response error">
+                        <div className="row response error " ref={titleRef} onAnimationEnd={handleAnimationEnd}>
                             {interactionInfo.description}
                         </div>
                     </div>
@@ -395,7 +410,7 @@ export default function Interaction({ }) {
                 {/* Display interaction between 2 medications of the same name */}
                 {interactionInfo.severity === "same" ?
                     <div>
-                        <div className="row response error">
+                        <div className="row response error " ref={titleRef} onAnimationEnd={handleAnimationEnd}>
                             {interactionInfo.description}
                         </div>
                     </div>

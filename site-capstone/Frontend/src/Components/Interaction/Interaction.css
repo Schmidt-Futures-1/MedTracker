@@ -75,3 +75,13 @@ a{
     align-items: start;
     justify-content: center;
 }
+
+.blink_me {
+    animation: blinker 1s linear 2 forwards;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
