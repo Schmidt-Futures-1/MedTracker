@@ -165,15 +165,14 @@ export default function Interaction({ }) {
                     })
                 }
             })
+            // Insert a slight time delay to allow for smoother animation
             setTimeout(()=>{
                 titleRef.current.scrollIntoView({ behavior: "smooth" });
                 titleRef.current.style.animation = " linear 1s 1 blinker";
-
             }, 100);
-
-
      }
     
+     // Allows page to know when the animation is over
      const handleAnimationEnd = () => {
         titleRef.current.style.animation = "none";
     }
@@ -226,9 +225,7 @@ export default function Interaction({ }) {
         })
 
         var filteredMayTreat2 = [...new Set(tempMayTreat2)]
-
     }
-
     
     // HTML ---------------------------------------------------------------------------------------
     return (
