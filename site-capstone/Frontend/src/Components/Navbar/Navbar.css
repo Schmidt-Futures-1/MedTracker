@@ -69,6 +69,11 @@ ul:hover{
     text-decoration: none;
 
   }
+  
+  .navbar-nav .nav-link {
+    margin-right: 10px;
+    margin-left: 10px;
+}
 
   .login-sizing{
     width: 91.55px;
