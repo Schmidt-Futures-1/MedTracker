@@ -29,6 +29,16 @@ export default function MedicationDetails() {
     //---------------------------------- Refill Functions
     // Handles when user is typing into input in refill modal
     const handleOnInputChange = (event) => {
+
+        // Prevents negative numbers from being inputted
+        if (event.target.value  < 0) {
+            return
+        }
+
+        // Prevents negative numbers from being inputted
+        if ((parseInt(event.target.value) + parseInt(medication.current_pill_count)) > parseInt(medication.total_pill_count)) {
+            return
+        }
         setRefillAmount(event.target.value);
     }
 
@@ -310,9 +320,10 @@ export default function MedicationDetails() {
                         <form>
                             <div className="form-outline">
                                 <label className="form-label">Enter Refill Amount</label>
-                                <input min={0} name="refillAmount" type="number" className="form-control" placeholder="Enter Refill Amount" value={refillAmount} onChange={handleOnInputChange} />
+                                <input min="0" name="refillAmount" type="number" className="form-control" placeholder="Enter Refill Amount" value={refillAmount} onChange={handleOnInputChange} />
                             </div>
                         </form>
+                        <p class="fw-light">*Refill amount cannot be greater than Max Pill count per container</p>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
