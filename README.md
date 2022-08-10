@@ -1,5 +1,3 @@
-📝 `NOTE` Use this template repo to initialize the contents of your group's capstone repo project. As you work on your assignment over the course of the week, update the appropriate repo deliverables. All project planning should be included in the planning directory. (🚫 Remove this paragraph before submitting your assignment.)
-
 # SITE Capstone Project
 
 SITE Course Year: **2022**
@@ -12,12 +10,12 @@ Mentors Names: ** Alex Gonzalez, , Jeff Zhou, Nancy Mond**
 
 Project Code Repository Links
 
-* [Frontend Repo Link]()
-* [Backend Repo Link]()
+* [Frontend Folder Link](https://github.com/Schmidt-Futures-1/MedTracker/tree/main/site-capstone/Frontend)
+* [Backend Folder Link](https://github.com/Schmidt-Futures-1/MedTracker/tree/main/site-capstone/Backend)
 
 ## Project Overview
 
-Add a quick summary of what your project theme and objectives are. 
+Our website, Medtracker, is an all in one medicine tracker and interaction checker. It allows users to keep track of their medications, including the amount of medication they have remaining, how often they should take their medication, and more information about their medications. It will send users an SMS notification when they should take their medication. It also includes a interaction checker that allows users to check if there are any negative interactions between two types of drugs.
 
 Deployment Website: **Add Link to Deployed Project**
 
