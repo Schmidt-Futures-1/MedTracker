@@ -321,8 +321,9 @@ export default function CreateMedication({addMedications, addNotifications}) {
                         <div className="col-md-3">
                             <label className="mb-2" >Units</label>
                                 <select name="units" id="inputState" className="form-control" value={form.units}  onChange={handleOnInputChange}>
+                                    <option >ug</option>
                                     <option defaultValue>mg</option>
-                                    <option>mL</option>
+                                    <option>g</option>
                                 </select>
                         </div>
                     </div>
@@ -343,6 +344,10 @@ export default function CreateMedication({addMedications, addNotifications}) {
                             </div>
                         </div>
                     </div>
+
+                    {/* <div className="form-row row">
+                    <h2 className="fw-bold mb-2 mt-3 row reminder-title">Configure Reminder</h2>
+                </div> */}
 
                     {/* ROW 4 - Frequency */}
                     <div className="row mb-3 ">
@@ -375,13 +380,15 @@ export default function CreateMedication({addMedications, addNotifications}) {
                     {form.frequency === "Scheduled" &&
                         <div className="row mt-4 mb-2 text-center">
                             <p className="h4">{Cronstrue.toString(cronTime, { verbose: true })}</p>
+                            <p className="fw-light">*You are going to receive an sms text message reminder for this medication. </p>
                         </div>
                     }
+                        
 
                     {/* OPTIONAL ROW 7 - Timing */}
                     {form.frequency === "Scheduled" ?
                         <div className=" text-center row mb-3 ">
-                            <label className="form-label">Notification Time</label>
+                            <label className="form-label">Reminder Time</label>
                             <div className=" mb-3">
 
                                 <Cron className="cron-inputs"
@@ -408,7 +415,7 @@ export default function CreateMedication({addMedications, addNotifications}) {
 
                     {/* Submit Button */}
                     <div className="align-self-baseline text-center mt-4 mb-5">
-                        <a className="btn btn-dark btn-x1 row " onClick={handleOnSubmit}>Add Medication</a> 
+                        <a className="btn btn-dark btn-x1 row " onClick={handleOnSubmit}><span>Add Medication</span></a> 
                     </div>
                 </form>
             </div>

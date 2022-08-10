@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom"
 
 export default function NavBar({user, setUser}){
   const navigate = useNavigate() 
-
   const handleLogout = async() => {
     await apiClient.logout()
     setUser({})

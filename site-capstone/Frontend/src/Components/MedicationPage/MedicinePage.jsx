@@ -56,7 +56,7 @@ export default function MedicinePage({ user, setUser })
             <div className="text-center">
                 {/* <!-- Submit button --> */}
                 <Link to="/create">
-                    <button type="submit" className="btn btn-dark btn-block mb-4">Add Medication</button>
+                    <button type="submit" className="btn btn-dark btn-block mb-4"><span>Add Medication</span></button>
                 </Link>
             </div>
 

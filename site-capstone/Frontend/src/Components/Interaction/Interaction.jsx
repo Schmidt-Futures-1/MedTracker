@@ -331,7 +331,7 @@ export default function Interaction({ }) {
 
                         {/* Check Interaction button */}
                         <div className="align-self-baseline text-center mt-4 mb-5">
-                            <a className="btn btn-dark btn-x1 row " onClick={handleOnCompare}>Check Interaction</a> 
+                            <a className="btn btn-dark btn-x1 row " onClick={handleOnCompare}><span>Check Interaction</span></a> 
                         </div>
                     </div>
                 </form>

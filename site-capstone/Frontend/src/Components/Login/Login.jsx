@@ -85,7 +85,7 @@ export default function Login({setUser, user}){
 
             {/* <!-- Submit button --> */}
             <div className="align-self-baseline text-center mt-4 mb-4">
-                <button type="submit" className="btn btn-dark btn-block login-button-shadow" disabled={isLoading} onClick={handleOnSubmit}>Login</button>
+                <button type="submit" className="btn btn-dark btn-block login-button-shadow" disabled={isLoading} onClick={handleOnSubmit}><span>Login</span></button>
              </div>
             {/* <!-- Register buttons --> */}
             <div className="register text-center">

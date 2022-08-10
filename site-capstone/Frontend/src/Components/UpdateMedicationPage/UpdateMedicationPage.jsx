@@ -85,9 +85,14 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                     nonConvertedTime: medData.non_converted_time,
                     dosage: medData.dosage        
                 })
-                //setDosage(medData.dosage)
-                //setCronTime(medData.notification_time)
                 setNotificationId(medData.notification_id)
+
+                if (!data.medication?.non_converted_time) {
+                    setForm((f) => ({...f, 
+                        nonConvertedTime: '0 0 * * *',
+                        convertedTime: '0 0 * * *'
+                    }))                    
+                }
             }    
 
             setIsLoading(false);
@@ -190,7 +195,10 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         setIsLoading(true)
 
         // Delete old notification details
-        await apiClient.deleteNotification(notificationId);
+        if (notificationId !== 0) {
+            await apiClient.deleteNotification(notificationId);
+        }
+        
 
         // Create new notification
         const { data, error } = await apiClient.createNotification({notification:{notification_time:form.convertedTime, dosage: form.dosage, timezone: form.timezone, non_converted_time: form.nonConvertedTime}, medication:medicationData})
@@ -280,8 +288,12 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         }
 
         // If notification information was changed, then update notification
-        if (form.convertedTime != defaultValues.convertedTime || form.dosage != defaultValues.dosage || form.nonConvertedTime!= defaultValues.nonConvertedTime || form.timezone != defaultValues.timezone) {
+        if ((form.convertedTime != defaultValues.convertedTime || form.dosage != defaultValues.dosage || form.nonConvertedTime!= defaultValues.nonConvertedTime || form.timezone != defaultValues.timezone) && form.frequency !== 'As Needed') {
             updateNotification(data.medication)
+        }
+
+        if (form.frequency === "As Needed") {
+            await apiClient.deleteNotification(notificationId)
         }
 
         //setIsLoading(false)
@@ -304,6 +316,9 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         handleOnCronTimeChange()
         
     }, [ form.timezone])
+
+console.log("converted time",form.convertedTime)
+console.log("nonconverted time",form.nonConvertedTime)
 
     return (
         <>
@@ -358,8 +373,10 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                             <div className="col-md-3">
                                 <label className="mb-2" >Units</label>
                                     <select name="units" id="inputState" className="form-control" value={form.units}  onChange={handleOnInputChange}>
+                                        <option >ug</option>
                                         <option defaultValue>mg</option>
-                                        <option>mL</option>
+                                        <option>g</option>
+
                                     </select>
                             </div>
                         </div>
@@ -416,16 +433,15 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                                     {/* Readable Frequency */}
                                     <div className="row mt-4 mb-2 text-center">
                                         <p className="h4">{Cronstrue.toString(form.nonConvertedTime, { verbose: true })}</p>
+                                        <p className="fw-light">*You are going to receive an sms text message reminder for this medication. </p>
                                     </div>
 
-                                <label className="form-label">Notification Time</label>
+                                <label className="form-label">Reminder Time</label>
                                 <div className=" mb-3">
 
                                     <Cron className="cron-inputs"
                                         defaultPeriod={'day'} 
                                         allowedPeriods={[
-                                            'year',
-                                            'month',
                                             'week',
                                             'day'
                                         ]}
@@ -446,7 +462,7 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                         }
                         
                         <div className="align-self-baseline text-center mt-4 mb-5">
-                            <a className="btn btn-dark btn-x1 row " onClick={handleOnSubmit}>Update Medication</a> 
+                            <a className="btn btn-dark btn-x1 row " onClick={handleOnSubmit}><span>Update Medication</span></a> 
                         </div>
                     </form>
                 </div>
