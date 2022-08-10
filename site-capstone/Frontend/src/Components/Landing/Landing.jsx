@@ -20,10 +20,10 @@ export default function Landing({ user }) {
                     {user?.firstName === undefined ?
                         <div className="buttons-row ">
                             <div className="sign-up-row">
-                                <Link className="btn btn-dark btn-x1 sign-up-button" to="/login">Login</Link>
+                                <Link className="btn btn-dark btn-x1 sign-up-button" to="/login"><span>Login</span></Link>
                             </div>
                             
-                            <Link className="btn btn-dark btn-x1 login-button" to="/register">Sign Up</Link>
+                            <Link className="btn btn-dark btn-x1 login-button" to="/register"><span>Sign Up</span></Link>
                         </div>
                         :
                         ""

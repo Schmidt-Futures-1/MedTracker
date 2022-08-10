@@ -170,7 +170,7 @@ export default function Register({setUser, user}){
 
            {/* <!-- Submit button --> */}
             <div className="align-self-baseline text-center mt-4 mb-4">
-              <button type="submit" className="btn btn-dark btn-block login-button-shadow" disabled={isLoading} onClick={handleOnSubmit}>{isLoading ? "Loading..." : "Create Account"}</button>
+              <button type="submit" className="btn btn-dark btn-block login-button-shadow" disabled={isLoading} onClick={handleOnSubmit}><span>{isLoading ? "Loading..." : "Create Account"}</span></button>
             </div>
 
             {/* <!-- login buttons --> */}

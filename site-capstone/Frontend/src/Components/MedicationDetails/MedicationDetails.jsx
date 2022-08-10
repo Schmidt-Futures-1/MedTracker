@@ -29,6 +29,16 @@ export default function MedicationDetails() {
     //---------------------------------- Refill Functions
     // Handles when user is typing into input in refill modal
     const handleOnInputChange = (event) => {
+
+        // Prevents negative numbers from being inputted
+        if (event.target.value  < 0) {
+            return
+        }
+
+        // Prevents negative numbers from being inputted
+        if ((parseInt(event.target.value) + parseInt(medication.current_pill_count)) > parseInt(medication.total_pill_count)) {
+            return
+        }
         setRefillAmount(event.target.value);
     }
 
@@ -286,11 +296,11 @@ export default function MedicationDetails() {
                         </div>
                         <div className="modal-body">
                             {/* Span to let users know what they are confirming to */}
-                            <span className="Confirm">Do you really want to delete this notification? This process cannot be undone.</span>
+                            <span className="Confirm">Do you really want to delete this reminder? This process cannot be undone.</span>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => deleteNotification(notificationId)}>Confirm Delete</button>
+                            <button type="button" className="btn btn-dark" data-bs-dismiss="modal"><span>Close</span></button>
+                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => deleteNotification(notificationId)}><span>Confirm Delete</span></button>
                         </div>
                     </div>
                 </div>
@@ -310,13 +320,14 @@ export default function MedicationDetails() {
                         <form>
                             <div className="form-outline">
                                 <label className="form-label">Enter Refill Amount</label>
-                                <input min={0} name="refillAmount" type="number" className="form-control" placeholder="Enter Refill Amount" value={refillAmount} onChange={handleOnInputChange} />
+                                <input min="0" name="refillAmount" type="number" className="form-control" placeholder="Enter Refill Amount" value={refillAmount} onChange={handleOnInputChange} />
                             </div>
                         </form>
+                        <p className="fw-light">*Refill amount cannot be greater than Max Pill count per container</p>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-dark" data-bs-dismiss="modal" onClick={handleOnSubmit}>Refill</button>
+                        <button type="button" className="btn btn-dark" data-bs-dismiss="modal" onClick={handleOnSubmit}><span>Refill</span></button>
                     </div>
                     </div>
                 </div>
@@ -403,7 +414,7 @@ export default function MedicationDetails() {
                                 </div>
                                 <div className="">
                                                     <p className="alignment-left label-fonts">
-                                                       <b> Next Alert: </b>
+                                                       <b> Next Reminder: </b>
                                                         <span className="alignment-right">
                                                             {nextAlert }
                                                         </span>
@@ -411,7 +422,7 @@ export default function MedicationDetails() {
                                 </div>
                                 <div className="">
                                                     <p className="alignment-left label-fonts">
-                                                     <b>Last Alert: </b>
+                                                     <b>Last Reminder: </b>
                                                         <span className="alignment-right">
                                                             {prevAlert }
                                                         </span>
@@ -452,7 +463,7 @@ export default function MedicationDetails() {
                         {/* Delete notification button */}
                         {medication.notification_time !== null &&
                             <div className="text-center">
-                                <button type="button" className="btn btn-danger btn-space" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" >Delete Notification</button>
+                                <button type="button" className="btn btn-danger btn-space" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" ><span>Delete Reminder</span></button>
                             </div>
                         }
                     </div>

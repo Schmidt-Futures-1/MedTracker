@@ -24,7 +24,8 @@ const useAutocomplete = (searchQuery) => {
 
   }, [searchQuery]);
 
-  return autocompleteResults;
+  // Limit results to first 10 entries for ease of use
+  return autocompleteResults.slice(0,10);
 };
 
 export { useAutocomplete };
