@@ -9,6 +9,8 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import LoadingPage from "../LoadingPage/LoadingPage"
 import Cronstrue from "cronstrue"
 import { Link } from "react-router-dom"
+import { useAutocomplete } from "../Autocomplete/useAutocomplete";
+import SearchBar from "../Autocomplete/SearchBar";
 
 
 export default function UpdateMedication({user, setUser, addMedications, medications, addNotifications}) {
@@ -49,6 +51,11 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
 
     const navigate = useNavigate()
 
+    // The value of the search bar
+    const [searchQuery, setSearchQuery] = useState("");
+    // The hook to retrieve autocomplete results using "searchQuery"
+    const autocompleteResults = useAutocomplete(searchQuery);
+
     // Functions --------------------------------------------------------
 
       // Fetch medication info from medications database 
@@ -85,6 +92,9 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                     nonConvertedTime: medData.non_converted_time,
                     dosage: medData.dosage        
                 })
+
+                setSearchQuery(medData.name)
+
                 setNotificationId(medData.notification_id)
 
                 if (!data.medication?.non_converted_time) {
@@ -108,6 +118,11 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
             setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
         }
     }
+
+    // The onChange handler for the search input
+    const handleSearchInputChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
 
     // Variable needed to adjust the timezone
     var timeChange = 0
@@ -276,7 +291,7 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         //setIsLoading(true);
 
         // Update medication details
-        const { data, error } = await apiClient.updateMedicationDetails({name: form.medicationName, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount}, medicationId)
+        const { data, error } = await apiClient.updateMedicationDetails({name: searchQuery, rxcui: form.rxcui, strength: form.strength, units: form.units, frequency: form.frequency, current_pill_count: form.currentPillCount, total_pill_count: form.maxPillCount}, medicationId)
 
         if (data) {
             setForm((f) => ({ ...f, medicationName: "", rxcui: 0, strength: "", units: "mg", frequency: "As Needed", currentPillCount: "",maxPillCount: ""}))
@@ -301,7 +316,7 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
 
     // Get the rxcui from the API if the medication name is valid
     useEffect(() => {
-        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + form.medicationName + "&search=1")
+        axios.get("https://rxnav.nlm.nih.gov/REST/rxcui.json?name=" + searchQuery + "&search=1")
             .then((response) => {
                 setForm({...form ,rxcui: response.data.idGroup.rxnormId[0]})
             })
@@ -309,7 +324,7 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
                 setForm({...form ,rxcui: 0})
             })
         
-    }, [form.medicationName])
+    }, [searchQuery])
 
     // Update the converted cron time whenever timezone selected time is changed
     useEffect(() => {
@@ -346,17 +361,25 @@ console.log("nonconverted time",form.nonConvertedTime)
                         <div className="form-row row">
                             <div className="col-md-6 mb-3" >                           
                                 <label className="form-label"> Medication Name</label>
-                                <input name="medicationName" type="text" className="form-control" placeholder="Medication" value={form.medicationName} onChange={handleOnInputChange} />
-                                <div>
-                            {/* {form.rxcui !== 0 && form.medicationName.length !== 0 &&
+                                <SearchBar
+                                    name="update-medicine"
+                                    className="form-control"
+                                    searchQuery={searchQuery}
+                                    handleOnChange={(e) => {
+                                        handleSearchInputChange(e);
+                                    }}
+                                    autocompleteResults={autocompleteResults}
+                                />
+                            <div>
+                            {form.rxcui !== 0 && searchQuery.length !== 0 &&
                                         <div className="success">
-                                            {form.medicationName} is a valid medication
+                                            {searchQuery} is a valid medication
                                         </div>
                             }
 
-                            {form.rxcui === 0 && form.medicationName.length !== 0 &&
+                            {form.rxcui === 0 && searchQuery.length !== 0 &&
                                 <div className="error">Please enter a valid medication!</div>
-                                    }  */}
+                                    } 
                                 </div>                        
                             </div>
                         </div>
