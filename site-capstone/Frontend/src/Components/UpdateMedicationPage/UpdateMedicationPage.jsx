@@ -332,8 +332,6 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
         
     }, [ form.timezone])
 
-console.log("converted time",form.convertedTime)
-console.log("nonconverted time",form.nonConvertedTime)
 
     return (
         <>
