@@ -311,8 +311,8 @@ export default function UpdateMedication({user, setUser, addMedications, medicat
 
             <div className="container px-4 px-lg-5 h-100">
                 <div className="col gx-4 gx-lg-5 h-100 mx-auto pb-5">
-                    <Link className="back-link" to={`/cabinet/`+medicationId}>
-                                <button className="back-link refill-back"> &#8249; Back</button>
+                    <Link className="back-link refill-back" to={`/cabinet/`+medicationId}>
+                                &#8249; Back
                     </Link>
 
                     <div className="form-row row">

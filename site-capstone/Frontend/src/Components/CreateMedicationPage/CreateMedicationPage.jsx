@@ -299,7 +299,7 @@ export default function CreateMedication({addMedications, addNotifications}) {
                             <div>
                         {form.rxcui !== 0 && searchQuery.length !== 0 &&
                                     <div className="success">
-                                        {searchQuery} is a valid medication
+                                        {searchQuery} is a valid medication &#10003;
                                     </div>
                         }
 
