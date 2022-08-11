@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import "./Navbar.css"
-import logo from "../../Assets/codepath.70a9a31f.svg"
+// import logo from "../../Assets/codepath.70a9a31f.svg"
+import logo from "../../assets/medtracker-logo.png"
 import apiClient from "../../services/apiClient"
 import { useNavigate } from "react-router-dom"
 
@@ -18,7 +19,7 @@ export default function NavBar({user, setUser}){
     <nav className="navbar navbar-expand-lg bg-dark bg-color">
       <div className="container-fluid">
 
-        <div className="navbar-brand"><Link to="/"><img src={logo} alt="codepath logo"/></Link></div>
+        <div className="navbar-brand"><Link to="/"><img src={logo} alt="medtracker logo" width="auto" height="60"/></Link></div>
 
         <button className="navbar-toggler bg-color" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon custom-toggler bg-color"></span>
