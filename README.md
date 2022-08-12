@@ -17,7 +17,7 @@ Project Code Repository Links
 
 Our website, Medtracker, is an all in one medicine tracker and interaction checker. It allows users to keep track of their medications, including the amount of medication they have remaining, how often they should take their medication, and more information about their medications. It will send users an SMS notification when they should take their medication. It also includes a interaction checker that allows users to check if there are any negative interactions between two types of drugs.
 
-Deployment Website: https://medtracker.surge.sh/
+Deployment Website: https://medtracker-v1.surge.sh/
 
 ### Open-source libraries used
 
